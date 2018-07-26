@@ -1,6 +1,6 @@
 # react-scrollama
 
-React Scrollama is a simple interface for scrollytelling. It uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events, and is largely based off of Russel Goldenberg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) library.
+React Scrollama is a simple interface for scrollytelling largely based off of Russel Goldernbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) library. It uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events.
 
 ## Installation
 
