@@ -69,6 +69,7 @@ class Scrollama extends PureComponent {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
+    this.handleEnable(false);
   }
 
   getNode = id => this[id].current;
@@ -93,17 +94,14 @@ class Scrollama extends PureComponent {
   };
 
   handleEnable = enable => {
-    const { isEnabled } = this.state;
+    const { isEnabled, io } = this.state;
     if (enable && !isEnabled) {
       this.updateIO();
       this.setState({ isEnabled: true });
-    } else {
-      console.log(
-        'handleEnable called. enable:',
-        enable,
-        'isEnabled',
-        isEnabled,
-      );
+    } else if (!enable) {
+      if (io.stepAbove) io.stepAbove.forEach(obs => obs.disconnect());
+      if (io.stepBelow) io.stepBelow.forEach(obs => obs.disconnect());
+      this.setState({ isEnabled: false });
     }
   };
 
