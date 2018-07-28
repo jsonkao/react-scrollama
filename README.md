@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/jsonkao/react-scrollama.svg)](https://david-dm.org/jsonkao/react-scrollama)
 [![devDependency Status](https://david-dm.org/jsonkao/react-scrollama/dev-status.svg)](https://david-dm.org/jsonkao/react-scrollama?type=dev)
 
-**React Scrollama** is a simple interface for scrollytelling largely based off of Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) library. It uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events.
+React Scrollama is a simple interface for scrollytelling largely based off of Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) library. It uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events.
 
 ## Installation
 
