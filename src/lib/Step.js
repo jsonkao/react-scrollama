@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 
 class Step extends PureComponent {
   state = {
@@ -8,8 +7,10 @@ class Step extends PureComponent {
     offsetHeight: null,
   };
 
+  domNode = React.createRef();
+
   updateOffsetHeight = () => {
-    this.setState({ offsetHeight: ReactDOM.findDOMNode(this).offsetHeight });
+    this.setState({ offsetHeight: this.domNode.current.offsetHeight });
   };
 
   enter = direction => this.setState({ state: 'enter', direction });
@@ -18,7 +19,7 @@ class Step extends PureComponent {
 
   render() {
     const { id } = this.props;
-    return React.cloneElement(React.Children.only(this.props.children), { id });
+    return React.cloneElement(React.Children.only(this.props.children), { id, ref: this.domNode });
   }
 }
 

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import injectSheet from 'react-jss';
 import uuid from 'uuid';
 import 'intersection-observer';
@@ -72,7 +71,9 @@ class Scrollama extends PureComponent {
     this.handleEnable(false);
   }
 
-  getNode = id => this[id].current;
+  getRefComponent = id => this[id].current;
+
+  getDOMNode = step => step.domNode.current;
 
   handleResize = () => {
     const { stepElIds, offsetVal, isEnabled } = this.state;
@@ -84,8 +85,8 @@ class Scrollama extends PureComponent {
     });
 
     stepElIds.forEach(id => {
-      const node = this.getNode(id);
-      node.updateOffsetHeight();
+      const step = this.getRefComponent(id);
+      step.updateOffsetHeight();
     });
 
     if (isEnabled) {
@@ -120,8 +121,8 @@ class Scrollama extends PureComponent {
       io: {
         ...io,
         stepAbove: stepElIds.map(id => {
-          const node = this.getNode(id);
-          const marginTop = node.state.offsetHeight;
+          const step = this.getRefComponent(id);
+          const marginTop = step.state.offsetHeight;
           const marginBottom = -vh + offsetMargin;
           const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
 
@@ -135,7 +136,7 @@ class Scrollama extends PureComponent {
             this.intersectStepAbove,
             options,
           );
-          obs.observe(ReactDOM.findDOMNode(node));
+          obs.observe(this.getDOMNode(step));
           return obs;
         }),
       },
@@ -152,9 +153,9 @@ class Scrollama extends PureComponent {
       io: {
         ...io,
         stepBelow: stepElIds.map(id => {
-          const node = this.getNode(id);
+          const step = this.getRefComponent(id);
           const marginTop = -offsetMargin;
-          const marginBottom = ph - vh + node.state.offsetHeight + offsetMargin;
+          const marginBottom = ph - vh + step.state.offsetHeight + offsetMargin;
           const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
 
           const options = {
@@ -167,7 +168,7 @@ class Scrollama extends PureComponent {
             this.intersectStepBelow,
             options,
           );
-          obs.observe(ReactDOM.findDOMNode(node));
+          obs.observe(this.getDOMNode(step));
           return obs;
         }),
       },
@@ -185,13 +186,13 @@ class Scrollama extends PureComponent {
     this.setState({ previousYOffset: pageYOffset });
   };
 
-  notifyStepEnter = (node, direction) => {
+  notifyStepEnter = (step, direction) => {
     const { callback: { stepEnter } } = this.state;
-    node.enter(direction);
+    step.enter(direction);
 
     const resp = {
-      element: ReactDOM.findDOMNode(node),
-      datum: node.props.datum,
+      element: this.getDOMNode(step),
+      datum: step.props.datum,
       direction,
     };
     if (stepEnter && typeof stepEnter === 'function') {
@@ -199,13 +200,13 @@ class Scrollama extends PureComponent {
     }
   };
 
-  notifyStepExit = (node, direction) => {
+  notifyStepExit = (step, direction) => {
     const { callback: { stepExit } } = this.state;
-    node.exit(direction);
+    step.exit(direction);
 
     const resp = {
-      element: ReactDOM.findDOMNode(node),
-      datum: node.props.datum,
+      element: this.getDOMNode(step),
+      datum: step.props.datum,
       direction,
     };
     if (stepExit && typeof stepExit === 'function') {
@@ -224,20 +225,20 @@ class Scrollama extends PureComponent {
       const { bottom, height } = boundingClientRect;
       const bottomAdjusted = bottom - offsetMargin;
 
-      const node = this.getNode(id);
-      const { state } = node.state;
+      const step = this.getRefComponent(id);
+      const { state } = step.state;
       if (bottomAdjusted >= -ZERO_MOE) {
         if (isIntersecting && direction === 'down' && state !== 'enter') {
-          this.notifyStepEnter(node, direction);
+          this.notifyStepEnter(step, direction);
         } else if (!isIntersecting && direction === 'up' && state === 'enter') {
-          this.notifyStepExit(node, direction);
+          this.notifyStepExit(step, direction);
         } else if (
           !isIntersecting &&
           bottomAdjusted >= height &&
           direction === 'down' &&
           state === 'enter'
         ) {
-          this.notifyStepExit(node, direction);
+          this.notifyStepExit(step, direction);
         }
       }
     });
@@ -254,8 +255,8 @@ class Scrollama extends PureComponent {
       const { bottom, height } = boundingClientRect;
       const bottomAdjusted = bottom - offsetMargin;
 
-      const node = this.getNode(id);
-      const { state } = node.state;
+      const step = this.getRefComponent(id);
+      const { state } = step.state;
       if (
         bottomAdjusted >= -ZERO_MOE &&
         bottomAdjusted < height &&
@@ -263,14 +264,14 @@ class Scrollama extends PureComponent {
         direction === 'up' &&
         state !== 'enter'
       ) {
-        this.notifyStepEnter(node, direction);
+        this.notifyStepEnter(step, direction);
       } else if (
         bottomAdjusted <= ZERO_MOE &&
         !isIntersecting &&
         direction === 'down' &&
         state === 'enter'
       ) {
-        this.notifyStepExit(node, direction);
+        this.notifyStepExit(step, direction);
       }
     });
   };
