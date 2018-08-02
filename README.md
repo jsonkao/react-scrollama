@@ -7,6 +7,10 @@
 
 React Scrollama is a simple interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) and was first introduced at [React NYC: HyHNuVaZJ](https://www.meetup.com/ReactNYC/events/251214926/) (watch the full talk [here](https://youtu.be/yf5wT2fRgEM?t=1h17m21s)).
 
+## Demo
+
+[Take a look at the demo](https://jsonkao.github.io/react-scrollama/)
+
 ## Installation
 
 React Scrollama can be installed as an [npm package](https://www.npmjs.com/package/react-scrollama):
@@ -46,3 +50,31 @@ class Graphic extends PureComponent {
   }
 }
 ```
+
+## API
+
+#### `<Scrollama/>`
+
+| Prop        | Type        | Default     | Description                                                                            |
+|-------------|-------------|-------------|----------------------------------------------------------------------------------------|
+| offset      | number, 0-1 | 0.5         | How far from the top of the viewport to trigger a step.                                |
+| debug       | bool        | false       | Whether to show visual debugging tools.                                                |
+| onStepEnter | func        | _undefined_ | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
+| onStepExit  | func        | _undefined_ | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
+
+The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
+
+```
+{
+  element, // The DOM node of the step that was triggered
+  data, // The data supplied to the step
+  direction, // 'up' or 'down'
+}
+```
+
+#### `<Step/>`
+
+| Prop | Type | Default     | Description                                                      |
+|------|------|-------------|------------------------------------------------------------------|
+| data | any  | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
+
