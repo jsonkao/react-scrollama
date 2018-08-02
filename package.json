@@ -23,7 +23,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.2.0"
+    "react": "^15.3.0 || ^16.2.0",
+    "react-dom": "^15.3.0 || ^16.2.0"
   },
   "author": "Jason Kao <jasonkao85@gmail.com> (https://jasonkao.me)",
   "homepage": "https://github.com/jsonkao/react-scrollama#readme",
@@ -45,6 +46,7 @@
     "concurrently": "^3.5.1",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "webpack": "^4.16.4",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.3"
