@@ -23,7 +23,10 @@ class Step extends PureComponent {
 
   render() {
     const { id } = this.props;
-    return React.cloneElement(React.Children.only(this.props.children), { id, ref: this.domNode });
+    return React.cloneElement(React.Children.only(this.props.children), {
+      id,
+      ref: this.domNode,
+    });
   }
 }
 
