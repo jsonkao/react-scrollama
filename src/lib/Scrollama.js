@@ -136,7 +136,7 @@ class Scrollama extends PureComponent {
             this.intersectStepAbove,
             options,
           );
-          obs.observe(this.getDOMNode(step));
+          obs.observe(step.getDOMNode());
           return obs;
         }),
       },
@@ -168,7 +168,7 @@ class Scrollama extends PureComponent {
             this.intersectStepBelow,
             options,
           );
-          obs.observe(this.getDOMNode(step));
+          obs.observe(step.getDOMNode());
           return obs;
         }),
       },
@@ -191,8 +191,8 @@ class Scrollama extends PureComponent {
     step.enter(direction);
 
     const resp = {
-      element: this.getDOMNode(step),
-      datum: step.props.datum,
+      element: step.getDOMNode(),
+      data: step.getData(),
       direction,
     };
     if (stepEnter && typeof stepEnter === 'function') {
@@ -205,8 +205,8 @@ class Scrollama extends PureComponent {
     step.exit(direction);
 
     const resp = {
-      element: this.getDOMNode(step),
-      datum: step.props.datum,
+      element: step.getDOMNode(),
+      data: step.getData(),
       direction,
     };
     if (stepExit && typeof stepExit === 'function') {

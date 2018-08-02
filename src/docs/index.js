@@ -50,9 +50,9 @@ class MainApp extends PureComponent {
     data: 0,
   };
 
-  onStepEnter = ({ element, datum }) => {
+  onStepEnter = ({ element, data }) => {
     element.style.backgroundColor = 'lightgoldenrodyellow';
-    this.setState({ data: datum });
+    this.setState({ data });
   };
 
   onStepExit = ({ element }) => {
@@ -72,10 +72,10 @@ class MainApp extends PureComponent {
             onStepExit={this.onStepExit}
             debug
           >
-            {[1, 2, 3, 4].map(datum => (
-              <Step datum={datum} key={datum}>
+            {[1, 2, 3, 4].map(value => (
+              <Step data={value} key={value}>
                 <div className={classes.step}>
-                  <p>step datum: {datum}</p>
+                  <p>step value: {value}</p>
                 </div>
               </Step>
             ))}

@@ -9,6 +9,10 @@ class Step extends PureComponent {
 
   domNode = React.createRef();
 
+  getDOMNode = () => this.domNode.current;
+
+  getData = () => this.props.data;
+
   updateOffsetHeight = () => {
     this.setState({ offsetHeight: this.domNode.current.offsetHeight });
   };
