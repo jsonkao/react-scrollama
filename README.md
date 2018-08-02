@@ -78,3 +78,15 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 |------|------|-------------|------------------------------------------------------------------|
 | data | any  | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
 
+## Contributing
+
+You're welcome to contribute to React Scrollama. To setup the project:
+1. Fork and clone the repository.
+2. `npm install`
+3. `npm run dev`
+
+The docs page will then be served on http://localhost:8000/ in watch mode, meaning you don't have refresh the page to see your changes.
+
+## License
+
+MIT
