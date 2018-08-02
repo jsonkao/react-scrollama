@@ -34,10 +34,10 @@ class Graphic extends PureComponent {
       <div>
         <p>data: {data}</p>
         <Scrollama onStepEnter={this.onStepEnter}>
-          <Step datum={1}>
+          <Step data={1}>
             <p>step 1</p>
           </Step>
-          <Step datum={2}>
+          <Step data={2}>
             <p>step 2</p>
           </Step>
         </Scrollama>
