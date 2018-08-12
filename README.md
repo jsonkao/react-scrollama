@@ -55,12 +55,12 @@ class Graphic extends PureComponent {
 
 #### `<Scrollama/>`
 
-| Prop        | Type        | Default     | Description                                                                            |
-|-------------|-------------|-------------|----------------------------------------------------------------------------------------|
-| offset      | number, 0-1 | 0.5         | How far from the top of the viewport to trigger a step.                                |
-| debug       | bool        | false       | Whether to show visual debugging tools.                                                |
-| onStepEnter | func        | _undefined_ | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
-| onStepExit  | func        | _undefined_ | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
+| Prop        | Type   | Default | Description                                                                            |
+|-------------|--------|---------|----------------------------------------------------------------------------------------|
+| offset      | number | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
+| debug       | bool   | false   | Whether to show visual debugging tools.                                                |
+| onStepEnter | func   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
+| onStepExit  | func   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
