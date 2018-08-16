@@ -20,6 +20,8 @@ $ npm install react-scrollama
 
 ## Basic Usage
 
+A simple example with no frills.
+
 ```js
 import React, { PureComponent } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
@@ -39,10 +41,10 @@ class Graphic extends PureComponent {
         <p>data: {data}</p>
         <Scrollama onStepEnter={this.onStepEnter}>
           <Step data={1}>
-            <p>step 1</p>
+            step 1
           </Step>
           <Step data={2}>
-            <p>step 2</p>
+            step 2
           </Step>
         </Scrollama>
       </div>      
