@@ -48,6 +48,10 @@ class Scrollama extends PureComponent {
       },
       io: {},
       stepElIds,
+      container: {
+        direction: null,
+        state: null,
+      },
 
       direction: null,
 
@@ -213,6 +217,35 @@ class Scrollama extends PureComponent {
       stepExit(resp);
     }
   };
+
+  // callback for io.
+  intersectTop = entries => {
+    this.updateDirection();
+    const { container } = this.state;
+    const { isIntersecting, boundingClientRect, target: { id } } = entries[0];
+    const { top, bottom } = boundingClientRect;
+
+    const step = this.getRefComponent(id);
+    if (bottom > -ZERO_MOE) {
+      if (isIntersecting) {
+        this.notifyContainerEnter(step, direction);
+      }
+      else if (container.state === 'enter') {
+        this.notifyContainerExit(step, direction);
+      }
+    }
+  }
+
+  // function intersectBottom(entries) {
+  //   updateDirection();
+  //   const { isIntersecting, boundingClientRect } = entries[0];
+  //   const { top } = boundingClientRect;
+
+  //   if (top < ZERO_MOE) {
+  //     if (isIntersecting) notifyContainerEnter(direction);
+  //     else if (containerState.state === 'enter') notifyContainerExit(direction);
+  //   }
+  // }
 
   // callback for io.stepAbove. Called if top edge of step crosses threshold.
   intersectStepAbove = entries => {
