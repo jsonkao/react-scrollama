@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "intersection-observer": "^0.5.0",
-    "react-jss": "^8.6.1"
+    "react-jss": "^8.6.1",
+    "url-parse": "^1.4.3"
   }
 }
