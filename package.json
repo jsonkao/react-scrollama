@@ -1,6 +1,6 @@
 {
   "name": "react-scrollama",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A simple scrollytelling interface for React using the IntersectionObserver.",
   "main": "lib/index.js",
   "scripts": {
