@@ -19,6 +19,7 @@
     "visual journalism",
     "data visualization",
     "interactive",
+    "graphic",
     "step"
   ],
   "license": "MIT",
@@ -26,8 +27,8 @@
     "react": "^15.3.0 || ^16.2.0",
     "react-dom": "^15.3.0 || ^16.2.0"
   },
-  "author": "Jason Kao <jasonkao85@gmail.com> (https://jasonkao.me)",
-  "homepage": "https://github.com/jsonkao/react-scrollama#readme",
+  "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
+  "homepage": "https://jsonkao.github.io/react-scrollama/",
   "repository": {
     "type": "git",
     "url": "https://github.com/jsonkao/react-scrollama"
