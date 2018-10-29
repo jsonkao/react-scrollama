@@ -120,7 +120,6 @@ class Scrollama extends PureComponent {
       io.stepAbove.forEach(obs => obs.disconnect());
     }
 
-    console.log('updateStepAboveIO', stepElIds);
     this.setState({
       io: {
         ...io,
@@ -222,7 +221,6 @@ class Scrollama extends PureComponent {
   intersectStepAbove = entries => {
     this.updateDirection();
     const { offsetMargin, direction } = this.state;
-    console.log(this.state.stepElIds)
 
     entries.forEach(entry => {
       const { isIntersecting, boundingClientRect, target: { id } } = entry;
