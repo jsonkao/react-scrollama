@@ -281,14 +281,16 @@ class Scrollama extends PureComponent {
 
   removeStepId = badId => {
     const { stepElIds } = this.state;
+
+    // remove badId from our store of step id's
     const badIndex = stepElIds.findIndex(id => id === badId);
     if (badIndex >= 0) {
       stepElIds.splice(badIndex, badIndex + 1);
-      
       this.setState({ stepElIds });
-      delete this[badId];
-      this.updateIO();
     }
+    
+    delete this[badId]; // remove our ref to the removed step
+    this.updateIO(); // destroy and recreate our intersection observers
   };
 
   render() {
