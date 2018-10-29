@@ -21,6 +21,10 @@ class Step extends PureComponent {
 
   exit = direction => this.setState({ state: 'exit', direction });
 
+  componentWillUnmount() {
+    this.props.removeSelf();
+  }
+
   render() {
     const { id } = this.props;
     return React.cloneElement(React.Children.only(this.props.children), {

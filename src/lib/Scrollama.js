@@ -71,7 +71,10 @@ class Scrollama extends PureComponent {
     this.handleEnable(false);
   }
 
-  getRefComponent = id => this[id].current;
+  getRefComponent = id => {
+    const comp = this[id];
+    return comp && comp.current;
+  };
 
   getDOMNode = step => step.domNode.current;
 
@@ -117,6 +120,7 @@ class Scrollama extends PureComponent {
       io.stepAbove.forEach(obs => obs.disconnect());
     }
 
+    console.log('updateStepAboveIO', stepElIds);
     this.setState({
       io: {
         ...io,
@@ -218,6 +222,7 @@ class Scrollama extends PureComponent {
   intersectStepAbove = entries => {
     this.updateDirection();
     const { offsetMargin, direction } = this.state;
+    console.log(this.state.stepElIds)
 
     entries.forEach(entry => {
       const { isIntersecting, boundingClientRect, target: { id } } = entry;
@@ -276,6 +281,18 @@ class Scrollama extends PureComponent {
     });
   };
 
+  removeStepId = badId => {
+    const { stepElIds } = this.state;
+    const badIndex = stepElIds.findIndex(id => id === badId);
+    if (badIndex >= 0) {
+      stepElIds.splice(badIndex, badIndex + 1);
+      
+      this.setState({ stepElIds });
+      delete this[badId];
+      this.updateIO();
+    }
+  };
+
   render() {
     const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
     const { children } = this.props;
@@ -289,6 +306,7 @@ class Scrollama extends PureComponent {
           const id = stepElIds[index];
           return React.cloneElement(child, {
             id,
+            removeSelf: () => this.removeStepId(id),
             ref: this[id],
           });
         })}

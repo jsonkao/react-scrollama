@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import injectSheet from 'react-jss';
-import { Scrollama, Step } from '../../lib';
+import { Scrollama, Step } from '../lib';
 
 const styles = {
   main: {
@@ -48,6 +48,7 @@ const styles = {
 class MainApp extends PureComponent {
   state = {
     data: 0,
+    N: 4,
   };
 
   onStepEnter = ({ element, data }) => {
@@ -59,20 +60,29 @@ class MainApp extends PureComponent {
     element.style.backgroundColor = '#fff';
   };
 
+  inc = () => this.setState({ N: this.state.N + 1 });
+  dec = () => this.setState({ N: this.state.N - 1 });
+
   render() {
-    const { data } = this.state;
+    const { data, N } = this.state;
     const { classes } = this.props;
+
+    const ary = [];
+    for (let i = 0; i < N; i++)
+      ary.push(i);
 
     return (
       <div className={classes.main}>
         <div className={classes.scroller}>
+        <button onClick={this.inc}>Inc</button>
+        <button onClick={this.dec}>Dec</button>
           <Scrollama
             offset={0.33}
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
             debug
           >
-            {[1, 2, 3, 4].map(value => (
+            {ary.map((_, value) => (
               <Step data={value} key={value}>
                 <div className={classes.step}>
                   <p>step value: {value}</p>
