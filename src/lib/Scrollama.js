@@ -73,7 +73,6 @@ class Scrollama extends PureComponent {
 
   getRefComponent = id => {
     const comp = this[id];
-    console.log('trying to get ref', id, comp);
     return comp && comp.current;
   };
 
@@ -288,17 +287,10 @@ class Scrollama extends PureComponent {
     });
   };
 
-  addStep = () => {
-    const id = uuid.v4();
-    console.log('adding new step with id', id);
+  addStep = id => {
     const { stepElIds } = this.state;
-
-    this[id] = React.createRef();
     stepElIds.push(id);
     this.setState({ stepElIds });
-    console.log('new stepElIds', this.state.stepElIds);
-    return id;
-    // this.updateIO();
   };
 
   removeStep = badId => {
@@ -318,7 +310,6 @@ class Scrollama extends PureComponent {
   render() {
     const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
     const { children } = this.props;
-    console.log('======= RENDERING ========', stepElIds);
     return (
       <div>
         {debugMode && (
@@ -326,13 +317,19 @@ class Scrollama extends PureComponent {
         )}
         {React.Children.map(children, (child, index) => {
           const doesExist = !!stepElIds[index];
-          const id = doesExist ? stepElIds[index] : this.addStep();
+          let id;
+          if (doesExist) {
+            id = stepElIds[index];
+          } else {
+            id = uuid.v4();
+            this[id] = React.createRef();
+          }
           return React.cloneElement(child, {
             id,
-            observeSelf: this.addStep,
+            addSelf: () => this.addStep(id),
             isNew: !doesExist,
             updateIO: this.updateIO,
-            unobserveSelf: () => this.removeStep(id),
+            removeSelf: () => this.removeStep(id),
             ref: this[id],
           });
         })}

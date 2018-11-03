@@ -8,10 +8,11 @@ class Step extends PureComponent {
   };
 
   componentDidMount() {
-    const { isNew, updateIO } = this.props;
+    const { id, isNew, addSelf, updateIO } = this.props;
     if (isNew) {
       window.requestAnimationFrame(() => {
-        console.log('mounted new step, starting observe...');
+        console.log('adding new step with id', id);
+        addSelf();
         this.updateOffsetHeight();
         updateIO();
       });
@@ -33,7 +34,7 @@ class Step extends PureComponent {
   exit = direction => this.setState({ state: 'exit', direction });
 
   componentWillUnmount() {
-    this.props.unobserveSelf();
+    this.props.removeSelf();
   }
 
   render() {
@@ -41,8 +42,6 @@ class Step extends PureComponent {
     if (!id) {
       return <div></div>;
     }
-    if (this.props.isNew)
-      console.log('rendering new step')
     return React.cloneElement(React.Children.only(this.props.children), {
       id,
       ref: this.domNode,
