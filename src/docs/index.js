@@ -5,12 +5,17 @@ import { Scrollama, Step } from '../lib';
 
 const styles = {
   main: {
-    margin: '70vh 2vw',
+    padding: '70vh 2vw',
     display: 'flex',
-    borderTop: '1px solid #ddd',
-    borderBottom: '1px solid #ddd',
     fontFamily: 'Helvetica',
     justifyContent: 'space-between',
+  },
+  btn: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    position: 'fixed',
+    margin: '10px',
+    fontFamily: 'Helvetica',
   },
   graphic: {
     flexBasis: '60%',
@@ -48,7 +53,7 @@ const styles = {
 class MainApp extends PureComponent {
   state = {
     data: 0,
-    N: 4,
+    numSteps: 4,
   };
 
   onStepEnter = ({ element, data }) => {
@@ -60,39 +65,50 @@ class MainApp extends PureComponent {
     element.style.backgroundColor = '#fff';
   };
 
-  inc = () => this.setState({ N: this.state.N + 1 });
-  dec = () => this.setState({ N: this.state.N - 1 });
+  inc = () => this.setState({ numSteps: this.state.numSteps + 1 });
+  dec = () => {
+    const { numSteps } = this.state;
+    if (--numSteps >= 0) {
+      this.setState({ numSteps });
+    }
+  };
 
   render() {
-    const { data, N } = this.state;
+    const { data, numSteps } = this.state;
     const { classes } = this.props;
 
     const ary = [];
-    for (let i = 0; i < N; i++)
+    for (let i = 0; i < numSteps; i++)
       ary.push(i);
 
     return (
-      <div className={classes.main}>
-        <div className={classes.scroller}>
-        <button onClick={this.inc}>Inc</button>
-        <button onClick={this.dec}>Dec</button>
-          <Scrollama
-            offset={0.33}
-            onStepEnter={this.onStepEnter}
-            onStepExit={this.onStepExit}
-            debug
-          >
-            {ary.map((_, value) => (
-              <Step data={value} key={value}>
-                <div className={classes.step}>
-                  <p>step value: {value}</p>
-                </div>
-              </Step>
-            ))}
-          </Scrollama>
+      <div>
+        <div className={classes.btnContainer}>
+          <button onClick={this.inc} className={classes.btn}>Remove step from bottom</button>
+          <button onClick={this.dec} className={classes.btn}>Add step to bottom</button>      
         </div>
-        <div className={classes.graphic}>
-          <p>{data}</p>
+        <div>
+          <div classnumStepsame={classes.main}>
+            <div classnumStepsame={classes.scroller}>
+              <Scrollama
+                offset={0.33}
+                onStepEnter={this.onStepEnter}
+                onStepExit={this.onStepExit}
+                debug
+              >
+                {ary.map((_, value) => (
+                  <Step data={value} key={value}>
+                    <div classnumStepsame={classes.step}>
+                      <p>step value: {value}</p>
+                    </div>
+                  </Step>
+                ))}
+              </Scrollama>
+            </div>
+            <div classnumStepsame={classes.graphic}>
+              <p>{data}</p>
+            </div>
+          </div>
         </div>
       </div>
     );

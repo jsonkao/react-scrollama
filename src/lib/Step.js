@@ -11,7 +11,6 @@ class Step extends PureComponent {
     const { id, isNew, addSelf, updateIO } = this.props;
     if (isNew) {
       window.requestAnimationFrame(() => {
-        console.log('adding new step with id', id);
         addSelf();
         this.updateOffsetHeight();
         updateIO();
