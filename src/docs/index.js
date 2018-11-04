@@ -52,12 +52,10 @@ const styles = {
   },
 };
 
-const NUM_INITIAL_STEPS = 4;
-
 class MainApp extends PureComponent {
   state = {
     data: 0,
-    numSteps: NUM_INITIAL_STEPS,
+    steps: [10, 20, 40],
   };
 
   onStepEnter = ({ element, data }) => {
@@ -69,27 +67,26 @@ class MainApp extends PureComponent {
     element.style.backgroundColor = '#fff';
   };
 
-  inc = () => this.setState({ numSteps: this.state.numSteps + 1 });
-  dec = () => {
-    let { numSteps } = this.state;
-    if (--numSteps >= 0) {
-      this.setState({ numSteps });
-    }
+  pushStep = () => {
+    this.setState({
+      steps: [ ...this.state.steps, Math.floor((Math.random() * 100) + 1) ],
+    });
+  }
+
+  popStep = () => {
+    const { steps } = this.state;
+    this.setState({ steps: steps.slice(1, steps.length - 1) });
   };
 
   render() {
-    const { data, numSteps } = this.state;
+    const { data, steps } = this.state;
     const { classes } = this.props;
-
-    const ary = [];
-    for (let i = 0; i < numSteps; i++)
-      ary.push(i);
 
     return (
       <div>
         <div className={classes.btnContainer}>
-          <button onClick={this.inc} className={classes.btn}>Push step</button>
-          <button onClick={this.dec} className={classes.btn}>Pop step</button>
+          <button onClick={this.pushStep} className={classes.btn}>Push step</button>
+          <button onClick={this.popStep} className={classes.btn} disabled={steps.length === 0}>Pop step</button>
         </div>
         <div>
           <div className={classes.main}>
@@ -100,8 +97,8 @@ class MainApp extends PureComponent {
                 onStepExit={this.onStepExit}
                 debug
               >
-                {ary.map((_, value) => (
-                  <Step data={value} key={value}>
+                {steps.map((value, index) => (
+                  <Step data={value} key={value + '-' + index}>
                     <div className={classes.step}>
                       <p>step value: {value}</p>
                     </div>
