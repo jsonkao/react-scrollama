@@ -291,6 +291,8 @@ class Scrollama extends PureComponent {
     const { stepElIds } = this.state;
     stepElIds.push(id);
     this.setState({ stepElIds });
+
+    this.updateIO();
   };
 
   removeStep = badId => {
@@ -325,9 +327,8 @@ class Scrollama extends PureComponent {
           }
           return React.cloneElement(child, {
             id,
-            addSelf: () => this.addStep(id),
             isNew: !doesExist,
-            updateIO: this.updateIO,
+            addSelf: () => this.addStep(id),
             removeSelf: () => this.removeStep(id),
             ref: this[id],
           });

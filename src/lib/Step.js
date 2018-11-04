@@ -8,12 +8,11 @@ class Step extends PureComponent {
   };
 
   componentDidMount() {
-    const { id, isNew, addSelf, updateIO } = this.props;
+    const { id, isNew, addSelf } = this.props;
     if (isNew) {
       window.requestAnimationFrame(() => {
-        addSelf();
         this.updateOffsetHeight();
-        updateIO();
+        addSelf();
       });
     }
   }
