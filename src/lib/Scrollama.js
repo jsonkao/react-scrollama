@@ -72,8 +72,8 @@ class Scrollama extends PureComponent {
   }
 
   getRefComponent = id => {
-    const comp = this[id];
-    return comp && comp.current;
+    return this[id] ||      
+      console.error('Could not retrieve step with id', id);
   };
 
   getDOMNode = step => step.domNode.current;
@@ -89,7 +89,8 @@ class Scrollama extends PureComponent {
 
     stepElIds.forEach(id => {
       const step = this.getRefComponent(id);
-      step.updateOffsetHeight();
+      if (step)
+        step.updateOffsetHeight();
     });
 
     if (isEnabled) {
@@ -229,8 +230,7 @@ class Scrollama extends PureComponent {
       const bottomAdjusted = bottom - offsetMargin;
 
       const step = this.getRefComponent(id);
-      if (!step) {
-        console.error('Could not retrieve step with id', id);
+      if (!step) {        
         return;
       }
       const { state } = step.state;
@@ -264,7 +264,6 @@ class Scrollama extends PureComponent {
 
       const step = this.getRefComponent(id);
       if (!step) {
-        console.error('Could not retrieve step with id', id);
         return;
       }
       const { state } = step.state;
