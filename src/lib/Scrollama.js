@@ -71,7 +71,13 @@ class Scrollama extends PureComponent {
     this.handleEnable(false);
   }
 
-  getRefComponent = id => this[id].current;
+  getRefComponent = id => {
+    const comp = this[id];
+    return (
+      (comp && comp.current) ||
+      console.error('Could not retrieve step with id', id)
+    );
+  };
 
   getDOMNode = step => step.domNode.current;
 
@@ -226,6 +232,9 @@ class Scrollama extends PureComponent {
       const bottomAdjusted = bottom - offsetMargin;
 
       const step = this.getRefComponent(id);
+      if (!step) {
+        return;
+      }
       const { state } = step.state;
       if (bottomAdjusted >= -ZERO_MOE) {
         if (isIntersecting && direction === 'down' && state !== 'enter') {
@@ -256,6 +265,9 @@ class Scrollama extends PureComponent {
       const bottomAdjusted = bottom - offsetMargin;
 
       const step = this.getRefComponent(id);
+      if (!step) {
+        return;
+      }
       const { state } = step.state;
       if (
         bottomAdjusted >= -ZERO_MOE &&
@@ -276,19 +288,49 @@ class Scrollama extends PureComponent {
     });
   };
 
+  addStep = id => {
+    const { stepElIds } = this.state;
+    stepElIds.push(id);
+    this.setState({ stepElIds });
+
+    this.updateIO(); // update observers
+  };
+
+  removeStep = badId => {
+    const { stepElIds } = this.state;
+
+    // remove badId from our list of step id's
+    const badIndex = stepElIds.findIndex(id => id === badId);
+    if (badIndex >= 0) {
+      stepElIds.splice(badIndex, badIndex + 1);
+      this.setState({ stepElIds });
+    }
+
+    delete this[badId]; // remove our ref to the removed step
+    this.updateIO(); // update observers
+  };
+
   render() {
     const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
     const { children } = this.props;
-
     return (
       <div>
         {debugMode && (
           <DebugOffset offsetMargin={offsetMargin} offsetVal={offsetVal} />
         )}
         {React.Children.map(children, (child, index) => {
-          const id = stepElIds[index];
+          const isNew = !stepElIds[index];
+          if (isNew) {
+            var id = uuid.v4();
+            this[id] = React.createRef();
+          } else {
+            var id = stepElIds[index];
+          }
           return React.cloneElement(child, {
             id,
+            isNew,
+            addSelf: () => this.addStep(id),
+            removeSelf: () => this.removeStep(id),
             ref: this[id],
           });
         })}

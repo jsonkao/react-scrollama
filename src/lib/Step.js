@@ -7,6 +7,16 @@ class Step extends PureComponent {
     offsetHeight: null,
   };
 
+  componentDidMount() {
+    const { isNew, addSelf } = this.props;
+    if (isNew) {
+      window.requestAnimationFrame(() => {
+        this.updateOffsetHeight();
+        addSelf();
+      });
+    }
+  }
+
   domNode = React.createRef();
 
   getDOMNode = () => this.domNode.current;
@@ -21,9 +31,13 @@ class Step extends PureComponent {
 
   exit = direction => this.setState({ state: 'exit', direction });
 
+  componentWillUnmount() {
+    this.props.removeSelf();
+  }
+
   render() {
-    const { id } = this.props;
-    return React.cloneElement(React.Children.only(this.props.children), {
+    const { id, children } = this.props;
+    return React.cloneElement(React.Children.only(children), {
       id,
       ref: this.domNode,
     });
