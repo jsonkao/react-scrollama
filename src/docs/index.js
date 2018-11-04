@@ -52,10 +52,12 @@ const styles = {
   },
 };
 
+const NUM_INITIAL_STEPS = 4;
+
 class MainApp extends PureComponent {
   state = {
     data: 0,
-    numSteps: 4,
+    numSteps: NUM_INITIAL_STEPS,
   };
 
   onStepEnter = ({ element, data }) => {
