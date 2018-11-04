@@ -317,11 +317,10 @@ class Scrollama extends PureComponent {
         )}
         {React.Children.map(children, (child, index) => {
           const doesExist = !!stepElIds[index];
-          let id;
           if (doesExist) {
-            id = stepElIds[index];
+            var id = stepElIds[index];
           } else {
-            id = uuid.v4();
+            var id = uuid.v4();
             this[id] = React.createRef();
           }
           return React.cloneElement(child, {
