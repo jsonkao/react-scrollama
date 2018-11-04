@@ -317,16 +317,16 @@ class Scrollama extends PureComponent {
           <DebugOffset offsetMargin={offsetMargin} offsetVal={offsetVal} />
         )}
         {React.Children.map(children, (child, index) => {
-          const doesExist = !!stepElIds[index];
-          if (doesExist) {
-            var id = stepElIds[index];
-          } else {
+          const isNew = !stepElIds[index];
+          if (isNew) {
             var id = uuid.v4();
             this[id] = React.createRef();
+          } else {
+            var id = stepElIds[index];
           }
           return React.cloneElement(child, {
             id,
-            isNew: !doesExist,
+            isNew,
             addSelf: () => this.addStep(id),
             removeSelf: () => this.removeStep(id),
             ref: this[id],

@@ -75,7 +75,7 @@ class MainApp extends PureComponent {
 
   popStep = () => {
     const { steps } = this.state;
-    this.setState({ steps: steps.slice(1, steps.length - 1) });
+    this.setState({ steps: steps.slice(0, steps.length - 1) });
   };
 
   render() {
