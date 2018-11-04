@@ -73,8 +73,10 @@ class Scrollama extends PureComponent {
 
   getRefComponent = id => {
     const comp = this[id];
-    return (comp && comp.current) ||
-      console.error('Could not retrieve step with id', id);
+    return (
+      (comp && comp.current) ||
+      console.error('Could not retrieve step with id', id)
+    );
   };
 
   getDOMNode = step => step.domNode.current;
@@ -303,7 +305,7 @@ class Scrollama extends PureComponent {
       stepElIds.splice(badIndex, badIndex + 1);
       this.setState({ stepElIds });
     }
-    
+
     delete this[badId]; // remove our ref to the removed step
     this.updateIO(); // update observers
   };
