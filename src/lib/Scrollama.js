@@ -305,7 +305,7 @@ class Scrollama extends PureComponent {
     }
     
     delete this[badId]; // remove our ref to the removed step
-    this.updateIO(); // destroy and recreate our intersection observers
+    this.updateIO(); // update observers
   };
 
   render() {
