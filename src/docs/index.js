@@ -10,10 +10,12 @@ const styles = {
     fontFamily: 'Helvetica',
     justifyContent: 'space-between',
   },
-  btn: {
-    padding: '10px 20px',
-    fontSize: '16px',
+  btnContainer: {
     position: 'fixed',
+  },
+  btn: {
+    padding: '8px 10px',
+    fontSize: '14px',
     margin: '10px',
     fontFamily: 'Helvetica',
   },
@@ -67,7 +69,7 @@ class MainApp extends PureComponent {
 
   inc = () => this.setState({ numSteps: this.state.numSteps + 1 });
   dec = () => {
-    const { numSteps } = this.state;
+    let { numSteps } = this.state;
     if (--numSteps >= 0) {
       this.setState({ numSteps });
     }
@@ -84,12 +86,12 @@ class MainApp extends PureComponent {
     return (
       <div>
         <div className={classes.btnContainer}>
-          <button onClick={this.inc} className={classes.btn}>Remove step from bottom</button>
-          <button onClick={this.dec} className={classes.btn}>Add step to bottom</button>      
+          <button onClick={this.inc} className={classes.btn}>Push step</button>
+          <button onClick={this.dec} className={classes.btn}>Pop step</button>
         </div>
         <div>
-          <div classnumStepsame={classes.main}>
-            <div classnumStepsame={classes.scroller}>
+          <div className={classes.main}>
+            <div className={classes.scroller}>
               <Scrollama
                 offset={0.33}
                 onStepEnter={this.onStepEnter}
@@ -98,14 +100,14 @@ class MainApp extends PureComponent {
               >
                 {ary.map((_, value) => (
                   <Step data={value} key={value}>
-                    <div classnumStepsame={classes.step}>
+                    <div className={classes.step}>
                       <p>step value: {value}</p>
                     </div>
                   </Step>
                 ))}
               </Scrollama>
             </div>
-            <div classnumStepsame={classes.graphic}>
+            <div className={classes.graphic}>
               <p>{data}</p>
             </div>
           </div>
