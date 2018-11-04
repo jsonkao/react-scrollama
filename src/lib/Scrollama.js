@@ -223,10 +223,13 @@ class Scrollama extends PureComponent {
   // callback for io.stepAbove. Called if top edge of step crosses threshold.
   intersectStepAbove = entries => {
     this.updateDirection();
-    const { offsetMargin, direction } = this.state;
+    const { stepElIds, offsetMargin, direction } = this.state;
 
     entries.forEach(entry => {
       const { isIntersecting, boundingClientRect, target: { id } } = entry;
+
+      if (!stepElIds.includes(id)) return;
+
       // bottom is how far bottom edge of el is from top of viewport
       const { bottom, height } = boundingClientRect;
       const bottomAdjusted = bottom - offsetMargin;
