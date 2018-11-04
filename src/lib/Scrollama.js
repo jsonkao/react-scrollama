@@ -291,7 +291,7 @@ class Scrollama extends PureComponent {
     stepElIds.push(id);
     this.setState({ stepElIds });
 
-    this.updateIO();
+    this.updateIO(); // update observers
   };
 
   removeStep = badId => {
