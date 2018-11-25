@@ -132,6 +132,7 @@ class Scrollama extends PureComponent {
           const marginBottom = -vh + offsetMargin;
           const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
 
+
           const options = {
             root: null,
             rootMargin,
@@ -315,9 +316,9 @@ class Scrollama extends PureComponent {
 
   render() {
     const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
-    const { children } = this.props;
+    const { children, ...rest } = this.props;
     return (
-      <div>
+      <div {...rest}>
         {debugMode && (
           <DebugOffset offsetMargin={offsetMargin} offsetVal={offsetVal} />
         )}
