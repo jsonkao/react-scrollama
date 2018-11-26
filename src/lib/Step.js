@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
 class Step extends PureComponent {
   state = {
     direction: null, // 'up' or 'down'
     state: null, // 'enter' or 'exit'
-    offsetHeight: null,
+    offsetHeight: null
   };
 
   componentDidMount() {
@@ -27,20 +27,19 @@ class Step extends PureComponent {
     this.setState({ offsetHeight: this.domNode.current.offsetHeight });
   };
 
-  enter = direction => this.setState({ state: 'enter', direction });
+  enter = direction => this.setState({ state: "enter", direction });
 
-  exit = direction => this.setState({ state: 'exit', direction });
+  exit = direction => this.setState({ state: "exit", direction });
 
   componentWillUnmount() {
     this.props.removeSelf();
   }
 
   render() {
-    const { id, children, ...props } = this.props;
+    const { id, children } = this.props;
     return React.cloneElement(React.Children.only(children), {
       id,
-      ref: this.domNode,
-      ...props
+      ref: this.domNode
     });
   }
 }
