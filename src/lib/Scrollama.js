@@ -315,9 +315,9 @@ class Scrollama extends PureComponent {
 
   render() {
     const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
-    const { children } = this.props;
+    const { children, ...rest } = this.props;
     return (
-      <div>
+      <div {...rest}>
         {debugMode && (
           <DebugOffset offsetMargin={offsetMargin} offsetVal={offsetVal} />
         )}
