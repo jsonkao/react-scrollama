@@ -81,10 +81,10 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 
 #### `<Step/>`
 
-| Prop | Type | Default     | Description                                                      |
-|------|------|-------------|------------------------------------------------------------------|
-| data | any  | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
-
+| Prop     | Type           | Default     | Description                                                      |
+|----------|----------------|-------------|------------------------------------------------------------------|
+| data     | any            | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
+| children | PropTypes.node |    N/A      | Children must always be one component, not an array
 ## Contributing
 
 You're welcome to contribute to React Scrollama. To setup the project:
