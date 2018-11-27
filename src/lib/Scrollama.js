@@ -132,7 +132,6 @@ class Scrollama extends PureComponent {
           const marginBottom = -vh + offsetMargin;
           const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
 
-
           const options = {
             root: null,
             rootMargin,
