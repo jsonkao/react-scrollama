@@ -24,7 +24,7 @@ const getPageHeight = () => {
 class Scrollama extends PureComponent {
   constructor(props) {
     super(props);
-    const { offset, debug, children, onStepEnter, onStepExit } = this.props;
+    const { offset, debug, children, onStepEnter, onStepExit, progressmode, onStepProgress, threshold } = this.props;
 
     const stepElIds = [];
     React.Children.forEach(children, () => {
@@ -41,10 +41,14 @@ class Scrollama extends PureComponent {
     this.state = {
       isEnabled: false,
       debugMode: debug,
+      progressMode: progressmode,
+      threshold: threshold,
+      progressThreshold: 0,
 
       callback: {
         stepEnter: onStepEnter,
         stepExit: onStepExit,
+        stepProgress: onStepProgress,
       },
       io: {},
       stepElIds,
@@ -64,6 +68,12 @@ class Scrollama extends PureComponent {
   async componentDidMount() {
     await this.handleResize();
     this.handleEnable(true);
+  }
+
+  componentWillMount() {
+    this.setState({
+      progressThreshold: Math.max(1, +this.state.threshold),
+    })
   }
 
   componentWillUnmount() {
@@ -115,6 +125,7 @@ class Scrollama extends PureComponent {
   updateIO = () => {
     this.updateStepAboveIO();
     this.updateStepBelowIO();
+    this.updateStepProgressIO();
   };
 
   updateStepAboveIO = () => {
@@ -181,6 +192,42 @@ class Scrollama extends PureComponent {
     });
   };
 
+  // progress progress tracker
+  updateStepProgressIO() {
+    const { io, stepElIds, vh, offsetMargin } = this.state;
+
+    if (io.stepProgress) {
+      io.stepProgress.forEach(d => d.disconnect());
+    }
+
+    this.setState({
+      io: {
+        ...io,
+        stepProgress: stepElIds.map(id => {
+          const step = this.getRefComponent(id);
+          const marginTop = step.state.offsetHeight - offsetMargin;
+          const marginBottom = -vh + offsetMargin;
+          const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
+
+          const threshold = this.createThreshold(step.state.offsetHeight);
+          const options = {
+            root: null,
+            rootMargin,
+            threshold
+          };
+
+          const obs = new IntersectionObserver(
+            this.intersectStepProgress,
+            options,
+          );
+
+          obs.observe(step.getDOMNode());
+          return obs;
+        }),
+      },
+    });
+  }
+
   updateDirection = () => {
     const { previousYOffset } = this.state;
     const { pageYOffset } = window;
@@ -192,33 +239,69 @@ class Scrollama extends PureComponent {
     this.setState({ previousYOffset: pageYOffset });
   };
 
+  createThreshold(height) {
+    const { progressThreshold } = this.state;
+    const count = Math.ceil(height / progressThreshold);
+    const t = [];
+    const ratio = 1 / count;
+    for (let i = 0; i < count; i++) {
+      t.push(i * ratio);
+    }
+    return t;
+  }
+
   notifyStepEnter = (step, direction) => {
-    const { callback: { stepEnter } } = this.state;
+    const { callback: { stepEnter }, progressMode } = this.state;
+    const element = step.getDOMNode()
     step.enter(direction);
 
     const resp = {
-      element: step.getDOMNode(),
+      element,
       data: step.getData(),
       direction,
     };
     if (stepEnter && typeof stepEnter === 'function') {
       stepEnter(resp);
     }
+
+    if (progressMode) {
+      if (direction === 'down') this.notifyStepProgress(step, 0);
+      else this.notifyStepProgress(step, 1);
+    }
   };
 
   notifyStepExit = (step, direction) => {
-    const { callback: { stepExit } } = this.state;
+    const { callback: { stepExit }, progressMode } = this.state;
+    const element = step.getDOMNode()
     step.exit(direction);
 
     const resp = {
-      element: step.getDOMNode(),
+      element,
       data: step.getData(),
       direction,
     };
     if (stepExit && typeof stepExit === 'function') {
       stepExit(resp);
     }
+
+    if (progressMode) {
+      if (direction === 'down') this.notifyStepProgress(step, 1);
+      else this.notifyStepProgress(step, 0);
+    }
   };
+
+  notifyStepProgress(step, progress) {
+    const { callback: { stepProgress } } = this.state;
+    const resp = { 
+      element: step.getDOMNode(),
+      data: step.getData(),
+      progress 
+    };
+
+    if (stepProgress && typeof stepProgress === 'function') {
+      stepProgress(resp);
+    }
+  }
 
   // callback for io.stepAbove. Called if top edge of step crosses threshold.
   intersectStepAbove = entries => {
@@ -291,6 +374,30 @@ class Scrollama extends PureComponent {
     });
   };
 
+  intersectStepProgress = entries => {
+    this.updateDirection();
+    const { offsetMargin } = this.state;
+
+    entries.forEach(
+      ({ isIntersecting, intersectionRatio, boundingClientRect, target: { id } }) => {
+        const { bottom } = boundingClientRect;
+        const bottomAdjusted = bottom - offsetMargin;
+
+        const step = this.getRefComponent(id);
+        if (!step) {
+          return;
+        }
+        if (
+          isIntersecting &&
+          bottomAdjusted >=
+          -ZERO_MOE
+        ) {
+          this.notifyStepProgress(step, +intersectionRatio.toFixed(3));
+        }
+      }
+    );
+  }
+
   addStep = id => {
     const { stepElIds } = this.state;
     stepElIds.push(id);
@@ -345,6 +452,8 @@ class Scrollama extends PureComponent {
 Scrollama.defaultProps = {
   offset: 0.5,
   debug: false,
+  progressmode: false,
+  threshold: 4,
 };
 
 export default injectSheet(styles)(Scrollama);
