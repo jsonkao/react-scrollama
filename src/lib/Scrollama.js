@@ -24,7 +24,7 @@ const getPageHeight = () => {
 class Scrollama extends PureComponent {
   constructor(props) {
     super(props);
-    const { offset, debug, children, onStepEnter, onStepExit, progressmode, onStepProgress, threshold } = this.props;
+    const { offset, debug, children, onStepEnter, onStepExit, progress, onStepProgress, threshold } = this.props;
 
     const stepElIds = [];
     React.Children.forEach(children, () => {
@@ -41,9 +41,9 @@ class Scrollama extends PureComponent {
     this.state = {
       isEnabled: false,
       debugMode: debug,
-      progressMode: progressmode,
+      progressMode: progress,
       threshold: threshold,
-      progressThreshold: 0,
+      progressThreshold: Math.max(1, +threshold),
 
       callback: {
         stepEnter: onStepEnter,
@@ -68,12 +68,6 @@ class Scrollama extends PureComponent {
   async componentDidMount() {
     await this.handleResize();
     this.handleEnable(true);
-  }
-
-  componentWillMount() {
-    this.setState({
-      progressThreshold: Math.max(1, +this.state.threshold),
-    })
   }
 
   componentWillUnmount() {
@@ -452,7 +446,7 @@ class Scrollama extends PureComponent {
 Scrollama.defaultProps = {
   offset: 0.5,
   debug: false,
-  progressmode: false,
+  progress: false,
   threshold: 4,
 };
 
