@@ -1,45 +1,34 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-class Step extends PureComponent {
+class Step extends Component {
   state = {
     direction: null, // 'up' or 'down'
     state: null, // 'enter' or 'exit'
     offsetHeight: null,
   };
 
-  componentDidMount() {
-    const { isNew, addSelf } = this.props;
-    if (isNew) {
-      window.requestAnimationFrame(() => {
-        this.updateOffsetHeight();
-        addSelf();
-      });
-    }
-  }
+  nodeRef = React.createRef();
 
-  domNode = React.createRef();
-
-  getDOMNode = () => this.domNode.current;
+  getDomNode = () => this.nodeRef.current;
 
   getData = () => this.props.data;
 
-  updateOffsetHeight = () => {
-    this.setState({ offsetHeight: this.domNode.current.offsetHeight });
-  };
+  updateOffsetHeight = () =>
+    this.setState({ offsetHeight: this.getDomNode().offsetHeight });
 
   enter = direction => this.setState({ state: 'enter', direction });
-
   exit = direction => this.setState({ state: 'exit', direction });
-
-  componentWillUnmount() {
-    this.props.removeSelf();
-  }
 
   render() {
     const { id, children } = this.props;
+
     return React.cloneElement(React.Children.only(children), {
+      // place id on child to retrieve id from the raw DOM node (which
+      // is what the intersection observer gives our callback
       id,
-      ref: this.domNode,
+
+      // place ref on child to calculate offsets
+      ref: this.nodeRef,
     });
   }
 }
