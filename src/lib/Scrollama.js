@@ -1,199 +1,177 @@
-import React, { PureComponent } from 'react';
-import injectSheet from 'react-jss';
-import uuid from 'uuid';
-import 'intersection-observer';
-import DebugOffset from './DebugOffset';
+import React, { Component } from 'react';
+import uuidv4 from 'uuid/v4';
+import { getPageHeight } from './utils';
 
-const styles = {};
+const OBSERVER_NAMES = [
+  'stepAbove',
+  'stepBelow',
+  'stepProgress',
+  'viewportAbove',
+  'viewportBelow'
+];
 
-const ZERO_MOE = 1; // zero with some rounding margin of error
+class Scrollama extends Component {
+  // step trigger callbacks
+  cb = {
+    stepEnter: () => {},
+    stepExit: () => {},
+    stepProgress: () => {}
+  };
 
-const getPageHeight = () => {
-  const body = document.body;
-  const html = document.documentElement;
+  // stores intersection observers
+  io = {};
+  disconnectObserver = name =>
+    this.io[name] && this.io[name].forEach(o => o.disconnect());
 
-  return Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight,
-  );
-};
+  // stores step elements by id
+  stepElIds = [];
 
-class Scrollama extends PureComponent {
+  viewH = 0;
+  pageH = 0;
+  offsetMargin = 0;
+
+  previousYOffset = 0;
+  direction = 'down';
+  updateDirection = () => {
+    if (window.pageYOffset > this.previousYOffset) {
+      this.direction = 'down';
+    } else if (window.pageYOffset < this.previousYOffset) {
+      this.direction = 'up';
+    }
+    this.previousYOffset = window.pageYOffset;
+  };
+
   constructor(props) {
     super(props);
-    const { offset, debug, children, onStepEnter, onStepExit } = this.props;
+    const { children } = this.props;
 
-    const stepElIds = [];
     React.Children.forEach(children, () => {
-      const childId = uuid.v4();
+      const childId = uuidv4();
       this[childId] = React.createRef();
-      stepElIds.push(childId);
+      this.stepElIds.push(childId);
     });
+  }
 
-    let offsetVal = 0;
-    if (offset && !isNaN(offset)) {
-      offsetVal = Math.min(Math.max(0, offset), 1);
+  getStep = id => {
+    const step = this[id];
+    if (step && step.current) {
+      return step;
     }
-
-    this.state = {
-      isEnabled: false,
-      debugMode: debug,
-
-      callback: {
-        stepEnter: onStepEnter,
-        stepExit: onStepExit,
-      },
-      io: {},
-      stepElIds,
-
-      direction: null,
-
-      vh: 0,
-      ph: 0,
-      offsetVal,
-      offsetMargin: 0,
-      previousYOffset: -1,
-    };
-
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  async componentDidMount() {
-    await this.handleResize();
-    this.handleEnable(true);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-    this.handleEnable(false);
-  }
-
-  getRefComponent = id => {
-    const comp = this[id];
-    return (
-      (comp && comp.current) ||
-      console.error('Could not retrieve step with id', id)
-    );
+    throw 'Could not get step with id ' + id;
   };
-
-  getDOMNode = step => step.domNode.current;
 
   handleResize = () => {
-    const { stepElIds, offsetVal, isEnabled } = this.state;
-    const vh = window.innerHeight;
-    this.setState({
-      vh,
-      ph: getPageHeight(),
-      offsetMargin: offsetVal * vh,
-    });
+    this.viewH = window.innerHeight;
+    this.pageH = getPageHeight();
+    this.offsetMargin = this.props.offsetVal * this.viewH;
 
-    stepElIds.forEach(id => {
-      const step = this.getRefComponent(id);
-      step.updateOffsetHeight();
-    });
-
-    if (isEnabled) {
+    if (this.isReady) {
+      // recalculate offset heights for each step
+      this.stepElIds.forEach(id => {
+        this.getStep(id).updateOffsetHeight();
+      });
       this.updateIO();
     }
-  };
+  }
 
-  handleEnable = enable => {
-    const { isEnabled, io } = this.state;
-    if (enable && !isEnabled) {
-      this.updateIO();
-      this.setState({ isEnabled: true });
-    } else if (!enable) {
-      if (io.stepAbove) io.stepAbove.forEach(obs => obs.disconnect());
-      if (io.stepBelow) io.stepBelow.forEach(obs => obs.disconnect());
-      this.setState({ isEnabled: false });
-    }
-  };
-
+  // Recreate all intersection observers
   updateIO = () => {
+    OBSERVER_NAMES.forEach(this.disconnectObserver);
     this.updateStepAboveIO();
     this.updateStepBelowIO();
   };
 
+  /* INTERSECTION OBSERVER CREATORS */
+
+  // Create observers for intersections above steps
   updateStepAboveIO = () => {
-    const { io, stepElIds, vh, offsetMargin } = this.state;
-    if (io.stepAbove) {
-      io.stepAbove.forEach(obs => obs.disconnect());
-    }
+    this.io.stepAbove = this.stepElIds.map(id => {
+      const step = this.getStep(id);
+      const marginTop = -this.offsetMargin + step.state.offsetHeight;
+      const marginBottom = this.offsetMargin - this.viewH;
+      const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
 
-    this.setState({
-      io: {
-        ...io,
-        stepAbove: stepElIds.map(id => {
-          const step = this.getRefComponent(id);
-          const marginTop = step.state.offsetHeight;
-          const marginBottom = -vh + offsetMargin;
-          const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
-
-          const options = {
-            root: null,
-            rootMargin,
-            threshold: 0,
-          };
-
-          const obs = new IntersectionObserver(
-            this.intersectStepAbove,
-            options,
-          );
-          obs.observe(step.getDOMNode());
-          return obs;
-        }),
-      },
+      const obs = new IntersectionObserver(this.intersectStepAbove, options);
+      obs.observe(step.getDOMNode());
+      return obs;
     });
   };
-
+  // Create observers for intersections below steps
   updateStepBelowIO = () => {
-    const { io, stepElIds, vh, ph, offsetMargin } = this.state;
-    if (io.stepBelow) {
-      io.stepBelow.forEach(obs => obs.disconnect());
-    }
+    this.io.stepAbove = this.stepElIds.map(id => {
+      const step = this.getStep(id);
+      const marginTop = -this.offsetMargin;
+      const marginBottom = this.offsetMargin - this.viewH + step.state.offsetHeight;
+      const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
 
-    this.setState({
-      io: {
-        ...io,
-        stepBelow: stepElIds.map(id => {
-          const step = this.getRefComponent(id);
-          const marginTop = -offsetMargin;
-          const marginBottom = ph - vh + step.state.offsetHeight + offsetMargin;
-          const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
-
-          const options = {
-            root: null,
-            rootMargin,
-            threshold: 0,
-          };
-
-          const obs = new IntersectionObserver(
-            this.intersectStepBelow,
-            options,
-          );
-          obs.observe(step.getDOMNode());
-          return obs;
-        }),
-      },
+      const obs = new IntersectionObserver(this.intersectStepBelow, options);
+      obs.observe(step.getDOMNode());
+      return obs;
     });
   };
 
-  updateDirection = () => {
-    const { previousYOffset } = this.state;
-    const { pageYOffset } = window;
-    if (pageYOffset > previousYOffset) {
-      this.setState({ direction: 'down' });
-    } else if (pageYOffset < previousYOffset) {
-      this.setState({ direction: 'up' });
-    }
-    this.setState({ previousYOffset: pageYOffset });
+  /* INTERSECTION OBSERVER HANDLERS */
+
+  // Handles scrolling down and entering or scrolling up and leaving a step
+  intersectStepAbove = ([ entry ]) => {
+    this.updateDirection();
+    const { isIntersecting, boundingClientRect, target: { id } } = entry;
+
+    const { top, bottom } = boundingClientRect;
+    const topAdjusted = top - this.offsetMargin;
+    const bottomAdjusted = bottom - this.offsetMargin;
+
+    const step = this.getStep(id);
+
+    if (
+      isIntersecting &&
+        topAdjusted <= 0 &&
+        bottomAdjusted >= 0 &&
+        this.direction === 'down' &&
+        step.state.state !== 'enter'
+    )
+      this.notifyStepEnter(step, this.direction);
+    if (
+      !isIntersecting &&
+        topAdjusted > 0 &&
+        this.direction === 'up' &&
+        step.state.state === 'enter'
+    )
+      this.notifyStepExit(step, this.direction);
   };
+
+  // Handles scrolling up and entering or scrolling down and leaving a step
+  intersectStepBelow = ([ entry ]) => {
+    this.updateDirection();
+    const { isIntersecting, boundingClientRect, target: { id } } = entry;
+
+    const { top, bottom } = boundingClientRect;
+    const topAdjusted = top - this.offsetMargin;
+    const bottomAdjusted = bottom - this.offsetMargin;
+
+    const step = this.getStep(id);
+
+    if (
+      isIntersecting &&
+        topAdjusted <= 0 &&
+        bottomAdjusted >= 0 &&
+        this.direction === 'up' &&
+        step.state.state !== 'enter'
+    )
+      this.notifyStepEnter(step, this.direction);
+    if (
+      !isIntersecting &&
+        bottomAdjusted > 0 &&
+        this.direction === 'down' &&
+        step.state.state === 'enter'
+    )
+      this.notifyStepExit(step, this.direction);
+  };
+
+  /* NOTIFY CALLBACKS */
 
   notifyStepEnter = (step, direction) => {
-    const { callback: { stepEnter } } = this.state;
+    // Store most recent trigger
     step.enter(direction);
 
     const resp = {
@@ -201,13 +179,12 @@ class Scrollama extends PureComponent {
       data: step.getData(),
       direction,
     };
-    if (stepEnter && typeof stepEnter === 'function') {
-      stepEnter(resp);
-    }
+    if (this.cb.stepEnter)
+      this.cb.stepEnter(resp);
   };
 
   notifyStepExit = (step, direction) => {
-    const { callback: { stepExit } } = this.state;
+    // Store most recent trigger
     step.exit(direction);
 
     const resp = {
@@ -215,136 +192,17 @@ class Scrollama extends PureComponent {
       data: step.getData(),
       direction,
     };
-    if (stepExit && typeof stepExit === 'function') {
-      stepExit(resp);
-    }
-  };
-
-  // callback for io.stepAbove. Called if top edge of step crosses threshold.
-  intersectStepAbove = entries => {
-    this.updateDirection();
-    const { stepElIds, offsetMargin, direction } = this.state;
-
-    entries.forEach(entry => {
-      const { isIntersecting, boundingClientRect, target: { id } } = entry;
-
-      if (!stepElIds.includes(id)) return;
-
-      // bottom is how far bottom edge of el is from top of viewport
-      const { bottom, height } = boundingClientRect;
-      const bottomAdjusted = bottom - offsetMargin;
-
-      const step = this.getRefComponent(id);
-      if (!step) {
-        return;
-      }
-      const { state } = step.state;
-      if (bottomAdjusted >= -ZERO_MOE) {
-        if (isIntersecting && direction === 'down' && state !== 'enter') {
-          this.notifyStepEnter(step, direction);
-        } else if (!isIntersecting && direction === 'up' && state === 'enter') {
-          this.notifyStepExit(step, direction);
-        } else if (
-          !isIntersecting &&
-          bottomAdjusted >= height &&
-          direction === 'down' &&
-          state === 'enter'
-        ) {
-          this.notifyStepExit(step, direction);
-        }
-      }
-    });
-  };
-
-  // callback for io.stepBelow. Called if top edge of step crosses threshold.
-  intersectStepBelow = entries => {
-    this.updateDirection();
-    const { offsetMargin, direction } = this.state;
-
-    entries.forEach(entry => {
-      const { isIntersecting, boundingClientRect, target: { id } } = entry;
-
-      const { bottom, height } = boundingClientRect;
-      const bottomAdjusted = bottom - offsetMargin;
-
-      const step = this.getRefComponent(id);
-      if (!step) {
-        return;
-      }
-      const { state } = step.state;
-      if (
-        bottomAdjusted >= -ZERO_MOE &&
-        bottomAdjusted < height &&
-        isIntersecting &&
-        direction === 'up' &&
-        state !== 'enter'
-      ) {
-        this.notifyStepEnter(step, direction);
-      } else if (
-        bottomAdjusted <= ZERO_MOE &&
-        !isIntersecting &&
-        direction === 'down' &&
-        state === 'enter'
-      ) {
-        this.notifyStepExit(step, direction);
-      }
-    });
-  };
-
-  addStep = id => {
-    const { stepElIds } = this.state;
-    stepElIds.push(id);
-    this.setState({ stepElIds });
-
-    this.updateIO(); // update observers
-  };
-
-  removeStep = badId => {
-    const { stepElIds } = this.state;
-
-    // remove badId from our list of step id's
-    const badIndex = stepElIds.findIndex(id => id === badId);
-    if (badIndex >= 0) {
-      stepElIds.splice(badIndex, badIndex + 1);
-      this.setState({ stepElIds });
-    }
-
-    delete this[badId]; // remove our ref to the removed step
-    this.updateIO(); // update observers
+    if (this.cb.stepExit)
+      this.cb.stepExit(resp);
   };
 
   render() {
-    const { stepElIds, debugMode, offsetMargin, offsetVal } = this.state;
-    const { children, ...rest } = this.props;
-    return (
-      <div {...rest}>
-        {debugMode && (
-          <DebugOffset offsetMargin={offsetMargin} offsetVal={offsetVal} />
-        )}
-        {React.Children.map(children, (child, index) => {
-          const isNew = !stepElIds[index];
-          if (isNew) {
-            var id = uuid.v4();
-            this[id] = React.createRef();
-          } else {
-            var id = stepElIds[index];
-          }
-          return React.cloneElement(child, {
-            id,
-            isNew,
-            addSelf: () => this.addStep(id),
-            removeSelf: () => this.removeStep(id),
-            ref: this[id],
-          });
-        })}
-      </div>
-    );
+    return React.Children.map(this.props.children, (child, index) => {
+      const id = this.stepElIds[index];
+      return React.cloneElement(child, {
+        id,
+        ref: this[id],
+      });
+    });
   }
 }
-
-Scrollama.defaultProps = {
-  offset: 0.5,
-  debug: false,
-};
-
-export default injectSheet(styles)(Scrollama);
