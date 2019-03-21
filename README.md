@@ -1,5 +1,8 @@
 # React Scrollama
 
+## V2 inconsistencies
+- Scrollama returns { element, index, direction }. But in React, it's a lot easier to store data in an element, so we just use { element, data, direction }.
+
 [![npm version](https://badge.fury.io/js/react-scrollama.svg)](https://badge.fury.io/js/react-scrollama)
 [![Dependency Status](https://david-dm.org/jsonkao/react-scrollama.svg)](https://david-dm.org/jsonkao/react-scrollama)
 [![devDependency Status](https://david-dm.org/jsonkao/react-scrollama/dev-status.svg)](https://david-dm.org/jsonkao/react-scrollama?type=dev)
