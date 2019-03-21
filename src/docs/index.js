@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import injectSheet from 'react-jss';
-import { Scrollama, Step } from '../../lib';
+import { Scrollama, Step } from '../lib';
 
 const styles = {
   main: {
@@ -9,15 +9,6 @@ const styles = {
     display: 'flex',
     fontFamily: 'Helvetica',
     justifyContent: 'space-between',
-  },
-  btnContainer: {
-    position: 'fixed',
-  },
-  btn: {
-    padding: '8px 10px',
-    fontSize: '14px',
-    margin: '10px',
-    fontFamily: 'Helvetica',
   },
   graphic: {
     flexBasis: '60%',
@@ -52,70 +43,39 @@ const styles = {
   },
 };
 
-class MainApp extends PureComponent {
+class Graphic extends PureComponent {
   state = {
     data: 0,
-    steps: [10, 20, 40],
+    steps: [10, 20, 30],
   };
 
-  onStepEnter = ({ element, data }) => {
-    element.style.backgroundColor = 'lightgoldenrodyellow';
-    this.setState({ data });
-  };
-
-  onStepExit = ({ element }) => {
-    element.style.backgroundColor = '#fff';
-  };
-
-  pushStep = () => {
-    this.setState({
-      steps: [ ...this.state.steps, Math.floor((Math.random() * 100) + 1) ],
-    });
-  }
-
-  popStep = () => {
-    const { steps } = this.state;
-    this.setState({ steps: steps.slice(0, steps.length - 1) });
-  };
+  onStepEnter = ({ data }) => this.setState({ data });
 
   render() {
     const { data, steps } = this.state;
     const { classes } = this.props;
 
     return (
-      <div>
-        <div className={classes.btnContainer}>
-          <button onClick={this.pushStep} className={classes.btn}>Push step</button>
-          <button onClick={this.popStep} className={classes.btn} disabled={steps.length === 0}>Pop step</button>
+      <div className={classes.main}>
+        <div className={classes.scroller}>
+          <Scrollama onStepEnter={this.onStepEnter}>
+            {steps.map(value => (
+              <Step data={value} key={value}>
+                <div className={classes.step}>
+                  <p>step value: {value}</p>
+                </div>
+              </Step>
+            ))}
+          </Scrollama>
         </div>
-        <div>
-          <div className={classes.main}>
-            <div className={classes.scroller}>
-              <Scrollama
-                offset={0.33}
-                onStepEnter={this.onStepEnter}
-                onStepExit={this.onStepExit}
-                debug
-              >
-                {steps.map((value, index) => (
-                  <Step data={value} key={value + '-' + index}>
-                    <div className={classes.step}>
-                      <p>step value: {value}</p>
-                    </div>
-                  </Step>
-                ))}
-              </Scrollama>
-            </div>
-            <div className={classes.graphic}>
-              <p>{data}</p>
-            </div>
-          </div>
+        <div className={classes.graphic}>
+          <p>{data}</p>
         </div>
       </div>
     );
   }
 }
 
-const StyledMainApp = injectSheet(styles)(MainApp);
+const StyledGraphic = injectSheet(styles)(Graphic);
 
-ReactDOM.render(<StyledMainApp />, document.getElementById('root'));
+ReactDOM.render(<StyledGraphic />, document.getElementById('root'));
