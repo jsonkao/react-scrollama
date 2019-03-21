@@ -63,6 +63,13 @@ class Scrollama extends Component {
     this.cb.stepExit = onStepExit;
 
     this.isReady = true;
+
+    // offsetMargin stored in state because it's the only property that is
+    // changed after Scrollama's construction and may be rendered (<DebugOffset/>'s
+    // position depends on it)
+    this.state = {
+      offsetMargin: 0,
+    };
   }
 
   async componentDidMount() {
@@ -87,7 +94,7 @@ class Scrollama extends Component {
   handleResize = () => {
     this.viewH = window.innerHeight;
     this.pageH = getPageHeight();
-    this.offsetMargin = this.offsetVal * this.viewH;
+    this.setState({ offsetMargin: this.offsetVal * this.viewH });
 
     if (this.isReady) {
       // recalculate offset heights for each step
@@ -120,10 +127,11 @@ class Scrollama extends Component {
 
   // Create observers for intersections above steps
   updateStepAboveIO = () => {
+    const { offsetMargin } = this.state;
     this.io.stepAbove = this.stepElIds.map(id => {
       const step = this.getStep(id);
-      const marginTop = -this.offsetMargin + step.state.offsetHeight;
-      const marginBottom = this.offsetMargin - this.viewH;
+      const marginTop = -offsetMargin + step.state.offsetHeight;
+      const marginBottom = offsetMargin - this.viewH;
       const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
 
       const obs = new IntersectionObserver(this.intersectStepAbove, options);
@@ -133,10 +141,11 @@ class Scrollama extends Component {
   };
   // Create observers for intersections below steps
   updateStepBelowIO = () => {
+    const { offsetMargin } = this.state;
     this.io.stepBelow = this.stepElIds.map(id => {
       const step = this.getStep(id);
-      const marginTop = -this.offsetMargin;
-      const marginBottom = this.offsetMargin - this.viewH + step.state.offsetHeight;
+      const marginTop = -offsetMargin;
+      const marginBottom = offsetMargin - this.viewH + step.state.offsetHeight;
       const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
 
       const obs = new IntersectionObserver(this.intersectStepBelow, options);
@@ -150,11 +159,12 @@ class Scrollama extends Component {
   // Handles scrolling down and entering or scrolling up and leaving a step
   intersectStepAbove = ([ entry ]) => {
     this.updateDirection();
+    const { offsetMargin } = this.state;
     const { isIntersecting, boundingClientRect, target: { id } } = entry;
 
     const { top, bottom } = boundingClientRect;
-    const topAdjusted = top - this.offsetMargin;
-    const bottomAdjusted = bottom - this.offsetMargin;
+    const topAdjusted = top - offsetMargin;
+    const bottomAdjusted = bottom - offsetMargin;
 
     const step = this.getStep(id);
 
@@ -180,11 +190,12 @@ class Scrollama extends Component {
   // Handles scrolling up and entering or scrolling down and leaving a step
   intersectStepBelow = ([ entry ]) => {
     this.updateDirection();
+    const { offsetMargin } = this.state;
     const { isIntersecting, boundingClientRect, target: { id } } = entry;
 
     const { top, bottom } = boundingClientRect;
-    const topAdjusted = top - this.offsetMargin;
-    const bottomAdjusted = bottom - this.offsetMargin;
+    const topAdjusted = top - offsetMargin;
+    const bottomAdjusted = bottom - offsetMargin;
 
     const step = this.getStep(id);
 
@@ -237,7 +248,7 @@ class Scrollama extends Component {
     return (
       <Fragment>
         {this.isDebug && (
-          <DebugOffset offsetMargin={this.offsetMargin} offsetVal={this.offsetVal} />
+          <DebugOffset offsetMargin={this.state.offsetMargin} offsetVal={this.offsetVal} />
         )}
         {React.Children.map(this.props.children, (child, index) => {
           const id = this.stepElIds[index];
