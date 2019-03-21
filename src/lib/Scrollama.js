@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 import { getPageHeight } from './utils';
+import DebugOffset from './DebugOffset';
 
 const OBSERVER_NAMES = [
   'stepAbove',
@@ -28,6 +30,7 @@ class Scrollama extends Component {
 
   viewH = 0;
   pageH = 0;
+  offsetVal = 0;
   offsetMargin = 0;
 
   previousYOffset = 0;
@@ -41,21 +44,42 @@ class Scrollama extends Component {
     this.previousYOffset = window.pageYOffset;
   };
 
+  isReady = false;
+  isEnabled = false;
+  isDebug = true;
+
   constructor(props) {
     super(props);
-    const { children } = this.props;
+    const { children, onStepEnter, onStepExit, offset } = this.props;
 
     React.Children.forEach(children, () => {
       const childId = uuidv4();
       this[childId] = React.createRef();
       this.stepElIds.push(childId);
     });
+
+    this.offsetVal = offset;
+    this.cb.stepEnter = onStepEnter;
+    this.cb.stepExit = onStepExit;
+
+    this.isReady = true;
+  }
+
+  async componentDidMount() {
+    await this.handleResize();
+    this.handleEnable(true);
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    this.handleEnable(false);
   }
 
   getStep = id => {
     const step = this[id];
     if (step && step.current) {
-      return step;
+      return step.current;
     }
     throw 'Could not get step with id ' + id;
   };
@@ -63,16 +87,27 @@ class Scrollama extends Component {
   handleResize = () => {
     this.viewH = window.innerHeight;
     this.pageH = getPageHeight();
-    this.offsetMargin = this.props.offsetVal * this.viewH;
+    this.offsetMargin = this.offsetVal * this.viewH;
 
     if (this.isReady) {
       // recalculate offset heights for each step
       this.stepElIds.forEach(id => {
-        this.getStep(id).updateOffsetHeight();
+        const step = this.getStep(id);
+        step.updateOffsetHeight();
       });
       this.updateIO();
     }
   }
+
+  handleEnable = enable => {
+    if (enable && !this.isEnabled) {
+      if (this.isReady) this.updateIO();
+      this.isEnabled = true;
+    } else {
+      OBSERVER_NAMES.forEach(this.disconnectObserver);
+      this.isEnabled = false;
+    }
+  };
 
   // Recreate all intersection observers
   updateIO = () => {
@@ -98,7 +133,7 @@ class Scrollama extends Component {
   };
   // Create observers for intersections below steps
   updateStepBelowIO = () => {
-    this.io.stepAbove = this.stepElIds.map(id => {
+    this.io.stepBelow = this.stepElIds.map(id => {
       const step = this.getStep(id);
       const marginTop = -this.offsetMargin;
       const marginBottom = this.offsetMargin - this.viewH + step.state.offsetHeight;
@@ -131,6 +166,8 @@ class Scrollama extends Component {
         step.state.state !== 'enter'
     )
       this.notifyStepEnter(step, this.direction);
+
+    // Exiting from above means not intersecting and topAdjusted is positive
     if (
       !isIntersecting &&
         topAdjusted > 0 &&
@@ -161,7 +198,7 @@ class Scrollama extends Component {
       this.notifyStepEnter(step, this.direction);
     if (
       !isIntersecting &&
-        bottomAdjusted > 0 &&
+        bottomAdjusted < 0 &&
         this.direction === 'down' &&
         step.state.state === 'enter'
     )
@@ -197,12 +234,31 @@ class Scrollama extends Component {
   };
 
   render() {
-    return React.Children.map(this.props.children, (child, index) => {
-      const id = this.stepElIds[index];
-      return React.cloneElement(child, {
-        id,
-        ref: this[id],
-      });
-    });
+    return (
+      <Fragment>
+        {this.isDebug && (
+          <DebugOffset offsetMargin={this.offsetMargin} offsetVal={this.offsetVal} />
+        )}
+        {React.Children.map(this.props.children, (child, index) => {
+          const id = this.stepElIds[index];
+          return React.cloneElement(child, {
+            id,
+            ref: this[id],
+          });
+        })}
+      </Fragment>
+    );
   }
 }
+
+Scrollama.defaultProps = {
+  offset: 0.33,
+};
+
+Scrollama.propTypes = {
+  offsetVal: PropTypes.number,
+  onStepEnter: PropTypes.func,
+  onStepExit: PropTypes.func,
+};
+
+export default Scrollama;
