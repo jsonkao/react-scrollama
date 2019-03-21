@@ -9,12 +9,12 @@ class Step extends Component {
 
   nodeRef = React.createRef();
 
-  getDomNode = () => this.nodeRef.current;
+  getDOMNode = () => this.nodeRef.current;
 
   getData = () => this.props.data;
 
   updateOffsetHeight = () =>
-    this.setState({ offsetHeight: this.getDomNode().offsetHeight });
+    this.setState({ offsetHeight: this.getDOMNode().offsetHeight });
 
   enter = direction => this.setState({ state: 'enter', direction });
   exit = direction => this.setState({ state: 'exit', direction });
