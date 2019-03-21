@@ -49,7 +49,14 @@ class Graphic extends PureComponent {
     steps: [10, 20, 30],
   };
 
-  onStepEnter = ({ data }) => this.setState({ data });
+  onStepEnter = ({ element, data }) => {
+    element.style.backgroundColor = 'lightgoldenrodyellow';
+    this.setState({ data });
+  };
+
+  onStepExit = ({ element }) => {
+    element.style.backgroundColor = '#fff';
+  };
 
   render() {
     const { data, steps } = this.state;
@@ -58,7 +65,7 @@ class Graphic extends PureComponent {
     return (
       <div className={classes.main}>
         <div className={classes.scroller}>
-          <Scrollama onStepEnter={this.onStepEnter}>
+          <Scrollama onStepEnter={this.onStepEnter} onStepExit={this.onStepExit} offset={0.33} debug>
             {steps.map(value => (
               <Step data={value} key={value}>
                 <div className={classes.step}>

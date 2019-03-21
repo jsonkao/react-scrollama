@@ -9,7 +9,7 @@ const OBSERVER_NAMES = [
   'stepBelow',
   'stepProgress',
   'viewportAbove',
-  'viewportBelow'
+  'viewportBelow',
 ];
 
 class Scrollama extends Component {
@@ -17,7 +17,7 @@ class Scrollama extends Component {
   cb = {
     stepEnter: () => {},
     stepExit: () => {},
-    stepProgress: () => {}
+    stepProgress: () => {},
   };
 
   // stores intersection observers
@@ -46,11 +46,11 @@ class Scrollama extends Component {
 
   isReady = false;
   isEnabled = false;
-  isDebug = true;
+  isDebug = false;
 
   constructor(props) {
     super(props);
-    const { children, onStepEnter, onStepExit, offset } = this.props;
+    const { children, onStepEnter, onStepExit, offset, debug } = this.props;
 
     React.Children.forEach(children, () => {
       const childId = uuidv4();
@@ -63,6 +63,7 @@ class Scrollama extends Component {
     this.cb.stepExit = onStepExit;
 
     this.isReady = true;
+    this.isDebug = debug;
 
     // offsetMargin stored in state because it's the only property that is
     // changed after Scrollama's construction and may be rendered (<DebugOffset/>'s
@@ -104,7 +105,7 @@ class Scrollama extends Component {
       });
       this.updateIO();
     }
-  }
+  };
 
   handleEnable = enable => {
     if (enable && !this.isEnabled) {
@@ -132,7 +133,9 @@ class Scrollama extends Component {
       const step = this.getStep(id);
       const marginTop = -offsetMargin + step.state.offsetHeight;
       const marginBottom = offsetMargin - this.viewH;
-      const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
+      const options = {
+        rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
+      };
 
       const obs = new IntersectionObserver(this.intersectStepAbove, options);
       obs.observe(step.getDOMNode());
@@ -146,7 +149,9 @@ class Scrollama extends Component {
       const step = this.getStep(id);
       const marginTop = -offsetMargin;
       const marginBottom = offsetMargin - this.viewH + step.state.offsetHeight;
-      const options = { rootMargin: `${marginTop}px 0px ${marginBottom}px 0px` };
+      const options = {
+        rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
+      };
 
       const obs = new IntersectionObserver(this.intersectStepBelow, options);
       obs.observe(step.getDOMNode());
@@ -157,7 +162,7 @@ class Scrollama extends Component {
   /* INTERSECTION OBSERVER HANDLERS */
 
   // Handles scrolling down and entering or scrolling up and leaving a step
-  intersectStepAbove = ([ entry ]) => {
+  intersectStepAbove = ([entry]) => {
     this.updateDirection();
     const { offsetMargin } = this.state;
     const { isIntersecting, boundingClientRect, target: { id } } = entry;
@@ -170,25 +175,25 @@ class Scrollama extends Component {
 
     if (
       isIntersecting &&
-        topAdjusted <= 0 &&
-        bottomAdjusted >= 0 &&
-        this.direction === 'down' &&
-        step.state.state !== 'enter'
+      topAdjusted <= 0 &&
+      bottomAdjusted >= 0 &&
+      this.direction === 'down' &&
+      step.state.state !== 'enter'
     )
       this.notifyStepEnter(step, this.direction);
 
     // Exiting from above means not intersecting and topAdjusted is positive
     if (
       !isIntersecting &&
-        topAdjusted > 0 &&
-        this.direction === 'up' &&
-        step.state.state === 'enter'
+      topAdjusted > 0 &&
+      this.direction === 'up' &&
+      step.state.state === 'enter'
     )
       this.notifyStepExit(step, this.direction);
   };
 
   // Handles scrolling up and entering or scrolling down and leaving a step
-  intersectStepBelow = ([ entry ]) => {
+  intersectStepBelow = ([entry]) => {
     this.updateDirection();
     const { offsetMargin } = this.state;
     const { isIntersecting, boundingClientRect, target: { id } } = entry;
@@ -201,17 +206,17 @@ class Scrollama extends Component {
 
     if (
       isIntersecting &&
-        topAdjusted <= 0 &&
-        bottomAdjusted >= 0 &&
-        this.direction === 'up' &&
-        step.state.state !== 'enter'
+      topAdjusted <= 0 &&
+      bottomAdjusted >= 0 &&
+      this.direction === 'up' &&
+      step.state.state !== 'enter'
     )
       this.notifyStepEnter(step, this.direction);
     if (
       !isIntersecting &&
-        bottomAdjusted < 0 &&
-        this.direction === 'down' &&
-        step.state.state === 'enter'
+      bottomAdjusted < 0 &&
+      this.direction === 'down' &&
+      step.state.state === 'enter'
     )
       this.notifyStepExit(step, this.direction);
   };
@@ -227,8 +232,7 @@ class Scrollama extends Component {
       data: step.getData(),
       direction,
     };
-    if (this.cb.stepEnter)
-      this.cb.stepEnter(resp);
+    if (this.cb.stepEnter) this.cb.stepEnter(resp);
   };
 
   notifyStepExit = (step, direction) => {
@@ -240,15 +244,17 @@ class Scrollama extends Component {
       data: step.getData(),
       direction,
     };
-    if (this.cb.stepExit)
-      this.cb.stepExit(resp);
+    if (this.cb.stepExit) this.cb.stepExit(resp);
   };
 
   render() {
     return (
       <Fragment>
         {this.isDebug && (
-          <DebugOffset offsetMargin={this.state.offsetMargin} offsetVal={this.offsetVal} />
+          <DebugOffset
+            offsetMargin={this.state.offsetMargin}
+            offsetVal={this.offsetVal}
+          />
         )}
         {React.Children.map(this.props.children, (child, index) => {
           const id = this.stepElIds[index];
@@ -268,6 +274,7 @@ Scrollama.defaultProps = {
 
 Scrollama.propTypes = {
   offsetVal: PropTypes.number,
+  debug: PropTypes.bool,
   onStepEnter: PropTypes.func,
   onStepExit: PropTypes.func,
 };
