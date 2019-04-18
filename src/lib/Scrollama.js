@@ -15,13 +15,15 @@ const OBSERVER_NAMES = [
 class Scrollama extends Component {
   // step trigger callbacks
   cb = {
-    stepEnter: () => {},
-    stepExit: () => {},
-    stepProgress: () => {},
+    stepEnter: () => null,
+    stepExit: () => null,
+    stepProgress: () => null,
   };
 
-  // stores intersection observers
+  // intersection observers
   io = {};
+
+  // disconnects all observers of a certain function
   disconnectObserver = name =>
     this.io[name] && this.io[name].forEach(o => o.disconnect());
 
@@ -32,9 +34,10 @@ class Scrollama extends Component {
   pageH = 0;
   offsetVal = 0;
   offsetMargin = 0;
-
   previousYOffset = 0;
+
   direction = 'down';
+
   updateDirection = () => {
     if (window.pageYOffset > this.previousYOffset) {
       this.direction = 'down';
@@ -58,7 +61,8 @@ class Scrollama extends Component {
       this.stepElIds.push(childId);
     });
 
-    this.offsetVal = offset;
+    if (offset && !isNaN(offset))
+      this.offsetVal = Math.min(Math.max(0, offset), 1);
     this.cb.stepEnter = onStepEnter;
     this.cb.stepExit = onStepExit;
 
@@ -103,7 +107,7 @@ class Scrollama extends Component {
         const step = this.getStep(id);
         step.updateOffsetHeight();
       });
-      this.updateIO();
+      if (this.isEnabled) this.updateIO();
     }
   };
 
@@ -142,6 +146,7 @@ class Scrollama extends Component {
       return obs;
     });
   };
+
   // Create observers for intersections below steps
   updateStepBelowIO = () => {
     const { offsetMargin } = this.state;
@@ -212,6 +217,7 @@ class Scrollama extends Component {
       step.state.state !== 'enter'
     )
       this.notifyStepEnter(step, this.direction);
+
     if (
       !isIntersecting &&
       bottomAdjusted < 0 &&
@@ -224,7 +230,6 @@ class Scrollama extends Component {
   /* NOTIFY CALLBACKS */
 
   notifyStepEnter = (step, direction) => {
-    // Store most recent trigger
     step.enter(direction);
 
     const resp = {
@@ -236,7 +241,6 @@ class Scrollama extends Component {
   };
 
   notifyStepExit = (step, direction) => {
-    // Store most recent trigger
     step.exit(direction);
 
     const resp = {
