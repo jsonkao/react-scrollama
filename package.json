@@ -13,11 +13,9 @@
     "scrollytelling",
     "IntersectionObserver",
     "storytelling",
-    "visual journalism",
-    "data visualization",
+    "react-scrollama",
     "interactive",
-    "graphic",
-    "step"
+    "graphic"
   ],
   "repository": {
     "type": "git",
@@ -69,7 +67,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
-    "intersection-observer": "^0.5.0",
+    "intersection-observer": "^0.5.1",
     "react-jss": "^8.6.1"
   },
   "files": [
