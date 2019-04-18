@@ -14,14 +14,14 @@ As seen on [The Columbia Daily Spectator](columbiaspectator.com):
 
 [Take a look at the demo](https://jsonkao.github.io/react-scrollama/)
 
-## Installation
+## Install
 
 React Scrollama can be installed as an [npm package](https://www.npmjs.com/package/react-scrollama):
 ```
 $ npm install react-scrollama
 ```
 
-## Basic Usage
+## Usage
 
 A simple example with no frills.
 
