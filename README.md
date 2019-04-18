@@ -15,14 +15,14 @@ As seen on [The Columbia Daily Spectator](columbiaspectator.com):
 
 [Take a look at the demo](https://jsonkao.github.io/react-scrollama/)
 
-## Installation
+## Install
 
 React Scrollama can be installed as an [npm package](https://www.npmjs.com/package/react-scrollama):
 ```
 $ npm install react-scrollama
 ```
 
-## Basic Usage
+## Usage
 
 A simple example with no frills.
 
@@ -34,12 +34,12 @@ class Graphic extends PureComponent {
   state = {
     data: 0,
   };
-  
+
   onStepEnter = ({ element, data, direction }) => this.setState({ data });
-  
+
   render() {
     const { data } = this.state;
-    
+
     return (
       <div>
         <p>data: {data}</p>
@@ -51,7 +51,7 @@ class Graphic extends PureComponent {
             step 2
           </Step>
         </Scrollama>
-      </div>      
+      </div>
     );
   }
 }
@@ -89,6 +89,13 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 |----------|----------------|-------------|------------------------------------------------------------------|
 | data     | any            | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
 | children | PropTypes.node |    N/A      | Children must always be one component, not an array
+
+## Features roadmap
+
+* viewportAbove and viewportBelow intersection observers
+* thresholds and progress
+* preserving order
+
 ## Contributing
 
 You're welcome to contribute to React Scrollama. To setup the project:
