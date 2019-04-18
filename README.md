@@ -57,11 +57,6 @@ class Graphic extends PureComponent {
 }
 ```
 
-## Examples
-
-- [**Dynamic**](https://jsonkao.github.io/react-scrollama/) - Pushing and popping steps
-
-
 ## API
 
 #### `<Scrollama/>`
