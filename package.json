@@ -68,6 +68,7 @@
     "rollup-plugin-url": "^1.4.0"
   },
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "intersection-observer": "^0.5.0",
     "react-jss": "^8.6.1"
   },

@@ -28,8 +28,15 @@ export default {
     }),
     url(),
     babel({
+      babelrc: false,
+      runtimeHelpers: true,
+      presets: [
+        ['env', { modules: false }],
+        'stage-0',
+        'react',
+      ],
+      plugins: ['external-helpers', 'transform-runtime', 'transform-object-rest-spread'],
       exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
     }),
     resolve(),
     commonjs()
