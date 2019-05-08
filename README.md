@@ -31,10 +31,10 @@ $ npm install react-scrollama
 A simple example with no frills.
 
 ```js
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 
-class Graphic extends PureComponent {
+class Graphic extends Component {
   state = {
     data: 0,
   };
@@ -87,7 +87,7 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 | Prop     | Type           | Default     | Description                                                      |
 |----------|----------------|-------------|------------------------------------------------------------------|
 | data     | any            | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
-| children | PropTypes.node |    N/A      | Children must always be one component, not an array
+| children | PropTypes.node |    N/A      | Children must always be one component, not an array              |
 
 ## Features roadmap
 
