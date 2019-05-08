@@ -24,6 +24,8 @@ React Scrollama can be installed as an [npm package](https://www.npmjs.com/packa
 $ npm install react-scrollama
 ```
 
+**Note: You must include the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) yourself for cross-browser support. Also consider including a [`position: sticky` polyfill](https://github.com/dollarshaveclub/stickybits).**
+
 ## Usage
 
 A simple example with no frills.
