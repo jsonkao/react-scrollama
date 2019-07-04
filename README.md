@@ -49,10 +49,10 @@ class Graphic extends Component {
         <p>data: {data}</p>
         <Scrollama onStepEnter={this.onStepEnter}>
           <Step data={1}>
-            step 1
+            <p>step 1</p>
           </Step>
           <Step data={2}>
-            step 2
+            <p>step 2</p>
           </Step>
         </Scrollama>
       </div>
@@ -99,8 +99,8 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 
 You're welcome to contribute to React Scrollama. To setup the project:
 1. Fork and clone the repository.
-2. `npm install`
-3. `npm run dev`
+2. `npm install` in the library and the `example/`.
+3. `npm start` in the library and the `example/`.
 
 The docs page will then be served on http://localhost:8000/ in watch mode, meaning you don't have refresh the page to see your changes.
 
