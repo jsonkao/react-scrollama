@@ -10,7 +10,6 @@ React Scrollama is a simple interface for scrollytelling that uses [Intersection
 As seen on [The Columbia Daily Spectator](columbiaspectator.com):
 - [Lower-income undergraduate students are paying more and more to attend Columbia; wealthier students are paying less and less, federal data shows](https://www.columbiaspectator.com/news/net-price-inequity/)
 - [Librarians, Scholars, and Spies: How a Trove of Chinese Ancestral Records Found Refuge on Columbia’s Shelves](https://www.columbiaspectator.com/eye/2019/03/26/genealogy/)
-- [The Uptown Arts Stroll Paints a Portrait of Upper Manhattan](https://www.columbiaspectator.com/eye/uptown-arts/)
 - [In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.](https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity/)
 
 ## Demo
