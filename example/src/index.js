@@ -47,6 +47,7 @@ class Graphic extends PureComponent {
   state = {
     data: 0,
     steps: [10, 20, 30],
+    progress: 0,
   };
 
   onStepEnter = ({ element, data }) => {
@@ -59,11 +60,11 @@ class Graphic extends PureComponent {
   };
 
   onStepProgress = ({ element, progress }) => {
-    console.log(element, progress)
+    this.setState({ progress });
   }
 
   render() {
-    const { data, steps } = this.state;
+    const { data, steps, progress } = this.state;
     const { classes } = this.props;
 
     return (
@@ -74,6 +75,7 @@ class Graphic extends PureComponent {
               <Step data={value} key={value} prefix="hi">
                 <div className={classes.step}>
                   <p>step value: {value}</p>
+                  <p>{progress}</p>
                 </div>
               </Step>
             ))}

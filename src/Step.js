@@ -19,6 +19,7 @@ class Step extends Component {
 
   enter = direction => this.setState({ state: 'enter', direction });
   exit = direction => this.setState({ state: 'exit', direction });
+  progress = progress => this.setState({ progress });
 
   render() {
     const { id, children } = this.props;

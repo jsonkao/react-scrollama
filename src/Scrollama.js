@@ -192,7 +192,7 @@ class Scrollama extends Component {
   // Create observers for progress
   updateStepProgressIO = () => {    
     const { offsetMargin } = this.state;
-    this.io.stepProgress = this.stepEllIds.map(id => {
+    this.io.stepProgress = this.stepElIds.map(id => {
       const step = this.getStep(id);
       const marginTop = -offsetMargin + step.state.offsetHeight;
       const marginBottom = offsetMargin - this.viewH;
@@ -323,10 +323,16 @@ class Scrollama extends Component {
     };
     if (this.cb.stepEnter) this.cb.stepEnter(resp);
 
-    if (this.progressMode) this.notifyStepProgress(element);
+    if (this.progressMode) this.notifyStepProgress(step);
   };
 
   notifyStepExit = (step, direction) => {
+    if (this.progressMode) {
+      if (direction === 'down' && step.state.progress < 1)
+        this.notifyStepProgress(step, 1);
+      if (direction === 'up' && step.state.progress > 0)
+        this.notifyStepProgress(step, 0);
+    }
     step.exit(direction);
 
     const resp = {
