@@ -5,6 +5,7 @@ class Step extends Component {
     direction: null, // 'up' or 'down'
     state: null, // 'enter' or 'exit'
     offsetHeight: null,
+    progress: 0,
   };
 
   nodeRef = React.createRef();
@@ -18,6 +19,7 @@ class Step extends Component {
 
   enter = direction => this.setState({ state: 'enter', direction });
   exit = direction => this.setState({ state: 'exit', direction });
+  progress = progress => this.setState({ progress });
 
   render() {
     const { id, children } = this.props;

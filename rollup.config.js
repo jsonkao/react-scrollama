@@ -21,6 +21,7 @@ export default {
       sourcemap: true
     }
   ],
+  external: [ 'crypto' ],
   plugins: [
     external(),
     postcss({
