@@ -5,6 +5,7 @@ class Step extends Component {
     direction: null, // 'up' or 'down'
     state: null, // 'enter' or 'exit'
     offsetHeight: null,
+    progress: 0,
   };
 
   nodeRef = React.createRef();

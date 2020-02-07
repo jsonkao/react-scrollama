@@ -58,6 +58,10 @@ class Graphic extends PureComponent {
     element.style.backgroundColor = '#fff';
   };
 
+  onStepProgress = ({ element, progress }) => {
+    console.log(element, progress)
+  }
+
   render() {
     const { data, steps } = this.state;
     const { classes } = this.props;
@@ -65,9 +69,9 @@ class Graphic extends PureComponent {
     return (
       <div className={classes.main}>
         <div className={classes.scroller}>
-          <Scrollama onStepEnter={this.onStepEnter} onStepExit={this.onStepExit} offset={0.33} debug>
+          <Scrollama onStepEnter={this.onStepEnter} onStepExit={this.onStepExit} progress onStepProgress={this.onStepProgress} offset={0.33} debug>
             {steps.map(value => (
-              <Step data={value} key={value}>
+              <Step data={value} key={value} prefix="hi">
                 <div className={classes.step}>
                   <p>step value: {value}</p>
                 </div>
