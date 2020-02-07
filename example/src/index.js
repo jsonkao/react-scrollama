@@ -70,12 +70,19 @@ class Graphic extends PureComponent {
     return (
       <div className={classes.main}>
         <div className={classes.scroller}>
-          <Scrollama onStepEnter={this.onStepEnter} onStepExit={this.onStepExit} progress onStepProgress={this.onStepProgress} offset={0.33} debug>
+          <Scrollama
+            onStepEnter={this.onStepEnter}
+            onStepExit={this.onStepExit}
+            progress
+            onStepProgress={this.onStepProgress}
+            offset={0.33}
+            debug
+          >
             {steps.map(value => (
-              <Step data={value} key={value} prefix="hi">
+              <Step data={value} key={value}>
                 <div className={classes.step}>
                   <p>step value: {value}</p>
-                  <p>{progress}</p>
+                  <p>{value === data && progress}</p>
                 </div>
               </Step>
             ))}
