@@ -102,7 +102,7 @@ You're welcome to contribute to React Scrollama. To setup the project:
 2. `npm install` in the library and the `example/`.
 3. `npm start` in the library and the `example/`.
 
-The docs page will then be served on http://localhost:8000/ in watch mode, meaning you don't have refresh the page to see your changes.
+The docs page will then be served on http://localhost:3000/ in watch mode, meaning you don't have refresh the page to see your changes.
 
 ## License
 
