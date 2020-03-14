@@ -64,12 +64,13 @@ class Graphic extends Component {
 
 #### `<Scrollama/>`
 
-| Prop        | Type   | Default | Description                                                                            |
-|-------------|--------|---------|----------------------------------------------------------------------------------------|
-| offset      | number | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
-| debug       | bool   | false   | Whether to show visual debugging tools.                                                |
-| onStepEnter | func   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
-| onStepExit  | func   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
+| Prop            | Type   | Default | Description                                                                            |
+|-----------------|--------|---------|----------------------------------------------------------------------------------------|
+| offset          | number | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
+| debug           | bool   | false   | Whether to show visual debugging tools.                                                |
+| onStepEnter     | func   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
+| onStepExit      | func   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
+| onStepProgress  | func   |         | Callback that fires the progress a step has made through the threshold.                |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
@@ -78,6 +79,16 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
   direction, // 'up' or 'down'
+}
+```
+
+The `onStepProgress` callback receives one argument, an object, with the following properties:
+
+```
+{
+  element, // The DOM node of the step that was triggered
+  data, // The data supplied to the step
+  progress, // The percent of completion of the step (0 to 1)
 }
 ```
 
@@ -91,7 +102,6 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 ## Features roadmap
 
 * viewportAbove and viewportBelow intersection observers
-* thresholds and progress
 * preserving order
 
 ## Contributing
@@ -102,6 +112,8 @@ You're welcome to contribute to React Scrollama. To setup the project:
 3. `npm start` in the library and the `example/`.
 
 The docs page will then be served on http://localhost:3000/ in watch mode, meaning you don't have refresh the page to see your changes.
+
+To push the example up to `gh-pages`, run `npm predeploy` and `npm deploy`.
 
 ## License
 
