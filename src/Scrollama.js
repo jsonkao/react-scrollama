@@ -104,7 +104,7 @@ class Scrollama extends Component {
     await this.handleResize();
     this.handleEnable(true);
     window.addEventListener('resize', this.handleResize);
-    await this.handleResize();
+    await this.handleResize(); // TODO: remove redundancy
   }
 
   componentWillUnmount() {

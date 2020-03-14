@@ -113,7 +113,7 @@ You're welcome to contribute to React Scrollama. To setup the project:
 
 The docs page will then be served on http://localhost:3000/ in watch mode, meaning you don't have refresh the page to see your changes.
 
-To push the example up to `gh-pages`, run `npm predeploy` and `npm deploy`.
+To push the example up to `gh-pages`, run `npm run predeploy` and `npm run deploy`.
 
 ## License
 
