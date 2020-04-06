@@ -5,16 +5,15 @@
 [![devDependency Status](https://david-dm.org/jsonkao/react-scrollama/dev-status.svg)](https://david-dm.org/jsonkao/react-scrollama?type=dev)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-React Scrollama is a simple interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/) and was first introduced at React NYC: HyHNuVaZJ (watch the full talk [here](https://www.youtube.com/watch?v=zR_LDPLMUvE)).
+React Scrollama is a simple interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
 
 As seen on [The Columbia Daily Spectator](columbiaspectator.com):
 - [Lower-income undergraduate students are paying more and more to attend Columbia; wealthier students are paying less and less, federal data shows](https://www.columbiaspectator.com/news/net-price-inequity/)
-- [Librarians, Scholars, and Spies: How a Trove of Chinese Ancestral Records Found Refuge on Columbia’s Shelves](https://www.columbiaspectator.com/eye/2019/03/26/genealogy/)
 - [In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.](https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity/)
 
 ## Demo
 
-[Take a look at the demo](https://jsonkao.github.io/react-scrollama/)
+[Take a look at the demo.](https://jsonkao.github.io/react-scrollama/)
 
 ## Install
 
@@ -101,19 +100,19 @@ The `onStepProgress` callback receives one argument, an object, with the followi
 
 ## Features roadmap
 
-* viewportAbove and viewportBelow intersection observers
-* preserving order
+* Preserving order
+* `viewportAbove` and `viewportBelow` intersection observers
 
 ## Contributing
 
-You're welcome to contribute to React Scrollama. To setup the project:
+You're very welcome to contribute to React Scrollama. To setup the project:
 1. Fork and clone the repository.
-2. `npm install` in the library and the `example/`.
-3. `npm start` in the library and the `example/`.
+2. `npm install` both in the library and the `example/`.
+3. `npm start` both in the library and the `example/`.
 
-The docs page will then be served on http://localhost:3000/ in watch mode, meaning you don't have refresh the page to see your changes.
+The docs page will then be served on http://localhost:3000.
 
-To push the example up to `gh-pages`, run `npm run predeploy` and `npm run deploy`.
+To push the example build up to `gh-pages`, run `npm run predeploy` and `npm run deploy`.
 
 ## License
 
