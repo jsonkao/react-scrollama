@@ -106,7 +106,7 @@ The `onStepProgress` callback receives one argument, an object, with the followi
 
 ## Contributing
 
-You're very welcome to contribute to React Scrollama. To setup the project:
+All contributions are welcome. To setup the project:
 1. Fork and clone the repository.
 2. `npm install` both in the library and the `example/`.
 3. `npm start` both in the library and the `example/`.
@@ -114,6 +114,13 @@ You're very welcome to contribute to React Scrollama. To setup the project:
 The docs page will then be served on http://localhost:3000.
 
 To push the example build up to `gh-pages`, run `npm run predeploy` and `npm run deploy`.
+
+### Contributors
+
+* [jsonkao](https://github.com/jsonkao)
+* [NicholasLYang](https://github.com/NicholasLYang)
+* [jonesbp](https://github.com/jonesbp)
+* [kennethormandy](https://github.com/kennethormandy)
 
 ## License
 
