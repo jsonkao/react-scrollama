@@ -8,7 +8,7 @@
 React Scrollama is a simple interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
 
 As seen in:
-- [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) (POLITICO)
+- [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) ([POLITICO](https://github.com/The-Politico))
 - [Lower-income undergraduate students are paying more and more to attend Columbia; wealthier students are paying less and less, federal data shows](https://www.columbiaspectator.com/news/net-price-inequity) ([Columbia Daily Spectator](https://github.com/spec-journalism/))
 - [In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.](https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity/) ([Columbia Daily Spectator](https://github.com/spec-journalism/))
 
