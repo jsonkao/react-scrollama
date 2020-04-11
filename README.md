@@ -122,6 +122,7 @@ To push the example build up to `gh-pages`, run `npm run predeploy` and `npm run
 * [NicholasLYang](https://github.com/NicholasLYang)
 * [jonesbp](https://github.com/jonesbp)
 * [kennethormandy](https://github.com/kennethormandy)
+* [cedricdelpoux](https://github.com/cedricdelpoux)
 
 ## License
 
