@@ -68,6 +68,7 @@ class Graphic extends Component {
 |-----------------|--------|---------|----------------------------------------------------------------------------------------|
 | offset          | number | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
 | debug           | bool   | false   | Whether to show visual debugging tools.                                                |
+| progress        | bool   | false   | Whether to fire incremental step progress updates or not                               |
 | onStepEnter     | func   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
 | onStepExit      | func   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
 | onStepProgress  | func   |         | Callback that fires the progress a step has made through the threshold.                |
