@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
+import crypto from 'crypto';
 import { getPageHeight } from './utils';
 import DebugOffset from './DebugOffset';
 
@@ -73,7 +73,7 @@ class Scrollama extends Component {
       if (prefix) {
         childId = `scrollama-${prefix}-${idx}`;
       } else {
-        childId = uuidv4();
+        childId = crypto.randomBytes(16).toString('hex');
       }
       this[childId] = React.createRef();
       this.stepElIds.push(childId);
