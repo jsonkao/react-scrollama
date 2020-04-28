@@ -1,6 +1,6 @@
 {
   "name": "react-scrollama",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "A simple scrollytelling interface for React using the IntersectionObserver.",
   "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
   "license": "MIT",
