@@ -71,5 +71,9 @@
   },
   "files": [
     "dist"
-  ]
-}
+  ],
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  }

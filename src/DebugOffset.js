@@ -20,7 +20,9 @@ const styles = {
 
 const DebugOffset = ({ classes, offsetMargin, offsetVal }) => (
   <div className={classes.marker} style={{ top: offsetMargin }}>
-    <p className={classes.offsetInfo}>trigger: {offsetVal}</p>
+    <p className={classes.offsetInfo}>
+      trigger: { offsetVal }
+    </p>
   </div>
 );
 

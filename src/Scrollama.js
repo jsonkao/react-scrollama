@@ -65,7 +65,7 @@ class Scrollama extends Component {
       offset,
       progress,
       threshold,
-      debug
+      debug,
     } = this.props;
 
     React.Children.forEach(children, (child, idx) => {
@@ -147,7 +147,6 @@ class Scrollama extends Component {
 
   // Recreate all intersection observers
   updateIO = () => {
-    console.log('update io')
     OBSERVER_NAMES.forEach(this.disconnectObserver);
     this.updateStepAboveIO();
     this.updateStepBelowIO();
@@ -192,7 +191,7 @@ class Scrollama extends Component {
   };
 
   // Create observers for progress
-  updateStepProgressIO = () => {    
+  updateStepProgressIO = () => {
     const { offsetMargin } = this.state;
     this.io.stepProgress = this.stepElIds.map(id => {
       const step = this.getStep(id);
@@ -200,7 +199,7 @@ class Scrollama extends Component {
       const marginBottom = offsetMargin - this.viewH;
       const options = {
         rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
-        threshold: this.createThreshold(step.state.offsetHeight)
+        threshold: this.createThreshold(step.state.offsetHeight),
       };
 
       const obs = new IntersectionObserver(this.intersectStepProgress, options);
@@ -290,14 +289,15 @@ class Scrollama extends Component {
     const bottomAdjusted = bottom - this.state.offsetMargin;
     if (isIntersecting && bottomAdjusted >= 0)
       this.notifyStepProgress(this.getStep(id), +intersectionRatio.toFixed(3));
-  }
+  };
 
   createThreshold = height => {
     const count = Math.ceil(height / this.progressThreshold);
     const t = [];
     const ratio = 1 / count;
-    for (let i = 0; i < count; i += 1)
+    for (let i = 0; i < count; i += 1) {
       t.push(i * ratio);
+    }
     t.push(1);
     return t;
   };
@@ -305,8 +305,7 @@ class Scrollama extends Component {
   /* NOTIFY CALLBACKS */
 
   notifyStepProgress = (step, progress) => {
-    if (progress !== undefined)
-      step.progress(progress)
+    if (progress !== undefined) step.progress(progress);
 
     const resp = {
       element: step.getDOMNode(),
@@ -314,7 +313,7 @@ class Scrollama extends Component {
       progress: step.state.progress,
     };
     if (step.state.state === 'enter') this.cb.stepProgress(resp);
-  }
+  };
 
   notifyStepEnter = (step, direction) => {
     step.enter(direction);
