@@ -7,8 +7,8 @@
   <a href="https://david-dm.org/jsonkao/react-scrollama">
     <img src="https://david-dm.org/jsonkao/react-scrollama.svg" alt="dependency status"/>
   </a>
-  <a href="https://david-dm.org/jsonkao/react-scrollama?type=dev">
-    <img src="https://david-dm.org/jsonkao/react-scrollama/dev-status.svg" alt="devDependency status"/>
+  <a href="https://github.com/jsonkao/react-scrollama/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-scrollama.svg" alt="license">
   </a>
   <a href="https://github.com/prettier/prettier">
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="prettier">
