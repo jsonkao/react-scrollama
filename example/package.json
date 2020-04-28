@@ -8,8 +8,9 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scrollama": "file:../",
-    "react-scripts": "^1.1.4"
+    "react-jss": "^10.1.1",
+    "react-scripts": "^1.1.4",
+    "react-scrollama": "file:../"
   },
   "scripts": {
     "start": "react-scripts start",
