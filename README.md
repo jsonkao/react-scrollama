@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/npm/v/react-scrollama.svg" alt="npm version"/>
   </a>
   <a href="https://david-dm.org/jsonkao/react-scrollama">
-    <img src="https://david-dm.org/jsonkao/react-scrollama.svg" alt="dependency status"/>
+    <img src="https://img.shields.io/david/jsonkao/react-scrollama" alt="dependency status"/>
   </a>
   <a href="https://github.com/jsonkao/react-scrollama/blob/master/LICENSE">
     <img src="https://img.shields.io/npm/l/react-scrollama.svg" alt="license">
