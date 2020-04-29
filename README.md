@@ -9,7 +9,7 @@
   </a>
 </p>
 
-React Scrollama is a simple interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
+React Scrollama is a lightweight interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
 
 As seen in:
 - [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) ([POLITICO](https://github.com/The-Politico))
@@ -27,11 +27,11 @@ React Scrollama can be installed as an [npm package](https://www.npmjs.com/packa
 $ npm install react-scrollama
 ```
 
-**Note: You must include the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) yourself for cross-browser support. Also consider including a [`position: sticky` polyfill](https://github.com/dollarshaveclub/stickybits).**
+**Note: As of version 2.2.0, the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) has been removed from the build. You must include it yourself for cross-browser support. -browser support.** Check [here](https://caniuse.com/#feat=intersectionobserver) to see if you need to include the polyfill.
 
 ## Usage
 
-A simple example with no frills.
+An example with no frills:
 
 ```js
 import React, { Component } from 'react';
