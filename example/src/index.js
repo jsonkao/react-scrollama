@@ -61,7 +61,7 @@ class Graphic extends PureComponent {
 
   onStepProgress = ({ element, progress }) => {
     this.setState({ progress });
-  }
+  };
 
   render() {
     const { data, steps, progress } = this.state;
@@ -82,7 +82,7 @@ class Graphic extends PureComponent {
               <Step data={value} key={value}>
                 <div className={classes.step}>
                   <p>step value: {value}</p>
-                  <p>{value === data && progress}</p>
+                  { value === data && <p>{Math.round(progress * 100)}%</p> }
                 </div>
               </Step>
             ))}
