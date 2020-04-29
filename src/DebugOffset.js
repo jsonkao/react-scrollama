@@ -19,9 +19,7 @@ const offsetTextStyles = {
 
 const DebugOffset = ({ offsetMargin, offsetVal }) => (
   <div style={{ ...markerStyles, top: offsetMargin }}>
-    <p style={offsetTextStyles}>
-      trigger: { offsetVal }
-    </p>
+    <p style={offsetTextStyles}>trigger: {offsetVal}</p>
   </div>
 );
 
