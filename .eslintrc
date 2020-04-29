@@ -1,7 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": "eslint:recommended",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 2015
   },
   "rules": {
     "import/no-named-as-default": 0,

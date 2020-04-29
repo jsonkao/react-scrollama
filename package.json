@@ -1,7 +1,7 @@
 {
   "name": "react-scrollama",
   "version": "2.2.1",
-  "description": "A simple scrollytelling interface for React using the IntersectionObserver.",
+  "description": "A lightweight scrollytelling interface for React using the IntersectionObserver.",
   "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
   "license": "MIT",
   "homepage": "https://jsonkao.github.io/react-scrollama/",
@@ -38,32 +38,24 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-function-bind": "^7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
-    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@babel/preset-stage-0": "^7.8.3",
-    "babel-loader": "^8.1.0",
+    "@rollup/plugin-babel": "^5.0.0",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
     "cross-env": "^7.0.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
     "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rollup": "^1.31.0",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-postcss": "^3.1.1",
-    "rollup-plugin-url": "^3.0.1"
+    "rollup": "^2.7.5",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-peer-deps-external": "^2.2.0"
   },
   "files": [
     "dist"
@@ -72,5 +64,6 @@
     "trailingComma": "all",
     "singleQuote": true,
     "arrowParens": "avoid"
-  }
+  },
+  "dependencies": {}
 }
