@@ -12,13 +12,13 @@
 React Scrollama is a lightweight interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
 
 As seen in:
-- [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) ([POLITICO](https://github.com/The-Politico))
 - [Lower-income undergraduate students are paying more and more to attend Columbia; wealthier students are paying less and less, federal data shows](https://www.columbiaspectator.com/news/net-price-inequity) ([Columbia Daily Spectator](https://github.com/graphicsdesk))
+- [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) ([POLITICO](https://github.com/The-Politico))
 - [In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.](https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity/) ([Columbia Daily Spectator](https://github.com/graphicsdesk))
 
 ## Demo
 
-[Take a look at the demo.](https://jsonkao.github.io/react-scrollama/)
+Take a look at [the demo](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
 
 ## Install
 
@@ -27,11 +27,11 @@ React Scrollama can be installed as an [npm package](https://www.npmjs.com/packa
 $ npm install react-scrollama
 ```
 
-**Note: As of version 2.2.0, the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) has been removed from the build. You must include it yourself for cross-browser support. -browser support.** Check [here](https://caniuse.com/#feat=intersectionobserver) to see if you need to include the polyfill.
+**Note: As of version 2.2.0, the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) has been removed from the build. You must include it yourself for cross-browser support.** Check [here](https://caniuse.com/#feat=intersectionobserver) to see if you need to include the polyfill.
 
 ## Usage
 
-An example with no frills:
+A no-frills example:
 
 ```js
 import React, { Component } from 'react';
@@ -42,21 +42,24 @@ class Graphic extends Component {
     data: 0,
   };
 
-  onStepEnter = ({ element, data, direction }) => this.setState({ data });
+  onStepEnter = ({ data }) => this.setState({ data });
 
   render() {
     const { data } = this.state;
 
     return (
       <div>
-        <p>data: {data}</p>
-        <Scrollama onStepEnter={this.onStepEnter}>
-          <Step data={1}>
-            <p>step 1</p>
-          </Step>
-          <Step data={2}>
-            <p>step 2</p>
-          </Step>
+        <p style={{ position: 'sticky', top: 0 }}>data: {data}</p>
+        <Scrollama onStepEnter={this.onStepEnter} debug>
+          {[1, 2, 3, 4].map((d, i) => (
+            <Step data={d} key={i}>
+              <div style={{ margin: '50vh 0' }}>
+                <p>
+                  step index = {i}; data value = {d}
+                </p>
+              </div>
+            </Step>
+          ))}
         </Scrollama>
       </div>
     );
@@ -79,7 +82,7 @@ class Graphic extends Component {
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
-```
+```js
 {
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
@@ -89,7 +92,7 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
 
 The `onStepProgress` callback receives one argument, an object, with the following properties:
 
-```
+```js
 {
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
