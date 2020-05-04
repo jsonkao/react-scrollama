@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import crypto from 'crypto';
 import { getPageHeight } from './utils';
 import DebugOffset from './DebugOffset';
 
@@ -69,12 +68,7 @@ class Scrollama extends Component {
     } = this.props;
 
     React.Children.forEach(children, (child, idx) => {
-      let childId;
-      if (prefix) {
-        childId = `scrollama-${prefix}-${idx}`;
-      } else {
-        childId = crypto.randomBytes(16).toString('hex');
-      }
+      const childId = `scrollama-${prefix ? prefix + '-' : ''}${idx}`;
       this[childId] = React.createRef();
       this.stepElIds.push(childId);
     });
