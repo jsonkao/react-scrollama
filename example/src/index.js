@@ -4,8 +4,38 @@ import injectSheet from 'react-jss';
 import { Scrollama, Step } from 'react-scrollama';
 
 const styles = {
-  main: {
-    padding: '70vh 2vw',
+  navbar: {
+    position: 'fixed',
+    display: 'flex',
+    top: 0,
+    right: 0,
+    zIndex: 1,
+    '& a': {
+      display: 'block',
+      fontFamily: 'Helvetica',
+      fontSize: '20px',
+      color: '#00e',
+      padding: '20px',
+    },
+  },
+  pageTitle: {
+    fontFamily: 'Helvetica',
+    textAlign: 'center',
+    fontSize: '30px',
+    margin: '110px 0 10px',
+    '& a': {
+      color: '#00e',
+    },
+  },
+  pageSubtitle: {
+    margin: 0,
+    fontFamily: 'Helvetica',
+    textAlign: 'center',
+    fontSize: '24px',
+    color: '#888',
+  },
+  graphicContainer: {
+    padding: '40vh 2vw 70vh',
     display: 'flex',
     fontFamily: 'Helvetica',
     justifyContent: 'space-between',
@@ -68,28 +98,38 @@ class Graphic extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <div className={classes.main}>
-        <div className={classes.scroller}>
-          <Scrollama
-            onStepEnter={this.onStepEnter}
-            onStepExit={this.onStepExit}
-            progress
-            onStepProgress={this.onStepProgress}
-            offset={0.33}
-            debug
-          >
-            {steps.map(value => (
-              <Step data={value} key={value}>
-                <div className={classes.step}>
-                  <p>step value: {value}</p>
-                  {value === data && <p>{Math.round(progress * 100)}%</p>}
-                </div>
-              </Step>
-            ))}
-          </Scrollama>
+      <div>
+        <div className={classes.navbar}>
+          <a href="https://github.com/jsonkao/react-scrollama">GitHub</a>
         </div>
-        <div className={classes.graphic}>
-          <p>{data}</p>
+        <p className={classes.pageTitle}>
+          <a href="https://github.com/jsonkao/react-scrollama">React Scrollama</a>
+          {' '}Example
+        </p>
+        <p className={classes.pageSubtitle}>Scroll ↓</p>
+        <div className={classes.graphicContainer}>
+          <div className={classes.scroller}>
+            <Scrollama
+              onStepEnter={this.onStepEnter}
+              onStepExit={this.onStepExit}
+              progress
+              onStepProgress={this.onStepProgress}
+              offset={0.4}
+              debug
+            >
+              {steps.map(value => (
+                <Step data={value} key={value}>
+                  <div className={classes.step}>
+                    <p>step value: {value}</p>
+                    {value === data && <p>{Math.round(progress * 100)}%</p>}
+                  </div>
+                </Step>
+              ))}
+            </Scrollama>
+          </div>
+          <div className={classes.graphic}>
+            <p>{data}</p>
+          </div>
         </div>
       </div>
     );
