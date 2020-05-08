@@ -29,6 +29,7 @@
 
   // environments define allowed global variables
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   }
 }

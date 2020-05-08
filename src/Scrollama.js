@@ -115,6 +115,7 @@ class Scrollama extends Component {
   };
 
   handleResize = () => {
+    console.log(this.props)
     this.viewH = window.innerHeight;
     this.pageH = getPageHeight();
     this.setState({ offsetMargin: this.offsetVal * this.viewH });
