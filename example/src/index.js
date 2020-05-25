@@ -121,7 +121,7 @@ class Graphic extends PureComponent {
                 <Step data={value} key={value}>
                   <div className={classes.step}>
                     <p>step value: {value}</p>
-                    {value === data && <p>{Math.round(progress * 100)}%</p>}
+                    <p>progress: {Math.round(progress * 100)}%</p>
                   </div>
                 </Step>
               ))}
