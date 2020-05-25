@@ -29,7 +29,7 @@ class Scrollama extends Component {
   // stores step elements by id
   stepElIds = [];
 
-  viewH = 0;
+  viewH = window.innerHeight;
   pageH = 0;
   offsetVal = 0;
   offsetMargin = 0;
@@ -90,7 +90,7 @@ class Scrollama extends Component {
     // changed after Scrollama's construction and may be rendered (<DebugOffset/>'s
     // position depends on it)
     this.state = {
-      offsetMargin: 0,
+      offsetMargin: this.offsetVal * this.viewH,
     };
   }
 
@@ -137,7 +137,7 @@ class Scrollama extends Component {
     if (enable && !this.isEnabled) {
       if (this.isReady) {
         this.updateIO();
-    } else {
+      } else {
         console.error(
           'react scrollama: handleEnable() called before scroller was ready',
         );
