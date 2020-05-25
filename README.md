@@ -121,7 +121,7 @@ All contributions are welcome. To setup the project:
 
 The docs page will then be served on http://localhost:3000.
 
-To push the example build up to `gh-pages`, run `npm run predeploy` and `npm run deploy`.
+To push the example build up to `gh-pages`, run `npm run deploy`.
 
 ### Contributors
 
