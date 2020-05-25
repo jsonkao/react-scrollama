@@ -231,7 +231,8 @@ class Scrollama extends Component {
     // Exiting from above means not intersecting and topAdjusted is positive
     if (
       !isIntersecting &&
-      topAdjusted > 0 &&
+      // Should be >0, but >-0.01 fixes a weird floating point issue in Chrome
+      topAdjusted > -0.01 &&
       this.direction === 'up' &&
       step.state.state === 'enter'
     )
