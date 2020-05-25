@@ -95,13 +95,17 @@ class Scrollama extends Component {
   }
 
   componentDidMount() {
+    window.addEventListener('load', this.domDidLoad.bind(this));
+  }
+
+  domDidLoad() {
     this.handleResize();
     this.handleEnable(true);
     window.addEventListener('resize', this.handleResize);
-    this.handleResize(); // TODO: remove redundancy
   }
 
   componentWillUnmount() {
+    window.removeEventListener('load', this.domDidLoad.bind(this));
     window.removeEventListener('resize', this.handleResize);
     this.handleEnable(false);
   }
@@ -131,12 +135,20 @@ class Scrollama extends Component {
 
   handleEnable = enable => {
     if (enable && !this.isEnabled) {
-      if (this.isReady) this.updateIO();
-      this.isEnabled = true;
+      if (this.isReady) {
+        this.updateIO();
     } else {
-      OBSERVER_NAMES.forEach(this.disconnectObserver);
-      this.isEnabled = false;
+        console.error(
+          'react scrollama: handleEnable() called before scroller was ready',
+        );
+        this.isEnabled = false;
+        return;
+      }
     }
+    if (!enable && this.isEnabled) {
+      OBSERVER_NAMES.forEach(this.disconnectObserver);
+    }
+    this.isEnabled = enable;
   };
 
   // Recreate all intersection observers
@@ -283,17 +295,16 @@ class Scrollama extends Component {
 
     const bottomAdjusted = bottom - this.state.offsetMargin;
     if (isIntersecting && bottomAdjusted >= 0)
-      this.notifyStepProgress(this.getStep(id), +intersectionRatio.toFixed(3));
+      this.notifyStepProgress(this.getStep(id), intersectionRatio);
   };
 
   createThreshold = height => {
     const count = Math.ceil(height / this.progressThreshold);
     const t = [];
     const ratio = 1 / count;
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i <= count; i += 1) {
       t.push(i * ratio);
     }
-    t.push(1);
     return t;
   };
 
