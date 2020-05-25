@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b29f7d0ae72a00223e2fe9830125d912",
+    "revision": "358b5c9603cb62b6884299b0f93ba19e",
     "url": "/react-scrollama/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-scrollama/static/js/2.8dd8a381.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aaf64108cb5174cf3a7c",
-    "url": "/react-scrollama/static/js/main.89dd6680.chunk.js"
+    "revision": "0523dffab0a456057a0e",
+    "url": "/react-scrollama/static/js/main.7dadb51c.chunk.js"
   },
   {
     "revision": "f1c6e1c9e95d89efd413",
