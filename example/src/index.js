@@ -85,8 +85,11 @@ class Graphic extends PureComponent {
     this.setState({ data });
   };
 
-  onStepExit = ({ element }) => {
+  onStepExit = ({ element, direction, data }) => {
     element.style.backgroundColor = '#fff';
+    if (direction === 'up' && data === this.state.steps[0]) {
+      this.setState({ data: 0 });
+    }
   };
 
   onStepProgress = ({ element, progress }) => {
@@ -121,7 +124,7 @@ class Graphic extends PureComponent {
                 <Step data={value} key={value}>
                   <div className={classes.step}>
                     <p>step value: {value}</p>
-                    <p>progress: {Math.round(progress * 100)}%</p>
+                    <p>progress: {value === data ? Math.round(progress * 100) : ''}%</p>
                   </div>
                 </Step>
               ))}
