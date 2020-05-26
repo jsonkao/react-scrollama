@@ -66,6 +66,7 @@ const styles = {
       textAlign: 'center',
       padding: '1rem',
       fontSize: '1.5rem',
+      margin: 0,
     },
     '&:last-child': {
       marginBottom: 0,
@@ -106,8 +107,10 @@ class Graphic extends PureComponent {
           <a href="https://github.com/jsonkao/react-scrollama">GitHub</a>
         </div>
         <p className={classes.pageTitle}>
-          <a href="https://github.com/jsonkao/react-scrollama">React Scrollama</a>
-          {' '}Example
+          <a href="https://github.com/jsonkao/react-scrollama">
+            React Scrollama
+          </a>{' '}
+          Example
         </p>
         <p className={classes.pageSubtitle}>Scroll ↓</p>
         <div className={classes.graphicContainer}>
@@ -124,7 +127,10 @@ class Graphic extends PureComponent {
                 <Step data={value} key={value}>
                   <div className={classes.step}>
                     <p>step value: {value}</p>
-                    <p>progress: {value === data ? Math.round(progress * 100) : ''}%</p>
+                    <p>
+                      progress:{' '}
+                      {value === data ? Math.round(progress * 100) + '%' : ''}
+                    </p>
                   </div>
                 </Step>
               ))}
