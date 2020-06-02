@@ -125,6 +125,7 @@ The `onStepProgress` callback receives one argument, an object, with the followi
 * [jonesbp](https://github.com/jonesbp)
 * [kennethormandy](https://github.com/kennethormandy)
 * [cedricdelpoux](https://github.com/cedricdelpoux)
+* [davidnmora](https://github.com/davidnmora)
 
 ## License
 
