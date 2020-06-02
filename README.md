@@ -34,37 +34,36 @@ $ npm install react-scrollama
 A no-frills example:
 
 ```js
-import React, { Component } from 'react';
-import { Scrollama, Step } from 'react-scrollama';
+import React, {useState} from 'react'
+import {Scrollama, Step} from 'react-scrollama'
 
-class Graphic extends Component {
-  state = {
-    data: 0,
-  };
-
-  onStepEnter = ({ data }) => this.setState({ data });
-
-  render() {
-    const { data } = this.state;
-
-    return (
-      <div>
-        <p style={{ position: 'sticky', top: 0 }}>data: {data}</p>
-        <Scrollama onStepEnter={this.onStepEnter} debug>
-          {[1, 2, 3, 4].map((d, i) => (
-            <Step data={d} key={i}>
-              <div style={{ margin: '50vh 0' }}>
-                <p>
-                  step index = {i}; data value = {d}
-                </p>
-              </div>
-            </Step>
-          ))}
-        </Scrollama>
-      </div>
-    );
+const ScrollamaDemo = () => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(null)
+  
+  // When a Scrollama Step is triggered the callback receives its data prop, which in this demo stores the step index.
+  const onStepEnter = ({ data }) => {
+    setCurrentStepIndex(data) 
   }
+  
+  return (
+    <div style={{ margin: '50vh 0', border: '2px dashed skyblue' }}>
+      <div style={{ position: "sticky", top: 0, border: '1px dashed orchid' }}>
+        I'm sticky. The current triggered step index is: {currentStepIndex}
+      </div>
+      <Scrollama onStepEnter={onStepEnter} debug>
+        {[1, 2, 3, 4].map((_, stepIndex) => (
+          <Step data={stepIndex} key={stepIndex}>
+            <div style={{ margin: '50vh 0', border: '1px dashed gray', opacity: currentStepIndex === stepIndex ? 1 : 0.2 }}>
+              I'm a Scrollama Step of index {stepIndex}.
+            </div>
+          </Step>
+        ))}
+      </Scrollama>
+    </div>
+  )
 }
+
+export default ScrollamaDemo
 ```
 
 ## API
