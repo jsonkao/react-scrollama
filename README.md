@@ -61,7 +61,7 @@ const ScrollamaDemo = () => {
                 opacity: currentStepIndex === stepIndex ? 1 : 0.2,
               }}
             >
-              I'm a Scrollama Step of index {stepIndex}.
+              I'm a Scrollama Step of index {stepIndex}
             </div>
           </Step>
         ))}
@@ -81,9 +81,10 @@ A `Scrollama` component should wrap a set of steps. These are the props you can 
 
 | Prop            | Type   | Default | Description                                                                            |
 |-----------------|--------|---------|----------------------------------------------------------------------------------------|
-| offset          | `number` | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
+| offset          | `number` (from 0 to 1) | 0.3     | How far from the top of the viewport to trigger a step.        |
 | debug           | `boolean`   | false   | Whether to show visual debugging tools.                                                |
 | progress        | `boolean`   | false   | Whether to fire incremental step progress updates or not                               |
+| threshold        | `number` (greater than 1)   | 4   | The granularity of the progress interval in pixels (smaller = more granular)                               |
 | onStepEnter     | `function`   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
 | onStepExit      | `function`   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
 | onStepProgress  | `function`   |         | Callback that fires the progress a step has made through the threshold.                |
