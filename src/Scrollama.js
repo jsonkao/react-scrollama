@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { getPageHeight } from './utils';
 import DebugOffset from './DebugOffset';
 
 const OBSERVER_NAMES = [
@@ -60,13 +58,13 @@ class Scrollama extends Component {
       onStepEnter,
       onStepExit,
       onStepProgress,
-      offset,
-      progress,
-      threshold,
+      offset = 0.3,
+      progress = false,
+      threshold = 4,
       debug,
     } = this.props;
 
-    React.Children.forEach(children, (child, idx) => {
+    React.Children.forEach(children, (_, idx) => {
       const childId = `react-scrollama-${idx}`;
       this[childId] = React.createRef();
       this.stepElIds.push(childId);
@@ -372,18 +370,18 @@ class Scrollama extends Component {
   }
 }
 
-Scrollama.defaultProps = {
-  offset: 0.33,
-  progress: false,
-  threshold: 4,
+function getPageHeight() {
+  const body = document.body;
+  const html = document.documentElement;
+
+  return Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight,
+  );
 };
 
-Scrollama.propTypes = {
-  offsetVal: PropTypes.number,
-  debug: PropTypes.bool,
-  onStepEnter: PropTypes.func,
-  onStepExit: PropTypes.func,
-  onStepProgress: PropTypes.func,
-};
 
 export default Scrollama;
