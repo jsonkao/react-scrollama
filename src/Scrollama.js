@@ -107,7 +107,10 @@ class Scrollama extends Component {
     this.handleEnable(false);
   }
 
-  getStep = id => {
+  /* Get step can take a step id or grab an id off a target element */
+  getStep = arg => {
+    const id =
+      arg instanceof Element ? arg.getAttribute('data-react-scrollama-id') : arg;
     const step = this[id];
     if (step && step.current) {
       return step.current;
@@ -220,13 +223,13 @@ class Scrollama extends Component {
     const {
       isIntersecting,
       boundingClientRect: { top, bottom },
-      target: { id },
+      target,
     } = entry;
 
     const topAdjusted = top - offsetMargin;
     const bottomAdjusted = bottom - offsetMargin;
 
-    const step = this.getStep(id);
+    const step = this.getStep(target);
 
     if (
       isIntersecting &&
@@ -256,13 +259,13 @@ class Scrollama extends Component {
     const {
       isIntersecting,
       boundingClientRect: { top, bottom },
-      target: { id },
+      target,
     } = entry;
 
     const topAdjusted = top - offsetMargin;
     const bottomAdjusted = bottom - offsetMargin;
 
-    const step = this.getStep(id);
+    const step = this.getStep(target);
 
     if (
       isIntersecting &&
@@ -288,12 +291,12 @@ class Scrollama extends Component {
       isIntersecting,
       intersectionRatio,
       boundingClientRect: { bottom },
-      target: { id },
+      target,
     } = entry;
 
     const bottomAdjusted = bottom - this.state.offsetMargin;
     if (isIntersecting && bottomAdjusted >= 0)
-      this.notifyStepProgress(this.getStep(id), intersectionRatio);
+      this.notifyStepProgress(this.getStep(target), intersectionRatio);
   };
 
   createThreshold = height => {
@@ -361,7 +364,7 @@ class Scrollama extends Component {
         {React.Children.map(this.props.children, (child, index) => {
           const id = this.stepElIds[index];
           return React.cloneElement(child, {
-            id,
+            scrollamaId: id,
             ref: this[id],
           });
         })}
@@ -381,7 +384,6 @@ function getPageHeight() {
     html.scrollHeight,
     html.offsetHeight,
   );
-};
-
+}
 
 export default Scrollama;

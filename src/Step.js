@@ -24,12 +24,12 @@ class Step extends Component {
   progress = progress => this.setState({ progress });
 
   render() {
-    const { id, children } = this.props;
+    const { scrollamaId, children } = this.props;
 
     return React.cloneElement(React.Children.only(children), {
-      // place id on child to retrieve id from the raw DOM node (which
+      // place attribuet on child to retrieve id from the raw DOM node (which
       // is what the intersection observer gives our callback
-      id,
+      'data-react-scrollama-id': scrollamaId,
 
       // place ref on child to calculate offsets
       ref: this.nodeRef,
