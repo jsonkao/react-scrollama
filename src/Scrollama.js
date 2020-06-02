@@ -57,7 +57,6 @@ class Scrollama extends Component {
     super(props);
     const {
       children,
-      prefix,
       onStepEnter,
       onStepExit,
       onStepProgress,
@@ -68,7 +67,7 @@ class Scrollama extends Component {
     } = this.props;
 
     React.Children.forEach(children, (child, idx) => {
-      const childId = `scrollama-${prefix ? prefix + '-' : ''}${idx}`;
+      const childId = `react-scrollama-${idx}`;
       this[childId] = React.createRef();
       this.stepElIds.push(childId);
     });
