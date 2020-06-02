@@ -75,16 +75,18 @@ export default ScrollamaDemo;
 
 ## API
 
-#### `<Scrollama/>`
+### `Scrollama`
+
+A `Scrollama` component should wrap a set of steps. These are the props you can set on the `Scrollama` component itself:
 
 | Prop            | Type   | Default | Description                                                                            |
 |-----------------|--------|---------|----------------------------------------------------------------------------------------|
-| offset          | number | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
-| debug           | bool   | false   | Whether to show visual debugging tools.                                                |
-| progress        | bool   | false   | Whether to fire incremental step progress updates or not                               |
-| onStepEnter     | func   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
-| onStepExit      | func   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
-| onStepProgress  | func   |         | Callback that fires the progress a step has made through the threshold.                |
+| offset          | `number` | 0.5     | How far from the top of the viewport to trigger a step. Value between 0 and 1.         |
+| debug           | `boolean`   | false   | Whether to show visual debugging tools.                                                |
+| progress        | `boolean`   | false   | Whether to fire incremental step progress updates or not                               |
+| onStepEnter     | `function`   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
+| onStepExit      | `function`   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
+| onStepProgress  | `function`   |         | Callback that fires the progress a step has made through the threshold.                |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
@@ -106,17 +108,24 @@ The `onStepProgress` callback receives one argument, an object, with the followi
 }
 ```
 
-#### `<Step/>`
+Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
+
+### `Step`
+
+A `Step` element can contain one child, which must be a DOM element. To use a React component as the child node, it must be wrapped with a DOM element like `<div>` (see [#19](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326)).
+
+These are the props you can set on the `Step` component:
 
 | Prop     | Type           | Default     | Description                                                      |
 |----------|----------------|-------------|------------------------------------------------------------------|
-| data     | any            | _undefined_ | Data to be given to `<Scrollama>` callbacks when step triggered. |
-| children | PropTypes.node |    N/A      | Children must always be one component, not an array              |
+| data     | any            | | Data to be given to `<Scrollama>` callbacks when step triggered. |
+
+You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
 ## Features roadmap
 
-* Preserving order
-* `viewportAbove` and `viewportBelow` intersection observers
+* Being able to use pixels instead of percent for offset value so stuff on mobile doesn't jump around on scroll direction change
+* Fire previous step triggers if they were jumped
 
 ## Contributors
 
