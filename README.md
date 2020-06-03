@@ -20,6 +20,17 @@ As seen in:
 
 Take a look at [the demo](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
 
+<table>
+  <tr>
+    <th align="left">Basic step triggers</th>
+    <th align="left">Sticky graphic on the side</th>
+  </tr>
+  <tr>
+    <td><img src="./example/public/demo-progress.gif" /></td>
+    <td width="65%"><img src="./example/public/demo-sticky.gif" /></td>
+  </tr>
+</table>
+
 ## Install
 
 React Scrollama can be installed as an [npm package](https://www.npmjs.com/package/react-scrollama):
