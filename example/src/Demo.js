@@ -12,7 +12,6 @@ const styles = {
     '& a': {
       display: 'block',
       fontSize: '20px',
-      color: '#00e',
       padding: '20px',
     },
   },
@@ -20,9 +19,6 @@ const styles = {
     textAlign: 'center',
     fontSize: 30,
     margin: '110px 0 10px',
-    '& a': {
-      color: '#00e',
-    },
   },
   pageSubtitle: {
     textAlign: 'center',
@@ -77,8 +73,7 @@ class Demo extends PureComponent {
     progress: 0,
   };
 
-  onStepEnter = ({ element, data }) => {
-    // element.style.backgroundColor = 'lightgoldenrodyellow';
+  onStepEnter = ({ data }) => {
     this.setState({ data });
   };
 
