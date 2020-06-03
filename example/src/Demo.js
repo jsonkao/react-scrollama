@@ -77,18 +77,14 @@ class Demo extends PureComponent {
     this.setState({ data });
   };
 
-  onStepExit = ({ element, direction, data }) => {
-    if (direction === 'up') {
-      element.style.backgroundColor = '#fff';
-      if (data === this.state.steps[0]) {
-        this.setState({ data: 0 });
-      }
+  onStepExit = ({ direction, data }) => {
+    if (direction === 'up' && data === this.state.steps[0]) {
+      this.setState({ data: 0 });
     }
   };
 
-  onStepProgress = ({ element, progress }) => {
+  onStepProgress = ({ progress }) => {
     this.setState({ progress });
-    element.style.backgroundColor = `rgba(44,127,184, ${progress})`;
   };
 
   render() {
@@ -117,16 +113,23 @@ class Demo extends PureComponent {
               offset={0.4}
               debug
             >
-              {steps.map(value => (
-                <Step data={value} key={value}>
-                  <div className={classes.step}>
-                    <p>step value: {value}</p>
-                    <p style={{ visibility: value === data ? 'visible': 'hidden' }}>
-                      {Math.round(progress * 1000) / 10 + '%'}
-                    </p>
-                  </div>
-                </Step>
-              ))}
+              {steps.map(value => {
+                const isVisible = value === data;
+                const background = isVisible
+                  ? `rgba(44,127,184, ${progress})`
+                  : 'white';
+                const visibility = isVisible ? 'visible' : 'hidden';
+                return (
+                  <Step data={value} key={value}>
+                    <div className={classes.step} style={{ background }}>
+                      <p>step value: {value}</p>
+                      <p style={{ visibility }}>
+                        {Math.round(progress * 1000) / 10 + '%'}
+                      </p>
+                    </div>
+                  </Step>
+                );
+              })}
             </Scrollama>
           </div>
           <div className={classes.graphic}>
