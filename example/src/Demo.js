@@ -11,24 +11,20 @@ const styles = {
     zIndex: 1,
     '& a': {
       display: 'block',
-      fontFamily: 'Helvetica',
       fontSize: '20px',
       color: '#00e',
       padding: '20px',
     },
   },
   pageTitle: {
-    fontFamily: 'Helvetica',
     textAlign: 'center',
-    fontSize: '30px',
+    fontSize: 30,
     margin: '110px 0 10px',
     '& a': {
       color: '#00e',
     },
   },
   pageSubtitle: {
-    margin: 0,
-    fontFamily: 'Helvetica',
     textAlign: 'center',
     fontSize: '24px',
     color: '#888',
@@ -36,19 +32,21 @@ const styles = {
   graphicContainer: {
     padding: '40vh 2vw 70vh',
     display: 'flex',
-    fontFamily: 'Helvetica',
     justifyContent: 'space-between',
   },
   graphic: {
     flexBasis: '60%',
     position: 'sticky',
     width: '100%',
-    padding: '5rem 0',
-    top: '160px',
-    alignSelf: 'flex-start',
+    height: '60vh',
+    top: '20vh',
     backgroundColor: '#aaa',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     '& p': {
       fontSize: '5rem',
+      fontWeight: 700,
       textAlign: 'center',
       color: '#fff',
     },
@@ -57,14 +55,13 @@ const styles = {
     flexBasis: '35%',
   },
   step: {
-    margin: '0 auto 2rem auto',
-    paddingTop: 200,
-    paddingBottom: 200,
+    margin: '0 auto 3rem auto',
+    padding: '180px 0',
     border: '1px solid #333',
     '& p': {
       textAlign: 'center',
       padding: '1rem',
-      fontSize: '1.5rem',
+      fontSize: '1.8rem',
       margin: 0,
     },
     '&:last-child': {
@@ -81,19 +78,22 @@ class Demo extends PureComponent {
   };
 
   onStepEnter = ({ element, data }) => {
-    element.style.backgroundColor = 'lightgoldenrodyellow';
+    // element.style.backgroundColor = 'lightgoldenrodyellow';
     this.setState({ data });
   };
 
   onStepExit = ({ element, direction, data }) => {
-    element.style.backgroundColor = '#fff';
-    if (direction === 'up' && data === this.state.steps[0]) {
-      this.setState({ data: 0 });
+    if (direction === 'up') {
+      element.style.backgroundColor = '#fff';
+      if (data === this.state.steps[0]) {
+        this.setState({ data: 0 });
+      }
     }
   };
 
   onStepProgress = ({ element, progress }) => {
     this.setState({ progress });
+    element.style.backgroundColor = `rgba(44,127,184, ${progress})`;
   };
 
   render() {
@@ -126,9 +126,8 @@ class Demo extends PureComponent {
                 <Step data={value} key={value}>
                   <div className={classes.step}>
                     <p>step value: {value}</p>
-                    <p>
-                      progress:{' '}
-                      {value === data ? Math.round(progress * 100) + '%' : ''}
+                    <p style={{ visibility: value === data ? 'visible': 'hidden' }}>
+                      {Math.round(progress * 1000) / 10 + '%'}
                     </p>
                   </div>
                 </Step>
