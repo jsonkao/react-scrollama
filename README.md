@@ -75,9 +75,24 @@ export default ScrollamaDemo;
 
 ## API
 
+A `Scrollama` component wraps a set of steps. Each `Step` component wraps an element.
+
+```jsx
+<Scrollama>
+  <Step data={1}>
+    <div>...</div>
+  </Step>
+  <Step data={2}>
+    <div>...</div>
+  </Step>
+</Scrollama>
+```
+
+React Scrollama components are not DOM nodes. In the code above, only the `div.class` elements would actually show up on the page.
+
 ### `Scrollama`
 
-A `Scrollama` component should wrap a set of steps. These are the props you can set on the `Scrollama` component itself:
+These are the props you can set on the `Scrollama` component itself:
 
 | Prop            | Type   | Default | Description                                                                            |
 |-----------------|--------|---------|----------------------------------------------------------------------------------------|
@@ -109,7 +124,7 @@ The `onStepProgress` callback receives one argument, an object, with the followi
 }
 ```
 
-Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
+To create a fixed graphic with text scrolling beside/over it, use `position: sticky;`. [How to use position sticky.](https://pudding.cool/process/scrollytelling-sticky/)
 
 ### `Step`
 
@@ -126,6 +141,7 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 ## Features roadmap
 
 * Being able to use pixels instead of percent for offset value so stuff on mobile doesn't jump around on scroll direction change
+* Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
 * Fire previous step triggers if they were jumped
 
 ## Contributors
