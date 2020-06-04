@@ -86,7 +86,7 @@ export default ScrollamaDemo;
 
 ## API
 
-A `Scrollama` component wraps a set of steps. Each `Step` component wraps an element.
+A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326).
 
 ```jsx
 <Scrollama>
@@ -99,21 +99,21 @@ A `Scrollama` component wraps a set of steps. Each `Step` component wraps an ele
 </Scrollama>
 ```
 
-React Scrollama components are not DOM nodes. In the code above, only the `div.class` elements would actually show up on the page.
+React Scrollama components do not render into the DOM. They are meant to set up Intersection Observers on the elements inside the `<Step>` components. In the code above, only the `<div>` elements would show up in the DOM.
 
 ### `Scrollama`
 
 These are the props you can set on the `Scrollama` component itself:
 
-| Prop            | Type   | Default | Description                                                                            |
-|-----------------|--------|---------|----------------------------------------------------------------------------------------|
-| offset          | `number` (from 0 to 1) | 0.3     | How far from the top of the viewport to trigger a step.        |
-| debug           | `boolean`   | false   | Whether to show visual debugging tools.                                                |
-| progress        | `boolean`   | false   | Whether to fire incremental step progress updates or not                               |
-| threshold        | `number` (greater than 1)   | 4   | The granularity of the progress interval in pixels (smaller = more granular)                               |
-| onStepEnter     | `function`   |         | Callback that fires when the top or bottom edge of a step enters the offset threshold. |
-| onStepExit      | `function`   |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.  |
-| onStepProgress  | `function`   |         | Callback that fires the progress a step has made through the threshold.                |
+| Prop           | Type                      | Default | Description                                                                             |
+|----------------|---------------------------|---------|-----------------------------------------------------------------------------------------|
+| offset         | `number` (from 0 to 1)    | 0.3     | How far from the top of the viewport to trigger a step (as a proportion of view height) |
+| progress       | `boolean`                 | false   | Whether to fire incremental step progress updates                                       |
+| threshold      | `number` (greater than 1) | 4       | Granularity of the progress interval in pixels (smaller = more granular)                |
+| onStepEnter    | `function`                |         | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
+| onStepExit     | `function`                |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
+| onStepProgress | `function`                |         | Callback that fires the progress a step has made through the threshold.                 |
+| debug          | `boolean`                 | false   | Whether to show visual debugging tools.                                                 |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
@@ -139,13 +139,13 @@ To create a fixed graphic with text scrolling beside/over it, use `position: sti
 
 ### `Step`
 
-A `Step` element can contain one child, which must be a DOM element. To use a React component as the child node, it must be wrapped with a DOM element like `<div>` (see [#19](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326)).
+A `Step` element can contain one child, which must be a DOM element. To use a React component as the child node, it [must be wrapped with a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326) like `<div>`.
 
 These are the props you can set on the `Step` component:
 
-| Prop     | Type           | Default     | Description                                                      |
-|----------|----------------|-------------|------------------------------------------------------------------|
-| data     | any            | | Data to be given to `<Scrollama>` callbacks when step triggered. |
+| Prop | Type | Default | Description                                                      |
+|------|------|---------|------------------------------------------------------------------|
+| data | any  |         | Data to be given to `<Scrollama>` callbacks when step triggered. |
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
