@@ -18,7 +18,7 @@ As seen in:
 
 ## Demo
 
-Take a look at [the demo](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
+Take a look at [the live demo](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
 
 <table>
   <tr>
@@ -41,6 +41,21 @@ $ npm install react-scrollama
 **Note: As of version 2.2.0, the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) has been removed from the build. You must include it yourself for cross-browser support.** Check [here](https://caniuse.com/#feat=intersectionobserver) to see if you need to include the polyfill.
 
 ## Usage
+
+A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326).
+
+```jsx
+<Scrollama onStepEnter={callback}>
+  <Step data={1}>
+    <div>...</div>
+  </Step>
+  <Step data={2}>
+    <div>...</div>
+  </Step>
+</Scrollama>
+```
+
+`<Scrollama>` provides an interface for listening in on scroll triggers like entering or exiting a step. (Here's [a full list](#scrollama) of available props.)
 
 A no-frills example:
 
@@ -85,19 +100,6 @@ export default ScrollamaDemo;
 ```
 
 ## API
-
-A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326).
-
-```jsx
-<Scrollama>
-  <Step data={1}>
-    <div>...</div>
-  </Step>
-  <Step data={2}>
-    <div>...</div>
-  </Step>
-</Scrollama>
-```
 
 React Scrollama components do not render into the DOM. They are meant to set up Intersection Observers on the elements inside the `<Step>` components. In the code above, only the `<div>` elements would show up in the DOM.
 
