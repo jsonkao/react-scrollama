@@ -92,7 +92,7 @@ class Scrollama extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('load', this.domDidLoad.bind(this));
+    this.domDidLoad.bind(this)();
   }
 
   domDidLoad() {
@@ -167,7 +167,8 @@ class Scrollama extends Component {
     const { offsetMargin } = this.state;
     this.io.stepAbove = this.stepElIds.map(id => {
       const step = this.getStep(id);
-      const marginTop = -offsetMargin + step.state.offsetHeight;
+      const stepStateOffsetHeight = step.updateOffsetHeight();
+      const marginTop = -offsetMargin +  stepStateOffsetHeight; //step.state.offsetHeight;
       const marginBottom = offsetMargin - this.viewH;
       const options = {
         rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
@@ -184,8 +185,9 @@ class Scrollama extends Component {
     const { offsetMargin } = this.state;
     this.io.stepBelow = this.stepElIds.map(id => {
       const step = this.getStep(id);
+      const stepStateOffsetHeight = step.updateOffsetHeight();
       const marginTop = -offsetMargin;
-      const marginBottom = offsetMargin - this.viewH + step.state.offsetHeight;
+      const marginBottom = offsetMargin - this.viewH + stepStateOffsetHeight; //step.state.offsetHeight;
       const options = {
         rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
       };
