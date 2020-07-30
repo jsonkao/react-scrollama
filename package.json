@@ -61,5 +61,8 @@
     "trailingComma": "all",
     "singleQuote": true,
     "arrowParens": "avoid"
+  },
+  "dependencies": {
+    "react-intersection-observer-hook": "^1.0.4"
   }
 }
