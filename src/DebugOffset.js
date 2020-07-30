@@ -17,9 +17,9 @@ const offsetTextStyles = {
   padding: 6,
 };
 
-const DebugOffset = ({ offsetMargin, offsetVal }) => (
-  <div style={{ ...markerStyles, top: offsetMargin }}>
-    <p style={offsetTextStyles}>trigger: {offsetVal}</p>
+const DebugOffset = ({ offset }) => (
+  <div style={{ ...markerStyles, top: `${offset * 100}%` }}>
+    <p style={offsetTextStyles}>trigger: {offset}</p>
   </div>
 );
 
