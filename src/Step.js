@@ -1,5 +1,16 @@
 import React from 'react';
 import { useIntersectionObserver } from 'react-intersection-observer-hook';
+import { isOffsetInPixels } from './utils';
+
+const useRootMargin = offset => {
+  const offsetInPixels = isOffsetInPixels(offset);
+  if(offsetInPixels) {
+    const offsetValue = +offset.replace('px', '');
+    return `-${offsetValue}px 0px -${window.innerHeight - offsetValue}px 0px`
+  } else {
+    return `${-offset * 100}% 0px -${100 - offset * 100}% 0px`;
+  }
+}
 
 const Step = props => {
   const {
@@ -13,15 +24,22 @@ const Step = props => {
     offset,
     scrollamaId,
   } = props;
-  const rootMargin = `${-offset * 100}% 0px -${100 - offset * 100}% 0px`;
+  const rootMargin = useRootMargin(offset);
   const [ref, { entry }] = useIntersectionObserver({
     rootMargin,
     threshold: 0,
   });
   const [isIntersecting, setIsIntersecting] = React.useState(false);
-  const handleScroll = e => {
+  const handleScroll = () => {
     const { height, top } = entry.target.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
+    const offsetInPixels = isOffsetInPixels(offset);
+    let progress = 0;
+    if (offsetInPixels) {
+      progress = Math.min(1, Math.max(0, (+offset.replace('px', '') - top) / height));
+    } else {
+      progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
+    }
+
     onStepProgress &&
       onStepProgress({
         progress,
