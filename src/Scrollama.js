@@ -111,7 +111,9 @@ class Scrollama extends Component {
   /* Get step can take a step id or grab an id off a target element */
   getStep = arg => {
     const id =
-      arg instanceof Element ? arg.getAttribute('data-react-scrollama-id') : arg;
+      arg instanceof Element
+        ? arg.getAttribute('data-react-scrollama-id')
+        : arg;
     const step = this[id];
     if (step && step.current) {
       return step.current;
