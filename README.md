@@ -165,6 +165,13 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * [kennethormandy](https://github.com/kennethormandy)
 * [cedricdelpoux](https://github.com/cedricdelpoux)
 * [davidnmora](https://github.com/davidnmora)
+* [jefffriesen](https://github.com/jefffriesen)
+* [paolocorti](https://github.com/paolocorti)
+* [elbertwang3](https://github.com/elbertwang3)
+* [michaelgrotton](https://github.com/michaelgrotton)
+* [jjrchrds](https://github.com/jjrchrds)
+* [maerzhase](https://github.com/maerzhase)
+* [goleary](https://github.com/goleary)
 
 ## License
 
