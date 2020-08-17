@@ -92,6 +92,7 @@ class Scrollama extends Component {
   }
 
   componentDidMount() {
+    this.domDidLoad.bind(this)();
     window.addEventListener('load', this.domDidLoad.bind(this));
   }
 
