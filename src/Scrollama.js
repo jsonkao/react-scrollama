@@ -171,7 +171,7 @@ class Scrollama extends Component {
     this.io.stepAbove = this.stepElIds.map(id => {
       const step = this.getStep(id);
       const stepStateOffsetHeight = step.updateOffsetHeight();
-      const marginTop = -offsetMargin +  stepStateOffsetHeight; //step.state.offsetHeight;
+      const marginTop = -offsetMargin + stepStateOffsetHeight;
       const marginBottom = offsetMargin - this.viewH;
       const options = {
         rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
