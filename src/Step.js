@@ -14,10 +14,13 @@ class Step extends Component {
 
   getData = () => this.props.data;
 
-  updateOffsetHeight = () =>
+  updateOffsetHeight = () =>{
+    const offsetHeight = this.getDOMNode().offsetHeight;
     this.setState({
-      offsetHeight: this.getDOMNode().offsetHeight,
+      offsetHeight,
     });
+    return offsetHeight;
+  }
 
   enter = direction => this.setState({ state: 'enter', direction });
   exit = direction => this.setState({ state: 'exit', direction });
