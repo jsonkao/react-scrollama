@@ -11,7 +11,7 @@ const TinyScrollama = props => {
     onStepExit,
     onStepProgress,
   } = props;
-
+  const isOffsetDefinedInPixels = isOffsetInPixels(offset)
   const [lastScrollTop, setLastScrollTop] = React.useState(0);
   const [windowInnerHeight, setWindowInnerHeight] = React.useState(null);
   const handleSetLastScrollTop = (scrollTop) => {
@@ -23,14 +23,16 @@ const TinyScrollama = props => {
   }
 
   React.useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
+    if(isOffsetDefinedInPixels) {
+      window.addEventListener('resize', handleWindowResize);
+      return () => {
+        window.removeEventListener('resize', handleWindowResize);
+      };
+    }
   }, []);
 
 
-  const offsetValue = isOffsetInPixels(offset) 
+  const offsetValue = isOffsetDefinedInPixels 
     ? (+offset.replace('px', '') / (windowInnerHeight || window.innerHeight))
     : offset;
 
