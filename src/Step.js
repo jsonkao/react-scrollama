@@ -2,7 +2,7 @@ import React from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
 const useRootMargin = offset => {
-  return `${offset * 100}% 0px -${100 - offset * 100}% 0px`;
+  return `-${offset * 100}% 0px -${100 - offset * 100}% 0px`;
 }
 
 const Step = props => {
@@ -56,7 +56,7 @@ const Step = props => {
         document.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [entry, rootMargin]);
+  }, [entry]);
 
   return React.cloneElement(React.Children.only(children), {
     'data-react-scrollama-id': scrollamaId,
