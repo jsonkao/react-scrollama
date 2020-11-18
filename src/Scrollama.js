@@ -210,7 +210,7 @@ class Scrollama extends Component {
       const marginBottom = offsetMargin - this.viewH;
       const options = {
         rootMargin: `${marginTop}px 0px ${marginBottom}px 0px`,
-        threshold: this.createThreshold(step.state.offsetHeight),
+        threshold: this.createThreshold(step.state.offsetHeight ?? 1),
       };
 
       const obs = new IntersectionObserver(this.intersectStepProgress, options);
