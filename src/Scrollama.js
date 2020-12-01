@@ -27,7 +27,7 @@ class Scrollama extends Component {
   // stores step elements by id
   stepElIds = [];
 
-  viewH = window.innerHeight;
+  viewH = typeof window !== undefined ? window.innerHeight : 0;
   pageH = 0;
   offsetVal = 0;
   offsetMargin = 0;
