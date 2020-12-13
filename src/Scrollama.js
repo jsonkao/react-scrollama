@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import DebugOffset from './DebugOffset';
 import { isOffsetInPixels } from './utils';
+
+const createThreshold = (theta, height) => {
+  const count = Math.ceil(height / theta);
+  const t = [];
+  const ratio = 1 / count;
+  for (let i = 0; i <= count; i += 1) {
+    t.push(i * ratio);
+  }
+  return t;
+};
 
 const TinyScrollama = props => {
   const {
@@ -10,10 +20,12 @@ const TinyScrollama = props => {
     onStepEnter,
     onStepExit,
     onStepProgress,
+    threshold,
   } = props;
   const isOffsetDefinedInPixels = isOffsetInPixels(offset)
-  const [lastScrollTop, setLastScrollTop] = React.useState(0);
-  const [windowInnerHeight, setWindowInnerHeight] = React.useState(null);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [windowInnerHeight, setWindowInnerHeight] = useState(null);
+
   const handleSetLastScrollTop = (scrollTop) => {
     setLastScrollTop(scrollTop);
   };
@@ -31,10 +43,13 @@ const TinyScrollama = props => {
     }
   }, []);
 
+  const innerHeight = (windowInnerHeight || window.innerHeight)
 
   const offsetValue = isOffsetDefinedInPixels 
-    ? (+offset.replace('px', '') / (windowInnerHeight || window.innerHeight))
+    ? (+offset.replace('px', '') / innerHeight)
     : offset;
+
+  const progressThreshold = useMemo(() => createThreshold(threshold, innerHeight), [innerHeight]);
 
   return (
     <React.Fragment>
@@ -48,6 +63,7 @@ const TinyScrollama = props => {
           onStepProgress,
           lastScrollTop,
           handleSetLastScrollTop,
+          progressThreshold,
         });
       })}
     </React.Fragment>
@@ -58,6 +74,7 @@ TinyScrollama.defaultProps = {
   onStepProgress: null,
   onStepEnter: () => {},
   onStepExit: () => {},
+  threshold: 4,
 };
 
 export default TinyScrollama;

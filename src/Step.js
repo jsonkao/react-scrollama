@@ -5,6 +5,11 @@ const useRootMargin = offset => {
   return `-${offset * 100}% 0px -${100 - offset * 100}% 0px`;
 }
 
+const useProgressRootMargin = (direction, offset) => {
+  if (direction === 'down') return `${offset * 100}% 0px -${100 - offset * 100}% 0px`
+  return `-${offset * 100}% 0px ${offset * 100}% 0px`;
+}
+
 const Step = props => {
   const {
     children,
@@ -16,31 +21,48 @@ const Step = props => {
     onStepProgress,
     offset,
     scrollamaId,
+    progressThreshold,
   } = props;
+
+  const scrollTop = document.documentElement.scrollTop;
+  const direction = lastScrollTop < scrollTop ? 'down' : 'up';
+
+  const progressRootMargin = useProgressRootMargin(direction, offset);
   const rootMargin = useRootMargin(offset);
-  const [ref, entry] = useIntersectionObserver({
-    rootMargin,
-    threshold: 0,
-  });
+
+  const [node, setNode] = React.useState(null);
   const [isIntersecting, setIsIntersecting] = React.useState(false);
 
-  const handleScroll = () => {
-    const { height, top } = entry.target.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
+  const [entry] = useIntersectionObserver({
+    rootMargin,
+    threshold: 0,
+    nodeRef: node,
+  });
 
-    onStepProgress &&
+  const [scrollProgressEntry] = useIntersectionObserver({
+    rootMargin: progressRootMargin,
+    threshold: progressThreshold,
+    nodeRef: node,
+  });
+
+
+  React.useEffect(() => {
+    if (isIntersecting) {
+      const { height, top } = scrollProgressEntry.target.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
+
+      onStepProgress &&
       onStepProgress({
         progress,
         scrollamaId,
         data,
-        element: entry.target,
-        entry,
+        element: scrollProgressEntry.target,
+        entry: scrollProgressEntry,
       });
-  };
+    }
+  }, [scrollProgressEntry]);
 
   React.useEffect(() => {
-    const scrollTop = document.documentElement.scrollTop;
-    const direction = lastScrollTop < scrollTop ? 'down' : 'up';
     if (entry && !entry.isIntersecting && isIntersecting) {
       onStepExit({ element: entry.target, scrollamaId, data, entry, direction });
       setIsIntersecting(false);
@@ -50,17 +72,11 @@ const Step = props => {
       onStepEnter({ element: entry.target, scrollamaId, data, entry, direction});
       handleSetLastScrollTop(scrollTop)
     }
-    if (entry && entry.isIntersecting && onStepProgress) {
-      document.addEventListener('scroll', handleScroll);
-      return () => {
-        document.removeEventListener('scroll', handleScroll);
-      };
-    }
   }, [entry]);
 
   return React.cloneElement(React.Children.only(children), {
     'data-react-scrollama-id': scrollamaId,
-    ref,
+    ref: setNode,
     entry,
   });
 };
