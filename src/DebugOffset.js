@@ -1,8 +1,6 @@
 import React from 'react';
 import { isOffsetInPixels } from './utils';
 
-// Since these styles are the only styles in the library, I opted to use inline
-// styling to maintain dependency independence
 const markerStyles = {
   position: 'fixed',
   left: 0,

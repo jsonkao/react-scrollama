@@ -1,13 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import useIntersectionObserver from './useIntersectionObserver';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const useRootMargin = offset => {
   return `-${offset * 100}% 0px -${100 - offset * 100}% 0px`;
 }
 
 const useProgressRootMargin = (direction, offset, node, innerHeight) => {
-  if (!node) return '0px';
-  const offsetHeight = (node.offsetHeight / innerHeight);
+  if (!node.current) return '0px';
+  const offsetHeight = (node.current.offsetHeight / innerHeight);
   if (direction === 'down') return `${(offsetHeight - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
   return `-${offset * 100}% 0px ${(offsetHeight * 100) - (100 - (offset * 100))}% 0px`;
 }
@@ -32,26 +32,33 @@ const Step = props => {
 
   const rootMargin = useRootMargin(offset);
 
-  const [node, setNode] = useState(null);
+  const ref = useRef(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
-  const [entry] = useIntersectionObserver({
+  const {ref: inViewRef, entry} = useInView({
     rootMargin,
     threshold: 0,
-    nodeRef: node,
   });
 
   const progressRootMargin = useMemo(
-    () => useProgressRootMargin(direction, offset, node, innerHeight),
-    [direction, offset, node, innerHeight]
+    () => useProgressRootMargin(direction, offset, ref, innerHeight),
+    [direction, offset, ref, innerHeight]
   );
 
-  const [scrollProgressEntry] = useIntersectionObserver({
+  const {ref: scrollProgressRef, entry: scrollProgressEntry} = useInView({
     rootMargin: progressRootMargin,
     threshold: progressThreshold,
-    nodeRef: node,
   });
 
+  const setRefs = useCallback(
+    (node) => {
+      ref.current = node;
+      inViewRef(node);
+      scrollProgressRef(node)
+    },
+    [inViewRef, scrollProgressRef],
+  );
+ 
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -82,7 +89,7 @@ const Step = props => {
 
   return React.cloneElement(React.Children.only(children), {
     'data-react-scrollama-id': scrollamaId,
-    ref: setNode,
+    ref: setRefs,
     entry,
   });
 };
