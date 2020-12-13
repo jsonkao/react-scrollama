@@ -64,6 +64,7 @@ const TinyScrollama = props => {
           lastScrollTop,
           handleSetLastScrollTop,
           progressThreshold,
+          innerHeight
         });
       })}
     </React.Fragment>

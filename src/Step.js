@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
 const useRootMargin = offset => {
   return `-${offset * 100}% 0px -${100 - offset * 100}% 0px`;
 }
 
-const useProgressRootMargin = (direction, offset) => {
-  if (direction === 'down') return `${offset * 100}% 0px -${100 - offset * 100}% 0px`
-  return `-${offset * 100}% 0px ${offset * 100}% 0px`;
+const useProgressRootMargin = (direction, offset, node, innerHeight) => {
+  if (!node) return '0px';
+  const offsetHeight = (node.offsetHeight / innerHeight);
+  if (direction === 'down') return `${(offsetHeight - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
+  return `-${offset * 100}% 0px ${(offsetHeight * 100) - (100 - (offset * 100))}% 0px`;
 }
 
 const Step = props => {
@@ -22,22 +24,27 @@ const Step = props => {
     offset,
     scrollamaId,
     progressThreshold,
+    innerHeight,
   } = props;
 
   const scrollTop = document.documentElement.scrollTop;
   const direction = lastScrollTop < scrollTop ? 'down' : 'up';
 
-  const progressRootMargin = useProgressRootMargin(direction, offset);
   const rootMargin = useRootMargin(offset);
 
-  const [node, setNode] = React.useState(null);
-  const [isIntersecting, setIsIntersecting] = React.useState(false);
+  const [node, setNode] = useState(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
   const [entry] = useIntersectionObserver({
     rootMargin,
     threshold: 0,
     nodeRef: node,
   });
+
+  const progressRootMargin = useMemo(
+    () => useProgressRootMargin(direction, offset, node, innerHeight),
+    [direction, offset, node, innerHeight]
+  );
 
   const [scrollProgressEntry] = useIntersectionObserver({
     rootMargin: progressRootMargin,
@@ -50,7 +57,6 @@ const Step = props => {
     if (isIntersecting) {
       const { height, top } = scrollProgressEntry.target.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
-
       onStepProgress &&
       onStepProgress({
         progress,
