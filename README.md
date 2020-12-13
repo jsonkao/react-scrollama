@@ -134,6 +134,7 @@ The `onStepProgress` callback receives one argument, an object, with the followi
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
   progress, // The percent of completion of the step (0 to 1)
+  direction, // 'up' or 'down'
 }
 ```
 

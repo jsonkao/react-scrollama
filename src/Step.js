@@ -71,6 +71,7 @@ const Step = props => {
         data,
         element: scrollProgressEntry.target,
         entry: scrollProgressEntry,
+        direction,
       });
     }
   }, [scrollProgressEntry]);
