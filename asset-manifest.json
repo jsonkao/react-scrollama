@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/react-scrollama/static/js/main.6f2156f5.chunk.js",
-    "main.js.map": "/react-scrollama/static/js/main.6f2156f5.chunk.js.map",
+    "main.js": "/react-scrollama/static/js/main.cc30bd99.chunk.js",
+    "main.js.map": "/react-scrollama/static/js/main.cc30bd99.chunk.js.map",
     "runtime-main.js": "/react-scrollama/static/js/runtime-main.dcf1b348.js",
     "runtime-main.js.map": "/react-scrollama/static/js/runtime-main.dcf1b348.js.map",
-    "static/js/2.c5c79844.chunk.js": "/react-scrollama/static/js/2.c5c79844.chunk.js",
-    "static/js/2.c5c79844.chunk.js.map": "/react-scrollama/static/js/2.c5c79844.chunk.js.map",
+    "static/js/2.47f0a349.chunk.js": "/react-scrollama/static/js/2.47f0a349.chunk.js",
+    "static/js/2.47f0a349.chunk.js.map": "/react-scrollama/static/js/2.47f0a349.chunk.js.map",
     "index.html": "/react-scrollama/index.html",
-    "precache-manifest.a6c646a2d0628a14bb50307e76289896.js": "/react-scrollama/precache-manifest.a6c646a2d0628a14bb50307e76289896.js",
+    "precache-manifest.09c691d61deb4a079c79bdcee854e52f.js": "/react-scrollama/precache-manifest.09c691d61deb4a079c79bdcee854e52f.js",
     "service-worker.js": "/react-scrollama/service-worker.js",
-    "static/js/2.c5c79844.chunk.js.LICENSE.txt": "/react-scrollama/static/js/2.c5c79844.chunk.js.LICENSE.txt"
+    "static/js/2.47f0a349.chunk.js.LICENSE.txt": "/react-scrollama/static/js/2.47f0a349.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.dcf1b348.js",
-    "static/js/2.c5c79844.chunk.js",
-    "static/js/main.6f2156f5.chunk.js"
+    "static/js/2.47f0a349.chunk.js",
+    "static/js/main.cc30bd99.chunk.js"
   ]
 }
