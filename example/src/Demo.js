@@ -17,12 +17,22 @@ const styles = {
   },
   pageTitle: {
     textAlign: 'center',
-    fontSize: 30,
-    margin: '110px 0 10px',
+    fontSize: 22,
+    margin: '90px 0 10px',
+    visibility: 'hidden',
+  },
+  description: {
+    maxWidth: 600,
+    margin: '10px auto 30px',
+    fontSize: 22,
+    lineHeight: '28px',
+    '& a': {
+      color: 'black',
+    },
   },
   pageSubtitle: {
     textAlign: 'center',
-    fontSize: '24px',
+    fontSize: 22,
     color: '#888',
   },
   graphicContainer: {
@@ -100,7 +110,12 @@ class Demo extends PureComponent {
           <a href="https://github.com/jsonkao/react-scrollama">
             React Scrollama
           </a>{' '}
-          Example
+          Demo
+        </p>
+        <p className={classes.description}>
+          <b>React Scrollama</b> is a lightweight and simple interface for
+          scrollytelling in React that uses IntersectionObserver in favor of
+          scroll events. Our <a href="https://github.com/jsonkao/react-scrollama">GitHub</a> contains tutorial code and documentation.
         </p>
         <p className={classes.pageSubtitle}>Scroll ↓</p>
         <div className={classes.graphicContainer}>
