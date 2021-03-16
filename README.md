@@ -12,9 +12,37 @@
 React Scrollama is a lightweight interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
 
 As seen in:
-- [Sex Diversity Among Graduate Students Is Stagnating](https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity/) ([Columbia Daily Spectator](https://github.com/graphicsdesk))
-- [The scramble to secure America’s voting machines](https://www.politico.com/interactives/2019/election-security-americas-voting-machines) ([POLITICO](https://github.com/The-Politico))
-- [Lower-income undergraduate students are paying more and more to attend Columbia; wealthier students are paying less and less, federal data shows](https://www.columbiaspectator.com/news/net-price-inequity) ([Columbia Daily Spectator](https://github.com/graphicsdesk))
+<table>
+<tbody>
+<tr>
+  <td>
+    <img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="180"/> <br/> 
+    17 interactive visualization <br/>
+    stories using React Scrollama <br/>
+    for scrollytelling
+  </td>
+  <td>
+    <a href="https://datatopics.worldbank.org/sdgatlas/"><img src="https://user-images.githubusercontent.com/15334952/111390361-fb04c480-8688-11eb-9fa1-3991ee73dd05.png" width="450"/></a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <img src="https://jolttx.org/wp-content/uploads/2019/10/politico-logo.png" width="150" /> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
+  </td>
+  <td>
+    <img src="https://user-images.githubusercontent.com/15334952/111391036-2dfb8800-868a-11eb-9c64-3f322ef1e588.png" width="450"/>
+  </td>
+</tr>
+<tr>
+  <td>
+    <img src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png" width="160"/><br/> <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><i>Sex Diversity Among Grad <br/> Students is Stagnating</i></a> <br/> by Jason Kao
+  </td>
+  <td>
+    <img src="https://user-images.githubusercontent.com/15334952/111391310-b843ec00-868a-11eb-9744-72ee913cdbe1.png" width="450"/>
+  </td>
+</tr>
+</tbody>
+</table>
 
 ## Demo
 
