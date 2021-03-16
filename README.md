@@ -16,7 +16,8 @@ As seen in:
 <tbody>
 <tr>
   <td>
-    <img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="180"/> <br/> 
+    <img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="210"/> <br/> 
+    <img src="https://user-images.githubusercontent.com/15334952/111392820-c0515b00-868d-11eb-9b82-5eaace6612c9.png" width="145"/> <br/>
     17 interactive visualization <br/>
     stories using React Scrollama <br/>
     for scrollytelling
@@ -35,7 +36,7 @@ As seen in:
 </tr>
 <tr>
   <td>
-    <img src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png" width="160"/><br/> <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><i>Sex Diversity Among Grad <br/> Students is Stagnating</i></a> <br/> by Jason Kao
+    <img src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png" width="180"/><br/> <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><i>Sex Diversity Among Grad <br/> Students is Stagnating</i></a> <br/> by Jason Kao
   </td>
   <td>
     <img src="https://user-images.githubusercontent.com/15334952/111391310-b843ec00-868a-11eb-9744-72ee913cdbe1.png" width="450"/>
