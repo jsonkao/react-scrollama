@@ -16,10 +16,10 @@ As seen in:
 <tbody>
 <tr>
   <td>
-    <img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="210"/> <br/> 
-    <img src="https://user-images.githubusercontent.com/15334952/111392820-c0515b00-868d-11eb-9b82-5eaace6612c9.png" width="145"/> <br/>
-    17 interactive visualization <br/>
-    stories using React Scrollama <br/>
+    <a href="https://www.worldbank.org/en/home"><img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="220"/></a> <br/> 
+    <a href="https://www.un.org/en/"><img src="https://user-images.githubusercontent.com/15334952/111392820-c0515b00-868d-11eb-9b82-5eaace6612c9.png" width="135"/></a> <br/>
+    <a href="https://datatopics.worldbank.org/sdgatlas/">17 interactive visualization <br/>
+    stories</a> using React Scrollama <br/>
     for scrollytelling
   </td>
   <td>
@@ -28,18 +28,18 @@ As seen in:
 </tr>
 <tr>
   <td>
-    <img src="https://jolttx.org/wp-content/uploads/2019/10/politico-logo.png" width="150" /> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
+    <a href="https://www.politico.com/"><img src="https://jolttx.org/wp-content/uploads/2019/10/politico-logo.png" width="150" /></a> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
   </td>
   <td>
-    <img src="https://user-images.githubusercontent.com/15334952/111391036-2dfb8800-868a-11eb-9c64-3f322ef1e588.png" width="450"/>
+    <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><img src="https://user-images.githubusercontent.com/15334952/111391036-2dfb8800-868a-11eb-9c64-3f322ef1e588.png" width="450"/></a>
   </td>
 </tr>
 <tr>
   <td>
-    <img src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png" width="180"/><br/> <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><i>Sex Diversity Among Grad <br/> Students is Stagnating</i></a> <br/> by Jason Kao
+    <a href="http://graphicsdesk.github.io/"><img src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png" width="180"/></a><br/> <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><i>Sex Diversity Among Grad <br/> Students is Stagnating</i></a> <br/> by Jason Kao
   </td>
   <td>
-    <img src="https://user-images.githubusercontent.com/15334952/111391310-b843ec00-868a-11eb-9744-72ee913cdbe1.png" width="450"/>
+    <a href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"><img src="https://user-images.githubusercontent.com/15334952/111391310-b843ec00-868a-11eb-9744-72ee913cdbe1.png" width="450"/></a>
   </td>
 </tr>
 </tbody>
@@ -180,12 +180,6 @@ These are the props you can set on the `Step` component:
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
-## Features roadmap
-
-* Being able to use pixels instead of percent for offset value so stuff on mobile doesn't jump around on scroll direction change
-* Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
-* Fire previous step triggers if they were jumped
-
 ## Contributors
 
 * [jsonkao](https://github.com/jsonkao)
@@ -203,6 +197,12 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * [goleary](https://github.com/goleary)
 * [danieleguido](https://github.com/danieleguido)
 * [Lane](https://github.com/Lane)
+
+## Features roadmap
+
+* Being able to use pixels instead of percent for offset value so stuff on mobile doesn't jump around on scroll direction change
+* Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
+* Fire previous step triggers if they were jumped
 
 ## License
 
