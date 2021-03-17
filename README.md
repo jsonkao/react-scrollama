@@ -19,7 +19,7 @@ As seen in:
     <a href="https://www.worldbank.org/en/home"><img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="220"/></a> <br/> 
     <a href="https://www.un.org/en/"><img src="https://user-images.githubusercontent.com/15334952/111392820-c0515b00-868d-11eb-9b82-5eaace6612c9.png" width="135"/></a> <br/>
     <a href="https://datatopics.worldbank.org/sdgatlas/">17 interactive visualization <br/>
-    stories</a> using React Scrollama <br/>
+      stories</a> <a href="https://twitter.com/maartenzam/status/1371951848039579664">using</a> React Scrollama <br/>
     for scrollytelling
   </td>
   <td>
