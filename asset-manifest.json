@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/react-scrollama/static/js/main.edc1d426.chunk.js",
-    "main.js.map": "/react-scrollama/static/js/main.edc1d426.chunk.js.map",
+    "main.js": "/react-scrollama/static/js/main.ff89914c.chunk.js",
+    "main.js.map": "/react-scrollama/static/js/main.ff89914c.chunk.js.map",
     "runtime-main.js": "/react-scrollama/static/js/runtime-main.dcf1b348.js",
     "runtime-main.js.map": "/react-scrollama/static/js/runtime-main.dcf1b348.js.map",
     "static/js/2.47f0a349.chunk.js": "/react-scrollama/static/js/2.47f0a349.chunk.js",
     "static/js/2.47f0a349.chunk.js.map": "/react-scrollama/static/js/2.47f0a349.chunk.js.map",
     "index.html": "/react-scrollama/index.html",
-    "precache-manifest.355c9ba199ce140467cf526f7d3ea7e4.js": "/react-scrollama/precache-manifest.355c9ba199ce140467cf526f7d3ea7e4.js",
+    "precache-manifest.eadfc4dbb555e962e8fe4bc5a946c31e.js": "/react-scrollama/precache-manifest.eadfc4dbb555e962e8fe4bc5a946c31e.js",
     "service-worker.js": "/react-scrollama/service-worker.js",
     "static/js/2.47f0a349.chunk.js.LICENSE.txt": "/react-scrollama/static/js/2.47f0a349.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.dcf1b348.js",
     "static/js/2.47f0a349.chunk.js",
-    "static/js/main.edc1d426.chunk.js"
+    "static/js/main.ff89914c.chunk.js"
   ]
 }
