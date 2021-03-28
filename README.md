@@ -9,7 +9,7 @@
   </a>
 </p>
 
-React Scrollama is a lightweight interface for scrollytelling that uses [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) in favor of scroll events. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama/).
+React Scrollama is a lightweight interface for scrollytelling in React. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama), and it uses the [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) instead of scroll events.
 
 As seen in:
 <table>
@@ -180,7 +180,7 @@ These are the props you can set on the `Step` component:
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
-## Contributors
+## The contributors that made this possible
 
 * [jsonkao](https://github.com/jsonkao)
 * [NicholasLYang](https://github.com/NicholasLYang)
@@ -204,6 +204,4 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
 * Fire previous step triggers if they were jumped
 
-## License
-
-MIT
+If you need these features ASAP, let us know in issue!
