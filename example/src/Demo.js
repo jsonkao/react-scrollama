@@ -75,7 +75,6 @@ class Demo extends PureComponent {
 
   onStepEnter = e => {
     const { data, entry, direction} = e;
-    console.log(direction);
     this.setState({ data });
   };
 
