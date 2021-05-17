@@ -16,8 +16,7 @@ As seen in:
 <tbody>
 <tr>
   <td>
-    <a href="https://www.worldbank.org/en/home"><img src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png" width="220"/></a> <br/> 
-    <a href="https://www.un.org/en/"><img src="https://user-images.githubusercontent.com/15334952/111392820-c0515b00-868d-11eb-9b82-5eaace6612c9.png" width="135"/></a> <br/>
+    <a href="https://www.worldbank.org/en/home"><img src="https://datatopics.worldbank.org/sdgatlas/static/media/world-bank-group.b88da1c7.png" width="220"/></a> <br/> 
     <a href="https://datatopics.worldbank.org/sdgatlas/">17 interactive visualization <br/>
       stories</a> <a href="https://twitter.com/maartenzam/status/1371951848039579664">using</a> React Scrollama <br/>
     for scrollytelling
@@ -28,7 +27,7 @@ As seen in:
 </tr>
 <tr>
   <td>
-    <a href="https://www.politico.com/"><img src="https://jolttx.org/wp-content/uploads/2019/10/politico-logo.png" width="150" /></a> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
+    <a href="https://www.politico.com/"><img src="https://static.politico.com/dims4/default/51786fe/2147483647/resize/1160x%3E/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F11%2F3c%2F2571c0ab455e91bf81dc4bab93a6%2Fpolitico-logo.png" width="150" /></a> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
   </td>
   <td>
     <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><img src="https://user-images.githubusercontent.com/15334952/111391036-2dfb8800-868a-11eb-9c64-3f322ef1e588.png" width="450"/></a>
