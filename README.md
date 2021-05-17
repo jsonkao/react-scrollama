@@ -184,6 +184,7 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 ## The contributors that made this possible
 
 * [jsonkao](https://github.com/jsonkao)
+* [maerzhase](https://github.com/maerzhase)
 * [NicholasLYang](https://github.com/NicholasLYang)
 * [jonesbp](https://github.com/jonesbp)
 * [kennethormandy](https://github.com/kennethormandy)
@@ -194,7 +195,6 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * [elbertwang3](https://github.com/elbertwang3)
 * [michaelgrotton](https://github.com/michaelgrotton)
 * [jjrchrds](https://github.com/jjrchrds)
-* [maerzhase](https://github.com/maerzhase)
 * [goleary](https://github.com/goleary)
 * [danieleguido](https://github.com/danieleguido)
 * [Lane](https://github.com/Lane)
