@@ -1,7 +1,6 @@
 import React from 'react';
+import { isOffsetInPixels } from './utils';
 
-// Since these styles are the only styles in the library, I opted to use inline
-// styling to maintain dependency independence
 const markerStyles = {
   position: 'fixed',
   left: 0,
@@ -17,10 +16,22 @@ const offsetTextStyles = {
   padding: 6,
 };
 
-const DebugOffset = ({ offsetMargin, offsetVal }) => (
-  <div style={{ ...markerStyles, top: offsetMargin }}>
-    <p style={offsetTextStyles}>trigger: {offsetVal}</p>
-  </div>
-);
+const useTop = offset => {
+  const offsetInPixels = isOffsetInPixels(offset);
+  if(offsetInPixels) {
+    return offset;
+  } else {
+    return `${offset * 100}%`
+  }
+}
+
+const DebugOffset = ({ offset }) => {
+  const top = useTop(offset);
+  return (
+    <div style={{ ...markerStyles, top, }}>
+      <p style={offsetTextStyles}>trigger: {offset}</p>
+    </div>
+  );
+}
 
 export default DebugOffset;

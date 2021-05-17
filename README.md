@@ -137,8 +137,7 @@ These are the props you can set on the `Scrollama` component itself:
 
 | Prop           | Type                      | Default | Description                                                                             |
 |----------------|---------------------------|---------|-----------------------------------------------------------------------------------------|
-| offset         | `number` (from 0 to 1)    | 0.3     | How far from the top of the viewport to trigger a step (as a proportion of view height) |
-| progress       | `boolean`                 | false   | Whether to fire incremental step progress updates                                       |
+| offset         | `number` (from 0 to 1) or pixel value (e.g. "300px")    | 0.3     | How far from the top of the viewport to trigger a step (as a proportion of view height) |
 | threshold      | `number` (greater than 1) | 4       | Granularity of the progress interval in pixels (smaller = more granular)                |
 | onStepEnter    | `function`                |         | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
 | onStepExit     | `function`                |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
@@ -152,6 +151,7 @@ The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, wi
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
   direction, // 'up' or 'down'
+  entry, // the original `IntersectionObserver` entry
 }
 ```
 
@@ -162,6 +162,8 @@ The `onStepProgress` callback receives one argument, an object, with the followi
   element, // The DOM node of the step that was triggered
   data, // The data supplied to the step
   progress, // The percent of completion of the step (0 to 1)
+  direction, // 'up' or 'down'
+  entry, // the original `IntersectionObserver` entry
 }
 ```
 
@@ -199,7 +201,6 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 
 ## Features roadmap
 
-* Being able to use pixels instead of percent for offset value so stuff on mobile doesn't jump around on scroll direction change
 * Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
 * Fire previous step triggers if they were jumped
 

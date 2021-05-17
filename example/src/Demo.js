@@ -133,7 +133,8 @@ class Demo extends PureComponent {
     progress: 0,
   };
 
-  onStepEnter = ({ data }) => {
+  onStepEnter = e => {
+    const { data, entry, direction} = e;
     this.setState({ data });
   };
 
@@ -185,7 +186,7 @@ class Demo extends PureComponent {
               onStepExit={this.onStepExit}
               progress
               onStepProgress={this.onStepProgress}
-              offset={0.5}
+              offset="350px"
               debug
             >
               {steps.map(value => {
