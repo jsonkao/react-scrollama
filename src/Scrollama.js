@@ -12,7 +12,7 @@ const createThreshold = (theta, height) => {
   return t;
 };
 
-const TinyScrollama = props => {
+const Scrollama = props => {
   const {
     debug,
     children,
@@ -71,11 +71,11 @@ const TinyScrollama = props => {
   );
 };
 
-TinyScrollama.defaultProps = {
+Scrollama.defaultProps = {
   onStepProgress: null,
   onStepEnter: () => {},
   onStepExit: () => {},
   threshold: 4,
 };
 
-export default TinyScrollama;
+export default Scrollama;
