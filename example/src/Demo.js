@@ -186,7 +186,7 @@ class Demo extends PureComponent {
               onStepExit={this.onStepExit}
               progress
               onStepProgress={this.onStepProgress}
-              offset="350px"
+              offset="400px"
               debug
             >
               {steps.map(value => {
