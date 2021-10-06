@@ -27,6 +27,14 @@ As seen in:
 </tr>
 <tr>
   <td>
+    <a href="https://www.leparisien.fr/"><img src="https://www.leparisien.fr/pf/resources/images/E-LOGO-LP-192x60@2x.png?d=361" width="150" /></a> <br/> <a href="https://www.leparisien.fr/paris-75/un-petit-magasin-devenu-un-symbole-de-paris-comment-tati-a-imprime-sa-marque-a-barbes-04-10-2021-IIJ5MJVO3RBZXJY2BMBJ626PEM.php"><i>Comment Tati a imprimé <br/> sa marque à Barbès</i></a> <br/> by <a href="https://twitter.com/fabianous">Fabien Casaleggio</a>
+  </td>
+  <td>
+    <a href="https://user-images.githubusercontent.com/15334952/136296998-d06fe550-3805-4053-a20c-be5ec42d5507.png"><img src="https://user-images.githubusercontent.com/15334952/136296998-d06fe550-3805-4053-a20c-be5ec42d5507.png" width="450"/></a>
+  </td>
+</tr>
+<tr>
+  <td>
     <a href="https://www.politico.com/"><img src="https://static.politico.com/dims4/default/51786fe/2147483647/resize/1160x%3E/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F11%2F3c%2F2571c0ab455e91bf81dc4bab93a6%2Fpolitico-logo.png" width="150" /></a> <br/> <a href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"><i>The scramble to secure <br/> America’s voting machines</i></a> <br/> by <a href="https://bzjin.github.io">Beatrice Jin</a>
   </td>
   <td>
