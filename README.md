@@ -189,7 +189,7 @@ These are the props you can set on the `Step` component:
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
-## The contributors that made this possible
+## The contributors who made this possible
 
 * [jsonkao](https://github.com/jsonkao)
 * [maerzhase](https://github.com/maerzhase)
@@ -206,6 +206,7 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * [goleary](https://github.com/goleary)
 * [danieleguido](https://github.com/danieleguido)
 * [Lane](https://github.com/Lane)
+* [jkjustjoshing](https://github.com/jkjustjoshing)
 
 ## Features roadmap
 
