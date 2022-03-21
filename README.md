@@ -81,7 +81,7 @@ $ npm install react-scrollama
 A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326).
 
 ```jsx
-<Scrollama onStepEnter={callback}>
+<Scrollama onStepEnter={callback} offset={0.5}>
   <Step data={1}>
     <div>...</div>
   </Step>
@@ -113,7 +113,7 @@ const ScrollamaDemo = () => {
       <div style={{ position: 'sticky', top: 0, border: '1px solid orchid' }}>
         I'm sticky. The current triggered step index is: {currentStepIndex}
       </div>
-      <Scrollama onStepEnter={onStepEnter} debug>
+      <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
         {[1, 2, 3, 4].map((_, stepIndex) => (
           <Step data={stepIndex} key={stepIndex}>
             <div
