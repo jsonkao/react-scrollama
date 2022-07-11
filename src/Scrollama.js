@@ -43,9 +43,10 @@ const Scrollama = props => {
     }
   }, []);
 
-  const innerHeight = (windowInnerHeight || window.innerHeight)
+  const isBrowser = typeof window !== "undefined";
+  const innerHeight = isBrowser ? (windowInnerHeight || window.innerHeight) : 0;
 
-  const offsetValue = isOffsetDefinedInPixels 
+  const offsetValue = isOffsetDefinedInPixels
     ? (+offset.replace('px', '') / innerHeight)
     : offset;
 
