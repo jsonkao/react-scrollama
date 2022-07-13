@@ -27,7 +27,8 @@ const Step = props => {
     innerHeight,
   } = props;
 
-  const scrollTop = document.documentElement.scrollTop;
+  const isBrowser = typeof window !== "undefined";
+  const scrollTop = isBrowser ? document.documentElement.scrollTop : 0;
   const direction = lastScrollTop < scrollTop ? 'down' : 'up';
 
   const rootMargin = useRootMargin(offset);
@@ -58,7 +59,7 @@ const Step = props => {
     },
     [inViewRef, scrollProgressRef],
   );
- 
+
 
   React.useEffect(() => {
     if (isIntersecting) {
