@@ -77,6 +77,7 @@ Scrollama.defaultProps = {
   onStepEnter: () => {},
   onStepExit: () => {},
   threshold: 4,
+  offset: 0.3,
 };
 
 export default Scrollama;
