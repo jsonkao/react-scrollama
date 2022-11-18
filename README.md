@@ -4,14 +4,11 @@
   <a href="https://www.npmjs.com/package/react-scrollama">
     <img src="https://img.shields.io/npm/v/react-scrollama.svg" alt="npm version"/>
   </a>
-  <a href="https://david-dm.org/jsonkao/react-scrollama">
-    <img src="https://img.shields.io/david/jsonkao/react-scrollama" alt="dependency status"/>
-  </a>
 </p>
 
-React Scrollama is a lightweight interface for scrollytelling in React. It is adapted from Russel Goldenbeg's [Scrollama](https://github.com/russellgoldenberg/scrollama), and it uses the [IntersectionObserver](https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API) instead of scroll events.
+React Scrollama is a simple library for scrollytelling in React, utilizing the IntersectionObserver. It's adapted from [Russel Samora's](https://russellsamora.github.io/) [Scrollama](https://github.com/russellgoldenberg/scrollama).
 
-As seen in:
+Some examples:
 <table>
 <tbody>
 <tr>
@@ -54,7 +51,7 @@ As seen in:
 
 ## Demo
 
-Take a look at [the live demo](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
+A live demo [lives here](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
 
 <table>
   <tr>
@@ -74,11 +71,11 @@ React Scrollama can be installed as an [npm package](https://www.npmjs.com/packa
 $ npm install react-scrollama
 ```
 
-**Note: As of version 2.2.0, the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) has been removed from the build. You must include it yourself for cross-browser support.** Check [here](https://caniuse.com/#feat=intersectionobserver) to see if you need to include the polyfill.
+**Note: Version 2.2.0 removed the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) from the build. If you want [cross-browser support](https://caniuse.com/#feat=intersectionobserver), you should include it yourself.**
 
 ## Usage
 
-A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a DOM element](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326).
+A `Scrollama` component wraps a set of steps. Each `Step` component [must](https://github.com/jsonkao/react-scrollama/issues/19#issuecomment-624861326) wrap a DOM element (i.e. not just text).
 
 ```jsx
 <Scrollama onStepEnter={callback} offset={0.5}>
@@ -93,7 +90,7 @@ A `Scrollama` component wraps a set of steps. Each `Step` component [must wrap a
 
 `<Scrollama>` provides an interface for listening in on scroll triggers like entering or exiting a step. (Here's [a full list](#scrollama) of available props.)
 
-A no-frills example:
+A basic example:
 
 ```jsx
 import React, { useState } from 'react';
@@ -189,7 +186,7 @@ These are the props you can set on the `Step` component:
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
-## The contributors who made this possible
+## Thank you to everyone who made this possible!
 
 * [jsonkao](https://github.com/jsonkao)
 * [maerzhase](https://github.com/maerzhase)
@@ -213,4 +210,4 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
 * Fire previous step triggers if they were jumped
 
-If you need these features ASAP, let us know in issue!
+Lmk if you need these features ASAP.
