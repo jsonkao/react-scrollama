@@ -16,11 +16,11 @@ const Scrollama = props => {
   const {
     debug,
     children,
-    offset,
-    onStepEnter,
-    onStepExit,
-    onStepProgress,
-    threshold,
+    offset = 0.3,
+    onStepEnter = () => {},
+    onStepExit = () => {},
+    onStepProgress = null,
+    threshold = 4,
   } = props;
   const isOffsetDefinedInPixels = isOffsetInPixels(offset)
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -70,14 +70,6 @@ const Scrollama = props => {
       })}
     </React.Fragment>
   );
-};
-
-Scrollama.defaultProps = {
-  onStepProgress: null,
-  onStepEnter: () => {},
-  onStepExit: () => {},
-  threshold: 4,
-  offset: 0.3,
 };
 
 export default Scrollama;
