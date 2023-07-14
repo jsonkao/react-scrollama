@@ -18,9 +18,9 @@ const Step = props => {
     data,
     handleSetLastScrollTop,
     lastScrollTop,
-    onStepEnter,
-    onStepExit,
-    onStepProgress,
+    onStepEnter = () => {},
+    onStepExit = () => {},
+    onStepProgress = null,
     offset,
     scrollamaId,
     progressThreshold,
@@ -94,12 +94,6 @@ const Step = props => {
     ref: setRefs,
     entry,
   });
-};
-
-Step.defaultProps = {
-  onStepProgress: null,
-  onStepEnter: () => {},
-  onStepExit: () => {},
 };
 
 export default Step;
