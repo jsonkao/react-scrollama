@@ -13,7 +13,7 @@ Some examples:
 <tbody>
 <tr>
   <td>
-    <a href="https://www.worldbank.org/en/home"><img src="https://datatopics.worldbank.org/sdgatlas/static/media/world-bank-group.b88da1c7.png" width="220"/></a> <br/> 
+    <a href="https://www.worldbank.org/en/home"><img src="https://www.worldbank.org/content/dam/wbr/logo/logo-wb-header-en.svg" width="220"/></a> <br/> 
     <a href="https://datatopics.worldbank.org/sdgatlas/">17 interactive visualization <br/>
       stories</a> <a href="https://twitter.com/maartenzam/status/1371951848039579664">using</a> React Scrollama <br/>
     for scrollytelling
@@ -70,8 +70,6 @@ React Scrollama can be installed as an [npm package](https://www.npmjs.com/packa
 ```
 $ npm install react-scrollama
 ```
-
-**Note: Version 2.2.0 removed the [IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) from the build. If you want [cross-browser support](https://caniuse.com/#feat=intersectionobserver), you should include it yourself.**
 
 ## Usage
 
@@ -204,6 +202,9 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 * [danieleguido](https://github.com/danieleguido)
 * [Lane](https://github.com/Lane)
 * [jkjustjoshing](https://github.com/jkjustjoshing)
+* [tuckergordon](https://github.com/tuckergordon)
+* [fschwander](https://github.com/fschwander)
+* [thisispaul](https://github.com/thisispaul)
 
 ## Features roadmap
 
