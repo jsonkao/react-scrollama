@@ -1,4 +1,4 @@
-# React Scrollama
+# React Scrollama 🦙
 
 <p align="left">
   <a href="https://www.npmjs.com/package/react-scrollama">
@@ -6,9 +6,9 @@
   </a>
 </p>
 
-React Scrollama is a simple library for scrollytelling in React, utilizing the IntersectionObserver. It's adapted from [Russel Samora's](https://russellsamora.github.io/) [Scrollama](https://github.com/russellgoldenberg/scrollama).
+React Scrollama is a simple and silky library for scrollytelling. It relies on IntersectionObserver and sticky positioning over scroll listeners. It is originally adapted from [Russel Samora's](https://russellsamora.github.io/) [Scrollama](https://github.com/russellgoldenberg/scrollama).
 
-Some examples:
+A few examples of ambitious interactive stories that were built with React Scrollama…
 <table>
 <tbody>
 <tr>
@@ -51,7 +51,7 @@ Some examples:
 
 ## Demo
 
-A live demo [lives here](https://jsonkao.github.io/react-scrollama), presented at [ReactNYC](https://www.youtube.com/watch?v=zR_LDPLMUvE).
+A live demo [lives here](https://jsonkao.github.io/react-scrollama). It was debu'd at the [August 2018 ReactNYC meetup](https://www.youtube.com/watch?v=zR_LDPLMUvE).
 
 <table>
   <tr>
