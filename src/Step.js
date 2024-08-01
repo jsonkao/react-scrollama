@@ -29,7 +29,7 @@ const Step = props => {
 
   const isBrowser = typeof window !== "undefined";
   const scrollTop = isBrowser ? document.documentElement.scrollTop : 0;
-  const direction = lastScrollTop < scrollTop ? 'down' : 'up';
+  const direction = lastScrollTop > scrollTop ? 'up' : 'down';
 
   const rootMargin = useRootMargin(offset);
 
