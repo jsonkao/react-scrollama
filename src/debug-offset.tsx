@@ -1,7 +1,6 @@
-import React from 'react';
 import { isOffsetInPixels } from './utils';
 
-const markerStyles = {
+const markerStyles: React.CSSProperties = {
   position: 'fixed',
   left: 0,
   width: '100%',
@@ -9,23 +8,28 @@ const markerStyles = {
   borderTop: '2px dashed black',
   zIndex: 9999,
 };
-const offsetTextStyles = {
+const offsetTextStyles: React.CSSProperties = {
   fontSize: '12px',
   fontFamily: 'monospace',
   margin: 0,
   padding: 6,
 };
 
-const useTop = offset => {
+const useTop = (offset: string | number) => {
   const offsetInPixels = isOffsetInPixels(offset);
-  if(offsetInPixels) {
-    return offset;
+
+  if (offsetInPixels) {
+    return offset.toString();
   } else {
-    return `${offset * 100}%`
+    return `${Number(offset) * 100}%`
   }
 }
 
-const DebugOffset = ({ offset }) => {
+interface DebugOffsetProps {
+  offset: string | number;
+}
+
+export const DebugOffset: React.FC<DebugOffsetProps> = ({ offset }) => {
   const top = useTop(offset);
   return (
     <div style={{ ...markerStyles, top, }}>
@@ -34,4 +38,3 @@ const DebugOffset = ({ offset }) => {
   );
 }
 
-export default DebugOffset;

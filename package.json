@@ -1,12 +1,30 @@
 {
   "name": "react-scrollama",
   "version": "2.3.3",
+  "type": "module",
   "description": "A lightweight scrollytelling interface for React using the IntersectionObserver.",
   "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
   "license": "MIT",
   "homepage": "https://jsonkao.github.io/react-scrollama/",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
   "keywords": [
     "react",
     "scrollama",
@@ -22,47 +40,56 @@
     "url": "https://github.com/jsonkao/react-scrollama"
   },
   "engines": {
-    "node": ">=8",
-    "npm": ">=5"
+    "node": ">=18.0.0",
+    "npm": ">=10.7.0"
   },
   "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w",
-    "prepublishOnly": "npm run build",
+    "prepare": "simple-git-hooks",
+    "build": "tsup",
+    "start": "tsup --watch",
+    "prepublishOnly": "npm run build && npm run test",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
-    "test": "echo \"Error: no test specified\""
+    "lint": "eslint src --quiet",
+    "coverage": "vitest run --coverage",
+    "test": "vitest",
+    "lint:fix": "eslint src --fix --quiet",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.2 || ^18.2.0",
-    "react-dom": "^16.8.0 || ^17.0.2 || ^18.2.0"
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-react": "^7.18.6",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "eslint": "^8.19.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
-    "eslint-plugin-react": "^7.30.1",
-    "gh-pages": "^4.0.0",
-    "rollup": "^2.76.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
-  },
-  "files": [
-    "dist"
-  ],
-  "prettier": {
-    "trailingComma": "all",
-    "singleQuote": true,
-    "arrowParens": "avoid"
+    "@eslint/js": "^9.10.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.10.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "gh-pages": "^6.1.1",
+    "globals": "^15.9.0",
+    "happy-dom": "^15.7.3",
+    "lint-staged": "^15.2.10",
+    "react": "^18.3.0",
+    "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.2.4",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.5.0",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
-    "react-intersection-observer": "^9.3.5"
+    "react-intersection-observer": "^9.13.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md,ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }
