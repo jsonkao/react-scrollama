@@ -1,22 +1,25 @@
-import { useState, useEffect, useMemo, useCallback, useRef, Children, cloneElement } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, Children, cloneElement, useContext } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { isBrowser, getRootMargin, getProgressRootMargin } from './utils';
 import type { StepProps } from './types';
+import { ScrollamaProvide } from './provide';
 
 export const Step: React.FC<StepProps> = ({
   children,
   data,
-  handleSetLastScrollTop = () => { },
-  lastScrollTop = 0,
-  onStepEnter = () => { },
-  onStepExit = () => { },
-  onStepProgress = null,
-  offset = 0.3,
-  scrollamaId = '',
-  progressThreshold,
-  innerHeight = 0,
 }) => {
+  const {
+    handleSetLastScrollTop = () => { },
+    lastScrollTop = 0,
+    onStepEnter = () => { },
+    onStepExit = () => { },
+    onStepProgress = null,
+    offset = 0.3,
+    progressThreshold,
+    innerHeight = 0,
+  } = useContext(ScrollamaProvide);
+
   const rootMargin = getRootMargin({ offset });
   const { ref: inViewRef, entry } = useInView({
     rootMargin,
@@ -57,7 +60,6 @@ export const Step: React.FC<StepProps> = ({
       if (onStepProgress) {
         onStepProgress({
           progress,
-          scrollamaId,
           data,
           element: scrollProgressEntry.target,
           entry: scrollProgressEntry,
@@ -70,18 +72,17 @@ export const Step: React.FC<StepProps> = ({
   useEffect(() => {
     if (entry && !entry.isIntersecting && isIntersecting) {
       setIsIntersecting(false);
-      onStepExit({ element: entry.target, scrollamaId, data, entry, direction });
+      onStepExit({ element: entry.target, data, entry, direction });
       handleSetLastScrollTop(scrollTop)
     } else if (entry && entry.isIntersecting && !isIntersecting) {
       setIsIntersecting(true);
-      onStepEnter({ element: entry.target, scrollamaId, data, entry, direction });
+      onStepEnter({ element: entry.target, data, entry, direction });
       handleSetLastScrollTop(scrollTop)
     }
   }, [entry]);
 
   const childElement = Children.only(children);
   return cloneElement(childElement, {
-    'data-react-scrollama-id': scrollamaId,
     ref: setRefs,
     entry,
   });

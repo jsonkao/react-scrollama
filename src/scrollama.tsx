@@ -1,11 +1,13 @@
-import { useMemo, useState, Fragment, Children, useEffect, cloneElement, isValidElement } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+
 import { DebugOffset } from './debug-offset';
 import { isOffsetInPixels, createThreshold, isBrowser } from './utils';
+import { ScrollamaProvide } from './provide';
 
-import type { ScrollamaProps, StepProps } from './types';
+import type { ScrollamaProps } from './types';
 
 
-export const Scrollama = <T = string>({
+export const Scrollama = <T = unknown>({
   debug,
   children,
   offset = 0.3,
@@ -39,33 +41,23 @@ export const Scrollama = <T = string>({
 
   const offsetValue = isOffsetDefinedInPixels
     ? (+(offset as string).replace('px', '') / innerHeight)
-    : offset;
+    : +offset;
 
   const progressThreshold = useMemo(() => createThreshold(threshold, innerHeight), [innerHeight]);
 
   return (
-    <Fragment>
+    <ScrollamaProvide.Provider value={{
+      offset: offsetValue,
+      lastScrollTop,
+      handleSetLastScrollTop,
+      progressThreshold,
+      innerHeight,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      onStepEnter, onStepExit, onStepProgress,
+    }}>
       {debug && <DebugOffset offset={offset} />}
-      {Children.map(children, (child, i) => {
-        /**
-         * Clone a React element.If the value is
-         * not a valid React element, return child.
-         */
-        if (!isValidElement(child)) {
-          return child;
-        }
-        return cloneElement(child, {
-          scrollamaId: `react-scrollama-${i}`,
-          offset: offsetValue,
-          onStepEnter,
-          onStepExit,
-          onStepProgress,
-          lastScrollTop,
-          handleSetLastScrollTop,
-          progressThreshold,
-          innerHeight
-        } as unknown as StepProps);
-      })}
-    </Fragment>
+      {children}
+    </ScrollamaProvide.Provider>
   );
 };

@@ -16,8 +16,6 @@ export interface ScrollamaCallbackData<T = unknown> {
   direction: ScrollamaDirection;
   /** The IntersectionObserverEntry for the step */
   entry: IntersectionObserverEntry;
-  /** Unique identifier for the Scrollama instance */
-  scrollamaId: string;
 }
 
 /**
@@ -102,7 +100,9 @@ export interface StepProps<T = unknown> {
    * Optional data associated with this step.
    */
   data?: T;
+}
 
+export interface ScrollamaProvideProps<T = unknown> {
   /**
    * The last known scroll position.
    */
@@ -114,14 +114,9 @@ export interface StepProps<T = unknown> {
   offset?: number;
 
   /**
-   * A unique identifier for this Scrollama instance.
-   */
-  scrollamaId?: string;
-
-  /**
    * The threshold for progress calculations.
    */
-  progressThreshold?: number;
+  progressThreshold?: number | number[];
 
   /**
    * The inner height of the viewport.
@@ -131,17 +126,17 @@ export interface StepProps<T = unknown> {
   /**
    * Callback fired when the step enters the viewport.
    */
-  onStepEnter?: ScrollamaCallback;
+  onStepEnter?: ScrollamaCallback<T>;
 
   /**
    * Callback fired when the step exits the viewport.
    */
-  onStepExit?: ScrollamaCallback;
+  onStepExit?: ScrollamaCallback<T>;
 
   /**
    * Callback fired to report progress as the step moves through the viewport.
    */
-  onStepProgress?: ScrollamaProgressCallback;
+  onStepProgress?: ScrollamaProgressCallback<T>;
 
   /**
    * Function to update the last known scroll position.
