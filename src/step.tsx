@@ -1,8 +1,18 @@
-import { useState, useEffect, useMemo, useCallback, useRef, Children, cloneElement, useContext } from 'react';
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+  Children,
+  cloneElement,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { isBrowser, getRootMargin, getProgressRootMargin } from './utils';
-import type { StepProps } from './types';
+import type { StepProps, ScrollamaCallbackData } from './types';
 import { ScrollamaProvide } from './provide';
 
 export const Step: React.FC<StepProps> = ({
@@ -20,6 +30,7 @@ export const Step: React.FC<StepProps> = ({
     innerHeight = 0,
   } = useContext(ScrollamaProvide);
 
+  const [nodeOffsetHeight, setNodeOffsetHeight] = useState(0);
   const rootMargin = getRootMargin({ offset });
   const { ref: inViewRef, entry } = useInView({
     rootMargin,
@@ -33,9 +44,10 @@ export const Step: React.FC<StepProps> = ({
   const ref = useRef<HTMLElement | null>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
+
   const progressRootMargin = useMemo(
-    () => getProgressRootMargin({ direction, offset, node: ref, innerHeight }),
-    [direction, offset, ref, innerHeight]
+    () => getProgressRootMargin({ direction, offset, nodeOffsetHeight, innerHeight }),
+    [direction, offset, nodeOffsetHeight, innerHeight]
   );
 
   const { ref: scrollProgressRef, entry: scrollProgressEntry } = useInView({
@@ -55,7 +67,7 @@ export const Step: React.FC<StepProps> = ({
 
   useEffect(() => {
     if (isIntersecting && scrollProgressEntry) {
-      const { height, top } = scrollProgressEntry.target.getBoundingClientRect();
+      const { height, top } = scrollProgressEntry.boundingClientRect;
       const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
       if (onStepProgress) {
         onStepProgress({
@@ -70,22 +82,29 @@ export const Step: React.FC<StepProps> = ({
   }, [scrollProgressEntry]);
 
   useEffect(() => {
-    if (entry && !entry.isIntersecting && isIntersecting) {
-      setIsIntersecting(false);
-      onStepExit({ element: entry.target, data, entry, direction });
-      handleSetLastScrollTop(scrollTop)
-    } else if (entry && entry.isIntersecting && !isIntersecting) {
-      setIsIntersecting(true);
-      onStepEnter({ element: entry.target, data, entry, direction });
-      handleSetLastScrollTop(scrollTop)
+    if (entry) {
+      const currentIntersectionState = entry.isIntersecting;
+      if (currentIntersectionState !== isIntersecting) {
+        setIsIntersecting(currentIntersectionState);
+        const eventData: ScrollamaCallbackData<unknown> = { element: entry.target, data, entry, direction };
+        if (currentIntersectionState) {
+          onStepEnter(eventData);
+        } else {
+          onStepExit(eventData);
+        }
+        handleSetLastScrollTop(scrollTop);
+      }
     }
   }, [entry]);
 
+  useLayoutEffect(() => {
+    if (ref.current) {
+      setNodeOffsetHeight(ref.current.offsetHeight);
+    }
+  }, [ref.current]);
+
   const childElement = Children.only(children);
-  return cloneElement(childElement, {
-    ref: setRefs,
-    entry,
-  });
+  return cloneElement(childElement, { ref: setRefs });
 };
 
 

@@ -58,7 +58,7 @@ export const getRootMargin = ({ offset }: { offset: number }) => {
 interface GetProgressRootMarginParams {
   direction: string;
   offset: number;
-  node: React.RefObject<HTMLElement>;
+  nodeOffsetHeight: number;
   innerHeight: number;
 }
 
@@ -68,13 +68,13 @@ interface GetProgressRootMarginParams {
  * @param {Object} params - The parameters for calculating the root margin.
  * @param {string} params.direction - The scroll direction ('up' or 'down').
  * @param {number} params.offset - The offset value, typically between 0 and 1.
- * @param {React.RefObject<HTMLElement>} params.node - Reference to the DOM node being tracked.
+ * @param {number} params.nodeOffsetHeight - The offset height of the node.
  * @param {number} params.innerHeight - The inner height of the viewport.
  * @returns {string} The calculated root margin string in the format "top right bottom left".
  */
-export const getProgressRootMargin = ({ direction, offset, node, innerHeight }: GetProgressRootMarginParams) => {
-  if (!node.current) return '0px';
-  const offsetHeight = (node.current.offsetHeight / innerHeight);
+export const getProgressRootMargin = ({ direction, offset, nodeOffsetHeight, innerHeight }: GetProgressRootMarginParams) => {
+  if (!nodeOffsetHeight) return '0px';
+  const offsetHeight = (nodeOffsetHeight / innerHeight);
   if (direction === 'down') return `${(offsetHeight - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
   return `-${offset * 100}% 0px ${(offsetHeight * 100) - (100 - (offset * 100))}% 0px`;
 }

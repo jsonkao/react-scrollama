@@ -11,9 +11,9 @@ export const Scrollama = <T = unknown>({
   debug,
   children,
   offset = 0.3,
-  onStepEnter = () => { },
-  onStepExit = () => { },
-  onStepProgress = () => { },
+  onStepEnter,
+  onStepExit,
+  onStepProgress,
   threshold = 4,
 }: ScrollamaProps<T>) => {
   const isOffsetDefinedInPixels = isOffsetInPixels(offset);

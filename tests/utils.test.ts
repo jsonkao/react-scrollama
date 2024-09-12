@@ -72,19 +72,17 @@ describe('getRootMargin', () => {
 
 
 describe('getProgressRootMargin', () => {
-  it('should return "0px" when node.current is null', () => {
-    expect(getProgressRootMargin({ direction: 'down', offset: 0, node: { current: null }, innerHeight: 0 })).toBe('0px');
+  it('should return "0px" when nodeOffsetHeight is null', () => {
+    expect(getProgressRootMargin({ direction: 'down', offset: 0, nodeOffsetHeight: 0, innerHeight: 0 })).toBe('0px');
   });
 
   it('should return correct margin for downward scrolling', () => {
-    const mockNode = { current: { offsetHeight: 500 } } as React.RefObject<HTMLElement>;
-    const result = getProgressRootMargin({ direction: 'down', offset: 0.3, node: mockNode, innerHeight: 1000 });
+    const result = getProgressRootMargin({ direction: 'down', offset: 0.3, nodeOffsetHeight: 500, innerHeight: 1000 });
     expect(result).toBe('20% 0px -70% 0px');
   });
 
   it('should return correct margin for upward scrolling', () => {
-    const mockNode = { current: { offsetHeight: 500 } } as React.RefObject<HTMLElement>;
-    const result = getProgressRootMargin({ direction: 'up', offset: 0.3, node: mockNode, innerHeight: 1000 });
+    const result = getProgressRootMargin({ direction: 'up', offset: 0.3, nodeOffsetHeight: 500, innerHeight: 1000 });
     expect(result).toBe('-30% 0px -20% 0px');
   });
 });
