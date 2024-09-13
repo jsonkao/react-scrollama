@@ -73,5 +73,17 @@ interface GetProgressRootMarginParams {
 export const getProgressRootMargin = ({ offset, nodeOffsetHeight, innerHeight }: GetProgressRootMarginParams) => {
   if (!nodeOffsetHeight) return '0px';
   const offsetHeightRatio = (nodeOffsetHeight / innerHeight);
-  return `${(offsetHeightRatio - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
+  /**
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+   * Add an extra 1% to prevent the "zero intersection rectangle" phenomenon:
+   * 
+   * 1. Prevents the root intersection rectangle from overlapping with the scrolling element, which could prevent triggering.
+   * 2. Due to rounding of decimal points in calculations, the height of the root intersection rectangle might be smaller than the scrolling element's height, preventing triggering.
+   * 
+   * Why adding 1% doesn't affect progress calculation:
+   * 
+   * When the intersection ratio of the scrolling observer is 1, the other observer's isIntersecting is false. 
+   * Therefore, we don't need to worry about the impact of adding this extra value.
+   */
+  return `${(offsetHeightRatio - offset) * 100 + 1}% 0px ${(offset * 100) - 100}% 0px`;
 }
