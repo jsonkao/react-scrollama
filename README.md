@@ -220,7 +220,6 @@ You will also probably want to set a `key` prop on each `Step` if you're transfo
 
 ## Features roadmap
 
-* Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
 * Fire previous step triggers if they were jumped
 
 Lmk if you need these features ASAP.

@@ -30,12 +30,19 @@ export const Scrollama = <T = unknown>({
 
   useEffect(() => {
     if (isOffsetDefinedInPixels) {
-      window.addEventListener('resize', handleWindowResize);
+      const resizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          if (entry.target === document.documentElement) {
+            handleWindowResize();
+          }
+        }
+      });
+      resizeObserver.observe(document.documentElement);
       return () => {
-        window.removeEventListener('resize', handleWindowResize);
+        resizeObserver.disconnect();
       };
     }
-  }, [isOffsetDefinedInPixels, handleWindowResize]);
+  }, []);
 
   const innerHeight = isBrowser ? (windowInnerHeight || window.innerHeight) : 0;
 
