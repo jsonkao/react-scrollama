@@ -46,8 +46,8 @@ export const Step: React.FC<StepProps> = ({
 
 
   const progressRootMargin = useMemo(
-    () => getProgressRootMargin({ direction, offset, nodeOffsetHeight, innerHeight }),
-    [direction, offset, nodeOffsetHeight, innerHeight]
+    () => getProgressRootMargin({ offset, nodeOffsetHeight, innerHeight }),
+    [offset, nodeOffsetHeight, innerHeight]
   );
 
   const { ref: scrollProgressRef, entry: scrollProgressEntry } = useInView({
@@ -67,11 +67,10 @@ export const Step: React.FC<StepProps> = ({
 
   useEffect(() => {
     if (isIntersecting && scrollProgressEntry) {
-      const { height, top } = scrollProgressEntry.boundingClientRect;
-      const progress = Math.min(1, Math.max(0, (window.innerHeight * offset - top) / height));
+      const progress = scrollProgressEntry.intersectionRatio;
       if (onStepProgress) {
         onStepProgress({
-          progress,
+          progress: progress,
           data,
           element: scrollProgressEntry.target,
           entry: scrollProgressEntry,

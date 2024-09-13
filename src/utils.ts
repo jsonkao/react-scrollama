@@ -56,7 +56,6 @@ export const getRootMargin = ({ offset }: { offset: number }) => {
 
 
 interface GetProgressRootMarginParams {
-  direction: string;
   offset: number;
   nodeOffsetHeight: number;
   innerHeight: number;
@@ -66,15 +65,13 @@ interface GetProgressRootMarginParams {
  * Calculates the root margin for progress tracking based on scroll direction and element dimensions.
  *
  * @param {Object} params - The parameters for calculating the root margin.
- * @param {string} params.direction - The scroll direction ('up' or 'down').
  * @param {number} params.offset - The offset value, typically between 0 and 1.
  * @param {number} params.nodeOffsetHeight - The offset height of the node.
  * @param {number} params.innerHeight - The inner height of the viewport.
  * @returns {string} The calculated root margin string in the format "top right bottom left".
  */
-export const getProgressRootMargin = ({ direction, offset, nodeOffsetHeight, innerHeight }: GetProgressRootMarginParams) => {
+export const getProgressRootMargin = ({ offset, nodeOffsetHeight, innerHeight }: GetProgressRootMarginParams) => {
   if (!nodeOffsetHeight) return '0px';
-  const offsetHeight = (nodeOffsetHeight / innerHeight);
-  if (direction === 'down') return `${(offsetHeight - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
-  return `-${offset * 100}% 0px ${(offsetHeight * 100) - (100 - (offset * 100))}% 0px`;
+  const offsetHeightRatio = (nodeOffsetHeight / innerHeight);
+  return `${(offsetHeightRatio - offset) * 100}% 0px ${(offset * 100) - 100}% 0px`;
 }
