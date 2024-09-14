@@ -30,16 +30,9 @@ export const Scrollama = <T = unknown>({
 
   useEffect(() => {
     if (isOffsetDefinedInPixels) {
-      const resizeObserver = new ResizeObserver(entries => {
-        for (const entry of entries) {
-          if (entry.target === document.documentElement) {
-            handleWindowResize();
-          }
-        }
-      });
-      resizeObserver.observe(document.documentElement);
+      window.addEventListener('resize', handleWindowResize);
       return () => {
-        resizeObserver.disconnect();
+        window.removeEventListener('resize', handleWindowResize);
       };
     }
   }, []);
