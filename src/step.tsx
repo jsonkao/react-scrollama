@@ -28,11 +28,13 @@ export const Step: React.FC<StepProps> = ({
     offset = 0.3,
     progressThreshold,
     innerHeight = 0,
+    rootRef
   } = useContext(ScrollamaProvide);
 
   const [nodeOffsetHeight, setNodeOffsetHeight] = useState(0);
   const rootMargin = getRootMargin({ offset });
   const { ref: inViewRef, entry } = useInView({
+    root: rootRef?.current,
     rootMargin,
     threshold: 0,
   });
@@ -51,6 +53,7 @@ export const Step: React.FC<StepProps> = ({
   );
 
   const { ref: scrollProgressRef, entry: scrollProgressEntry } = useInView({
+    root: rootRef?.current,
     rootMargin: progressRootMargin,
     threshold: progressThreshold,
   });

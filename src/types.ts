@@ -83,6 +83,12 @@ export interface ScrollamaProps<T = unknown> {
    * @default 4
    */
   threshold?: number;
+
+  /**
+   * The root element of the IntersectionObserver.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
+   */
+  rootRef?: React.RefObject<Element>;
 }
 
 /**
@@ -122,6 +128,12 @@ export interface ScrollamaProvideProps<T = unknown> {
    * The inner height of the viewport.
    */
   innerHeight?: number;
+
+  /**
+   * The root element of the IntersectionObserver.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
+   */
+  rootRef?: React.RefObject<Element>;
 
   /**
    * Callback fired when the step enters the viewport.

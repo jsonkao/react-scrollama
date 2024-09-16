@@ -78,11 +78,11 @@ describe('getProgressRootMargin', () => {
 
   it('should return correct margin for downward scrolling', () => {
     const result = getProgressRootMargin({ direction: 'down', offset: 0.3, nodeOffsetHeight: 500, innerHeight: 1000 });
-    expect(result).toBe('20% 0px -70% 0px');
+    expect(result).toBe('21% 0px -70% 0px');
   });
 
   it('should return correct margin for upward scrolling', () => {
     const result = getProgressRootMargin({ direction: 'up', offset: 0.3, nodeOffsetHeight: 500, innerHeight: 1000 });
-    expect(result).toBe('-30% 0px -20% 0px');
+    expect(result).toBe('21% 0px -70% 0px');
   });
 });

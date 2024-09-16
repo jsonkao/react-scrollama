@@ -1,7 +1,16 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import { vi, beforeEach, afterEach } from "vitest";
+import {
+  setupIntersectionMocking,
+  resetIntersectionMocking,
+} from "react-intersection-observer/test-utils";
+
+beforeEach(() => {
+  setupIntersectionMocking(vi.fn);
+});
 
 afterEach(() => {
-  cleanup()
-})
+  resetIntersectionMocking();
+  cleanup();
+});
