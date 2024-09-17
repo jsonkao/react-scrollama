@@ -113,7 +113,7 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
 				} else {
 					onStepExit(eventData);
 				}
-				handleSetLastScrollPosition(getScrollDirection());
+				handleSetLastScrollPosition(getScrollPosition());
 			}
 		}
 	}, [entry]);

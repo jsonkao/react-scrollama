@@ -67,40 +67,46 @@ describe("isBrowser", () => {
 
 describe("getRootMargin", () => {
 	it("should return the correct root margin", () => {
-		expect(getRootMargin({ offset: 0 })).toBe("0% 0px -100% 0px");
-		expect(getRootMargin({ offset: 0.5 })).toBe("-50% 0px -50% 0px");
-		expect(getRootMargin({ offset: 1 })).toBe("-100% 0px 0% 0px");
+		expect(getRootMargin({ offset: 0, direction: "horizontal" })).toBe(
+			"0% 0px -100% 0px",
+		);
+		expect(getRootMargin({ offset: 0.5, direction: "horizontal" })).toBe(
+			"-50% 0px -50% 0px",
+		);
+		expect(getRootMargin({ offset: 1, direction: "horizontal" })).toBe(
+			"-100% 0px 0% 0px",
+		);
 	});
 });
 
 describe("getProgressRootMargin", () => {
-	it('should return "0px" when nodeOffsetHeight is null', () => {
+	it('should return "0px" when nodeSize is null', () => {
 		expect(
 			getProgressRootMargin({
-				direction: "down",
+				direction: "horizontal",
 				offset: 0,
-				nodeOffsetHeight: 0,
-				innerHeight: 0,
+				nodeSize: 0,
+				containerSize: 0,
 			}),
 		).toBe("0px");
 	});
 
 	it("should return correct margin for downward scrolling", () => {
 		const result = getProgressRootMargin({
-			direction: "down",
+			direction: "horizontal",
 			offset: 0.3,
-			nodeOffsetHeight: 500,
-			innerHeight: 1000,
+			nodeSize: 500,
+			containerSize: 1000,
 		});
 		expect(result).toBe("21% 0px -70% 0px");
 	});
 
 	it("should return correct margin for upward scrolling", () => {
 		const result = getProgressRootMargin({
-			direction: "up",
+			direction: "horizontal",
 			offset: 0.3,
-			nodeOffsetHeight: 500,
-			innerHeight: 1000,
+			nodeSize: 500,
+			containerSize: 1000,
 		});
 		expect(result).toBe("21% 0px -70% 0px");
 	});
