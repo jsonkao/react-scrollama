@@ -13,38 +13,58 @@ import { useInView } from "react-intersection-observer";
 
 import { ScrollamaProvide } from "./provide";
 import type { ScrollamaCallbackData, StepProps } from "./types";
-import { getProgressRootMargin, getRootMargin, isBrowser } from "./utils";
+import {
+	getProgressRootMargin,
+	getRootMargin,
+	isBrowser,
+	isHorizontal,
+} from "./utils";
 
 export const Step: React.FC<StepProps> = ({ children, data }) => {
 	const {
-		handleSetLastScrollTop = () => {},
-		lastScrollTop = 0,
+		handleSetLastScrollPosition = () => {},
+		lastScrollPosition = 0,
 		onStepEnter = () => {},
 		onStepExit = () => {},
 		onStepProgress = null,
 		offset = 0.3,
 		progressThreshold,
-		innerHeight = 0,
+		containerSize = 0,
 		rootRef,
+		direction = "horizontal",
 	} = useContext(ScrollamaProvide);
 
-	const [nodeOffsetHeight, setNodeOffsetHeight] = useState(0);
-	const rootMargin = getRootMargin({ offset });
+	const [nodeSize, setNodeSize] = useState(0);
+	const rootMargin = getRootMargin({ offset, direction });
 	const { ref: inViewRef, entry } = useInView({
 		root: rootRef?.current,
 		rootMargin,
 		threshold: 0,
 	});
 
-	const scrollTop = isBrowser ? document.documentElement.scrollTop : 0;
-	const direction = lastScrollTop > scrollTop ? "up" : "down";
+	const getScrollPosition = () => {
+		if (!isBrowser) return 0;
+		if (rootRef?.current) {
+			return isHorizontal(direction)
+				? rootRef.current.scrollTop
+				: rootRef.current.scrollLeft;
+		}
+		return isHorizontal(direction) ? window.scrollY : window.scrollX;
+	};
+
+	const getScrollDirection = () => {
+		if (isHorizontal(direction)) {
+			return lastScrollPosition > getScrollPosition() ? "up" : "down";
+		}
+		return lastScrollPosition > getScrollPosition() ? "left" : "right";
+	};
 
 	const ref = useRef<HTMLElement | null>(null);
 	const [isIntersecting, setIsIntersecting] = useState(false);
 
 	const progressRootMargin = useMemo(
-		() => getProgressRootMargin({ offset, nodeOffsetHeight, innerHeight }),
-		[offset, nodeOffsetHeight, innerHeight],
+		() => getProgressRootMargin({ offset, nodeSize, containerSize, direction }),
+		[offset, nodeSize, containerSize, direction],
 	);
 
 	const { ref: scrollProgressRef, entry: scrollProgressEntry } = useInView({
@@ -71,7 +91,7 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
 					data,
 					element: scrollProgressEntry.target,
 					entry: scrollProgressEntry,
-					direction,
+					direction: getScrollDirection(),
 				});
 			}
 		}
@@ -86,21 +106,25 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
 					element: entry.target,
 					data,
 					entry,
-					direction,
+					direction: getScrollDirection(),
 				};
 				if (currentIntersectionState) {
 					onStepEnter(eventData);
 				} else {
 					onStepExit(eventData);
 				}
-				handleSetLastScrollTop(scrollTop);
+				handleSetLastScrollPosition(getScrollDirection());
 			}
 		}
 	}, [entry]);
 
 	useLayoutEffect(() => {
 		if (ref.current) {
-			setNodeOffsetHeight(ref.current.offsetHeight);
+			setNodeSize(
+				isHorizontal(direction)
+					? ref.current.offsetHeight
+					: ref.current.offsetWidth,
+			);
 		}
 	}, [ref.current]);
 

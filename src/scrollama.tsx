@@ -2,11 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 
 import { DebugOffset } from "./debug-offset";
 import { ScrollamaProvide } from "./provide";
-import { createThreshold, isBrowser, isOffsetInPixels } from "./utils";
+import { createThreshold, isHorizontal, isOffsetInPixels } from "./utils";
 
 import type { ScrollamaProps } from "./types";
 
 export const Scrollama = <T = unknown>({
+	direction = "horizontal",
 	debug,
 	children,
 	offset = 0.3,
@@ -17,18 +18,32 @@ export const Scrollama = <T = unknown>({
 	rootRef,
 }: ScrollamaProps<T>) => {
 	const isOffsetDefinedInPixels = isOffsetInPixels(offset);
-	const [lastScrollTop, setLastScrollTop] = useState(0);
-	const [containerHeight, setContainerHeight] = useState(0);
+	const [lastScrollPosition, setLastScrollPosition] = useState(0);
+	const [containerSize, setContainerSize] = useState(1);
+	const [stickySize, setStickySize] = useState(0);
 
-	const handleSetLastScrollTop = (scrollTop: number) => {
-		setLastScrollTop(scrollTop);
+	const viewportSize = useMemo(() => {
+		return isHorizontal(direction) ? window.innerHeight : window.innerWidth;
+	}, [direction]);
+
+	const handleSetLastScrollPosition = (scrollPosition: number) => {
+		setLastScrollPosition(scrollPosition);
 	};
 
 	const handleResize = () => {
 		if (rootRef?.current) {
-			setContainerHeight(rootRef.current.clientHeight);
+			setContainerSize(
+				isHorizontal(direction)
+					? rootRef.current.clientHeight
+					: rootRef.current.clientWidth,
+			);
+			setStickySize(
+				!isHorizontal(direction)
+					? rootRef.current.clientHeight
+					: rootRef.current.clientWidth,
+			);
 		} else {
-			setContainerHeight(window.innerHeight);
+			setContainerSize(viewportSize);
 		}
 	};
 
@@ -44,6 +59,7 @@ export const Scrollama = <T = unknown>({
 				};
 			}
 
+			handleResize();
 			window.addEventListener("resize", handleResize);
 			return () => {
 				window.removeEventListener("resize", handleResize);
@@ -51,26 +67,25 @@ export const Scrollama = <T = unknown>({
 		}
 	}, []);
 
-	const innerHeight = isBrowser ? containerHeight || window.innerHeight : 0;
-
 	const offsetValue = isOffsetDefinedInPixels
-		? +(offset as string).replace("px", "") / innerHeight
+		? +(offset as string).replace("px", "") / containerSize
 		: +offset;
 
 	const progressThreshold = useMemo(
-		() => createThreshold(threshold, innerHeight),
-		[innerHeight],
+		() => createThreshold(threshold, containerSize),
+		[containerSize],
 	);
 
 	return (
 		<ScrollamaProvide.Provider
 			value={{
 				offset: offsetValue,
-				lastScrollTop,
-				handleSetLastScrollTop,
+				lastScrollPosition,
+				handleSetLastScrollPosition,
 				progressThreshold,
-				innerHeight,
+				containerSize,
 				rootRef,
+				direction,
 				// @ts-ignore ts(2345)
 				onStepEnter,
 				// @ts-ignore ts(2345)
@@ -82,8 +97,10 @@ export const Scrollama = <T = unknown>({
 			{debug && (
 				<DebugOffset
 					offset={offset}
+					direction={direction}
 					isHasRoot={!!rootRef}
-					innerHeight={innerHeight}
+					stickySize={stickySize}
+					containerSize={containerSize}
 				/>
 			)}
 			{children}

@@ -1,3 +1,5 @@
+import type { TriggerLineDirection } from "./types";
+
 /**
  * Checks if the given offset is in pixels.
  *
@@ -33,28 +35,47 @@ export const createThreshold = (theta: number, height: number) => {
 export const isBrowser =
 	typeof window !== "undefined" && window.document !== undefined;
 
+export const isHorizontal = (direction: TriggerLineDirection) =>
+	direction === "horizontal";
+
 /**
  * Calculates the root margin for the Intersection Observer based on the given offset.
  *
  * @param {Object} params - The parameters object.
  * @param {number} params.offset - The offset value, typically between 0 and 1.
+ * @param {TriggerLineDirection} params.direction - The direction of the trigger line.
  * @returns {string} The calculated root margin string in the format "top right bottom left".
  */
-export const getRootMargin = ({ offset }: { offset: number }) => {
-	const margins = [
-		`${-offset * 100}%`, // Top
-		"0px", // Right
-		`${-(100 - offset * 100)}%`, // Bottom
-		"0px", // Left
-	];
+export const getRootMargin = ({
+	offset,
+	direction,
+}: { offset: number; direction: TriggerLineDirection }) => {
+	const calculateMargin = (offset: number) => `${-offset * 100}%`;
+	const calculateOppositeMargin = (offset: number) =>
+		`${-(100 - offset * 100)}%`;
 
-	return margins.join(" ");
+	if (isHorizontal(direction)) {
+		return [
+			calculateMargin(offset), // Top
+			"0px", // Right
+			calculateOppositeMargin(offset), // Bottom
+			"0px", // Left
+		].join(" ");
+	}
+
+	return [
+		"0px", // Top
+		calculateOppositeMargin(offset), // Right
+		"0px", // Bottom
+		calculateMargin(offset), // Left
+	].join(" ");
 };
 
 interface GetProgressRootMarginParams {
 	offset: number;
-	nodeOffsetHeight: number;
-	innerHeight: number;
+	nodeSize: number;
+	containerSize: number;
+	direction: TriggerLineDirection;
 }
 
 /**
@@ -62,17 +83,22 @@ interface GetProgressRootMarginParams {
  *
  * @param {Object} params - The parameters for calculating the root margin.
  * @param {number} params.offset - The offset value, typically between 0 and 1.
- * @param {number} params.nodeOffsetHeight - The offset height of the node.
- * @param {number} params.innerHeight - The inner height of the viewport.
+ * @param {number} params.nodeSize - The size of the node.
+ * @param {number} params.containerSize - The size of the container.
+ * @param {TriggerLineDirection} params.direction - The direction of the trigger line.
  * @returns {string} The calculated root margin string in the format "top right bottom left".
  */
 export const getProgressRootMargin = ({
 	offset,
-	nodeOffsetHeight,
-	innerHeight,
+	nodeSize,
+	containerSize,
+	direction,
 }: GetProgressRootMarginParams) => {
-	if (!nodeOffsetHeight) return "0px";
-	const offsetHeightRatio = nodeOffsetHeight / innerHeight;
+	if (!nodeSize) return "0px";
+	const offsetSizeRatio = nodeSize / containerSize;
+	if (!isHorizontal(direction)) {
+		return `0px ${offset * 100 - 100}% 0px ${(offsetSizeRatio - offset) * 100 + 1}%`;
+	}
 	/**
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
 	 * Add an extra 1% to prevent the "zero intersection rectangle" phenomenon:
@@ -85,5 +111,5 @@ export const getProgressRootMargin = ({
 	 * When the intersection ratio of the scrolling observer is 1, the other observer's isIntersecting is false.
 	 * Therefore, we don't need to worry about the impact of adding this extra value.
 	 */
-	return `${(offsetHeightRatio - offset) * 100 + 1}% 0px ${offset * 100 - 100}% 0px`;
+	return `${(offsetSizeRatio - offset) * 100 + 1}% 0px ${offset * 100 - 100}% 0px`;
 };

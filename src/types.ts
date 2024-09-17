@@ -1,7 +1,12 @@
 /**
  * Represents the direction of scrolling.
  */
-export type ScrollamaDirection = "up" | "down";
+export type ScrollamaDirection = "up" | "down" | "left" | "right";
+
+/**
+ * Represents the direction of the trigger line.
+ */
+export type TriggerLineDirection = "vertical" | "horizontal";
 
 /**
  * Interface for the data passed to Scrollama callback functions.
@@ -50,6 +55,11 @@ export type ScrollamaProgressCallback<T = unknown> = (
  * @template T - The type of data associated with each step.
  */
 export interface ScrollamaProps<T = unknown> {
+	/**
+	 * The direction of the trigger line.
+	 * @default "horizontal"
+	 */
+	direction?: TriggerLineDirection;
 	/**
 	 * Whether to show visual debugging tools.
 	 * @default false
@@ -115,9 +125,14 @@ export interface StepProps<T = unknown> {
 
 export interface ScrollamaProvideProps<T = unknown> {
 	/**
+	 * The direction of the trigger line.
+	 */
+	direction?: TriggerLineDirection;
+
+	/**
 	 * The last known scroll position.
 	 */
-	lastScrollTop?: number;
+	lastScrollPosition?: number;
 
 	/**
 	 * The offset value for triggering the step.
@@ -130,9 +145,9 @@ export interface ScrollamaProvideProps<T = unknown> {
 	progressThreshold?: number | number[];
 
 	/**
-	 * The inner height of the viewport.
+	 * The size of the container.
 	 */
-	innerHeight?: number;
+	containerSize?: number;
 
 	/**
 	 * The root element of the IntersectionObserver.
@@ -158,5 +173,5 @@ export interface ScrollamaProvideProps<T = unknown> {
 	/**
 	 * Function to update the last known scroll position.
 	 */
-	handleSetLastScrollTop?: (scrollTop: number) => void;
+	handleSetLastScrollPosition?: (scrollPosition: number) => void;
 }

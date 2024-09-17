@@ -150,15 +150,16 @@ React Scrollama components do not render into the DOM. They are meant to set up 
 
 These are the props you can set on the `Scrollama` component itself:
 
-| Prop           | Type                                                 | Default   | Description                                                                             |
-|----------------|------------------------------------------------------|-----------|-----------------------------------------------------------------------------------------|
-| offset         | `number` (from 0 to 1) or pixel value (e.g. "300px") | 0.3       | How far from the top of the viewport to trigger a step (as a proportion of view height) |
-| threshold      | `number` (greater than 1)                            | 4         | Granularity of the progress interval in pixels (smaller = more granular)                |
-| onStepEnter    | `function`                                           |           | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
-| onStepExit     | `function`                                           |           | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
-| onStepProgress | `function`                                           |           | Callback that fires the progress a step has made through the threshold.                 |
-| debug          | `boolean`                                            | false     | Whether to show visual debugging tools.                                                 |
-| rootRef        | `React.RefObject<Element>`                           | undefined | The root element of the IntersectionObserver.                                           |
+| Prop           | Type                                                 | Default    | Description                                                                             |
+|----------------|------------------------------------------------------|------------|-----------------------------------------------------------------------------------------|
+| offset         | `number` (from 0 to 1) or pixel value (e.g. "300px") | 0.3        | How far from the top of the viewport to trigger a step (as a proportion of view height) |
+| threshold      | `number` (greater than 1)                            | 4          | Granularity of the progress interval in pixels (smaller = more granular)                |
+| onStepEnter    | `function`                                           |            | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
+| onStepExit     | `function`                                           |            | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
+| onStepProgress | `function`                                           |            | Callback that fires the progress a step has made through the threshold.                 |
+| debug          | `boolean`                                            | false      | Whether to show visual debugging tools.                                                 |
+| rootRef        | `React.RefObject<Element>`                           | undefined  | The root element of the IntersectionObserver.                                           |
+| direction      | `vertical \| horizontal`                             | horizontal | The direction of the trigger line.                                                      |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
