@@ -2,7 +2,6 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import builtins from 'rollup-plugin-node-builtins';
 import pkg from './package.json';
 
 export default {
@@ -21,7 +20,6 @@ export default {
   ],
   plugins: [
     peerDepsExternal(),
-    builtins(),
     babel({
       babelrc: false,
       presets: [
