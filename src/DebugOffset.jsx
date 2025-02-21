@@ -18,20 +18,20 @@ const offsetTextStyles = {
 
 const useTop = offset => {
   const offsetInPixels = isOffsetInPixels(offset);
-  if(offsetInPixels) {
+  if (offsetInPixels) {
     return offset;
   } else {
-    return `${offset * 100}%`
+    return `${offset * 100}%`;
   }
-}
+};
 
 const DebugOffset = ({ offset }) => {
   const top = useTop(offset);
   return (
-    <div style={{ ...markerStyles, top, }}>
+    <div style={{ ...markerStyles, top }}>
       <p style={offsetTextStyles}>trigger: {offset}</p>
     </div>
   );
-}
+};
 
 export default DebugOffset;

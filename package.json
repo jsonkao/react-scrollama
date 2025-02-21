@@ -28,6 +28,9 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
+    "check": "npm run check:format && npm run check:lint",
+    "check:lint": "eslint . --report-unused-disable-directives",
+    "check:format": "prettier --write .",
     "prepublishOnly": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
@@ -55,6 +58,7 @@
     "eslint-plugin-react": "^7.37.4",
     "gh-pages": "^6.3.0",
     "globals": "^16.0.0",
+    "prettier": "^3.5.1",
     "rollup": "^2.76.0",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   },

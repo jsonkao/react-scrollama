@@ -22,13 +22,8 @@ export default {
     peerDepsExternal(),
     babel({
       babelrc: false,
-      presets: [
-        ['@babel/preset-env', { modules: false }],
-        '@babel/react',
-      ],
-      plugins: [
-        '@babel/plugin-proposal-class-properties',
-      ],
+      presets: [['@babel/preset-env', { modules: false }], '@babel/react'],
+      plugins: ['@babel/plugin-proposal-class-properties'],
       exclude: 'node_modules/**',
     }),
     resolve(),
