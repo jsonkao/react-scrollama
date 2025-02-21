@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+// prettier-ignore
+import React, { useState, useMemo, useCallback, useRef, useEffect, cloneElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const useRootMargin = offset => {
@@ -61,7 +62,7 @@ const Step = props => {
     [inViewRef, scrollProgressRef],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isIntersecting) {
       const { height, top } =
         scrollProgressEntry.target.getBoundingClientRect();
@@ -81,7 +82,7 @@ const Step = props => {
     }
   }, [scrollProgressEntry]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (entry && !entry.isIntersecting && isIntersecting) {
       onStepExit({
         element: entry.target,
@@ -105,7 +106,7 @@ const Step = props => {
     }
   }, [entry]);
 
-  return React.cloneElement(React.Children.only(children), {
+  return cloneElement(React.Children.only(children), {
     'data-react-scrollama-id': scrollamaId,
     ref: setRefs,
     entry,

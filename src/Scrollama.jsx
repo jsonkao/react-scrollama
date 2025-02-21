@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import DebugOffset from './DebugOffset.jsx';
 import { isOffsetInPixels } from './utils';
 
@@ -34,7 +34,7 @@ const Scrollama = props => {
     setWindowInnerHeight(window.innerHeight);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOffsetDefinedInPixels) {
       window.addEventListener('resize', handleWindowResize);
       return () => {
@@ -56,7 +56,7 @@ const Scrollama = props => {
   );
 
   return (
-    <React.Fragment>
+    <>
       {debug && <DebugOffset offset={offset} />}
       {React.Children.map(children, (child, i) => {
         return React.cloneElement(child, {
@@ -71,7 +71,7 @@ const Scrollama = props => {
           innerHeight,
         });
       })}
-    </React.Fragment>
+    </>
   );
 };
 

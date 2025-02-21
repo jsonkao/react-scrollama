@@ -7,6 +7,10 @@
   "homepage": "https://jsonkao.github.io/react-scrollama/",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "workspaces": [
+    ".",
+    "example"
+  ],
   "keywords": [
     "react",
     "scrollama",
