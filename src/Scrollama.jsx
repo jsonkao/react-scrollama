@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import DebugOffset from './DebugOffset';
+import DebugOffset from './DebugOffset.jsx';
 import { isOffsetInPixels } from './utils';
 
 const createThreshold = (theta, height) => {

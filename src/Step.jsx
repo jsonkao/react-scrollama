@@ -52,7 +52,7 @@ const Step = props => {
   });
 
   const setRefs = useCallback(
-    (node) => {
+    node => {
       ref.current = node;
       inViewRef(node);
       scrollProgressRef(node)
