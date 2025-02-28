@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import DebugOffset from './DebugOffset';
+import React, { useMemo, useEffect, useState } from 'react';
+import DebugOffset from './DebugOffset.jsx';
 import { isOffsetInPixels } from './utils';
 
 const createThreshold = (theta, height) => {
@@ -22,20 +22,20 @@ const Scrollama = props => {
     onStepProgress = null,
     threshold = 4,
   } = props;
-  const isOffsetDefinedInPixels = isOffsetInPixels(offset)
+  const isOffsetDefinedInPixels = isOffsetInPixels(offset);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [windowInnerHeight, setWindowInnerHeight] = useState(null);
 
-  const handleSetLastScrollTop = (scrollTop) => {
+  const handleSetLastScrollTop = scrollTop => {
     setLastScrollTop(scrollTop);
   };
 
-  const handleWindowResize = (e) => {
-    setWindowInnerHeight(window.innerHeight)
-  }
+  const handleWindowResize = e => {
+    setWindowInnerHeight(window.innerHeight);
+  };
 
-  React.useEffect(() => {
-    if(isOffsetDefinedInPixels) {
+  useEffect(() => {
+    if (isOffsetDefinedInPixels) {
       window.addEventListener('resize', handleWindowResize);
       return () => {
         window.removeEventListener('resize', handleWindowResize);
@@ -43,17 +43,20 @@ const Scrollama = props => {
     }
   }, []);
 
-  const isBrowser = typeof window !== "undefined";
-  const innerHeight = isBrowser ? (windowInnerHeight || window.innerHeight) : 0;
+  const isBrowser = typeof window !== 'undefined';
+  const innerHeight = isBrowser ? windowInnerHeight || window.innerHeight : 0;
 
   const offsetValue = isOffsetDefinedInPixels
-    ? (+offset.replace('px', '') / innerHeight)
+    ? +offset.replace('px', '') / innerHeight
     : offset;
 
-  const progressThreshold = useMemo(() => createThreshold(threshold, innerHeight), [innerHeight]);
+  const progressThreshold = useMemo(
+    () => createThreshold(threshold, innerHeight),
+    [innerHeight],
+  );
 
   return (
-    <React.Fragment>
+    <>
       {debug && <DebugOffset offset={offset} />}
       {React.Children.map(children, (child, i) => {
         return React.cloneElement(child, {
@@ -65,10 +68,10 @@ const Scrollama = props => {
           lastScrollTop,
           handleSetLastScrollTop,
           progressThreshold,
-          innerHeight
+          innerHeight,
         });
       })}
-    </React.Fragment>
+    </>
   );
 };
 

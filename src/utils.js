@@ -1,1 +1,2 @@
-export const isOffsetInPixels = offset => typeof offset === 'string' && offset.includes('px');
+export const isOffsetInPixels = offset =>
+  typeof offset === 'string' && offset.includes('px');

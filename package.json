@@ -1,12 +1,16 @@
 {
   "name": "react-scrollama",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "A lightweight scrollytelling interface for React using the IntersectionObserver.",
   "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
   "license": "MIT",
   "homepage": "https://jsonkao.github.io/react-scrollama/",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "workspaces": [
+    ".",
+    "example"
+  ],
   "keywords": [
     "react",
     "scrollama",
@@ -28,30 +32,38 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
+    "check": "npm run check:format && npm run check:lint",
+    "check:lint": "eslint . --report-unused-disable-directives",
+    "check:format": "prettier --write .",
     "prepublishOnly": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
     "test": "echo \"Error: no test specified\""
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.2 || ^18.2.0",
-    "react-dom": "^16.8.0 || ^17.0.2 || ^18.2.0"
+    "react": "^16.8.0 || ^17.0.2 || ^18.2.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.2 || ^18.2.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/core": "^7.26.9",
+    "@babel/eslint-parser": "^7.26.8",
     "@babel/preset-env": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "eslint": "^8.19.0",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.20.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@babel/plugin-transform-class-properties": "^7.25.9",
+    "eslint": "^9.20.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
-    "eslint-plugin-react": "^7.30.1",
-    "gh-pages": "^4.0.0",
-    "rollup": "^2.76.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.1",
+    "rollup": "^4.34.8",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   },
   "files": [

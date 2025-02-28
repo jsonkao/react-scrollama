@@ -1,2 +1,2 @@
-export { default as Scrollama } from './Scrollama';
-export { default as Step } from './Step';
+export { default as Scrollama } from './Scrollama.jsx';
+export { default as Step } from './Step.jsx';
