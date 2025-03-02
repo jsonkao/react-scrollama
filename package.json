@@ -1,91 +1,105 @@
 {
-	"name": "react-scrollama",
-	"version": "2.3.3",
-	"type": "module",
-	"description": "A lightweight scrollytelling interface for React using the IntersectionObserver.",
-	"author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
-	"license": "MIT",
-	"homepage": "https://jsonkao.github.io/react-scrollama/",
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"files": ["dist"],
-	"sideEffects": false,
-	"keywords": [
-		"react",
-		"scrollama",
-		"scrollytelling",
-		"IntersectionObserver",
-		"interactive",
-		"graphic",
-		"scroll",
-		"scroll-driven"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/jsonkao/react-scrollama"
-	},
-	"engines": {
-		"node": ">=18.0.0",
-		"npm": ">=10.7.0"
-	},
-	"scripts": {
-		"prepare": "simple-git-hooks",
-		"start": "tsup --watch",
-		"build": "tsup",
-		"release": "bumpp && npm publish",
-		"prepublishOnly": "npm run build && npm run test",
-		"predeploy": "cd example && npm install && npm run build",
-		"deploy": "gh-pages -d example/build",
-		"coverage": "vitest run --coverage",
-		"test": "vitest",
-		"lint": "biome check .",
-		"lint:fix": "biome check --write",
-		"typecheck": "tsc --noEmit"
-	},
-	"peerDependencies": {
-		"react": ">= 16.8.0",
-		"react-dom": ">= 16.8.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^1.9.1",
-		"@testing-library/jest-dom": "^6.5.0",
-		"@testing-library/react": "^16.0.1",
-		"@types/react": "^18.3.5",
-		"@vitejs/plugin-react": "^4.3.1",
-		"bumpp": "^9.5.2",
-		"gh-pages": "^6.1.1",
-		"globals": "^15.9.0",
-		"happy-dom": "^15.7.3",
-		"lint-staged": "^15.2.10",
-		"react": "^18.3.0",
-		"simple-git-hooks": "^2.11.1",
-		"tsup": "^8.2.4",
-		"typescript": "^5.6.0",
-		"vite": "^5.4.3",
-		"vitest": "^2.0.5"
-	},
-	"dependencies": {
-		"react-intersection-observer": "^9.13.1"
-	},
-	"simple-git-hooks": {
-		"pre-commit": "npx lint-staged"
-	},
-	"lint-staged": {
-		"*.{js,json,css,md,ts,tsx}": [
-			"biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
-		]
-	}
+  "name": "react-scrollama",
+  "version": "2.4.0",
+  "type": "module",
+  "description": "A lightweight scrollytelling interface for React using the IntersectionObserver.",
+  "author": "Jason Kao <jason.kao@columbia.edu> (https://jasonkao.me)",
+  "license": "MIT",
+  "homepage": "https://jsonkao.github.io/react-scrollama/",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "workspaces": [
+    ".",
+    "example"
+  ],
+  "keywords": [
+    "react",
+    "scrollama",
+    "scrollytelling",
+    "IntersectionObserver",
+    "interactive",
+    "graphic",
+    "scroll",
+    "scroll-driven"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsonkao/react-scrollama"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=10.7.0"
+  },
+  "scripts": {
+    "prepare": "simple-git-hooks",
+    "start": "tsup --watch",
+    "build": "tsup",
+    "release": "bumpp && npm publish",
+    "prepublishOnly": "npm run build && npm run test",
+    "predeploy": "cd example && npm install && npm run build",
+    "deploy": "gh-pages -d example/build",
+    "coverage": "vitest run --coverage",
+    "test": "vitest",
+    "check": "npm run check:format && npm run check:lint",
+    "check:lint": "eslint . --report-unused-disable-directives",
+    "check:format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.0.10",
+    "@vitejs/plugin-react": "^4.3.4",
+    "bumpp": "^10.0.3",
+    "eslint": "^9.21.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.0.0",
+    "happy-dom": "^17.1.8",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
+    "react": "^19.0.0",
+    "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.7"
+  },
+  "dependencies": {
+    "react-intersection-observer": "^9.15.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md,ts,tsx}": [
+      "npm run check"
+    ]
+  }
 }

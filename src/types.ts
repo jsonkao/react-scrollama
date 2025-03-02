@@ -13,14 +13,14 @@ export type TriggerLineDirection = "vertical" | "horizontal";
  * @template T - The type of custom data associated with each step.
  */
 export interface ScrollamaCallbackData<T = unknown> {
-	/** The DOM element of the step */
-	element: Element;
-	/** Custom data associated with the step */
-	data: T;
-	/** The direction of scrolling */
-	direction: ScrollamaDirection;
-	/** The IntersectionObserverEntry for the step */
-	entry: IntersectionObserverEntry;
+  /** The DOM element of the step */
+  element: Element;
+  /** Custom data associated with the step */
+  data: T;
+  /** The direction of scrolling */
+  direction: ScrollamaDirection;
+  /** The IntersectionObserverEntry for the step */
+  entry: IntersectionObserverEntry;
 }
 
 /**
@@ -29,9 +29,9 @@ export interface ScrollamaCallbackData<T = unknown> {
  * @template T - The type of custom data associated with each step.
  */
 export interface ScrollamaProgressCallbackData<T = unknown>
-	extends ScrollamaCallbackData<T> {
-	/** The progress of the step through the threshold, from 0 to 1 */
-	progress: number;
+  extends ScrollamaCallbackData<T> {
+  /** The progress of the step through the threshold, from 0 to 1 */
+  progress: number;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface ScrollamaProgressCallbackData<T = unknown>
  * @template T - The type of custom data associated with each step.
  */
 export type ScrollamaCallback<T = unknown> = (
-	data: ScrollamaCallbackData<T>,
+  data: ScrollamaCallbackData<T>,
 ) => void;
 
 /**
@@ -47,7 +47,7 @@ export type ScrollamaCallback<T = unknown> = (
  * @template T - The type of custom data associated with each step.
  */
 export type ScrollamaProgressCallback<T = unknown> = (
-	data: ScrollamaProgressCallbackData<T>,
+  data: ScrollamaProgressCallbackData<T>,
 ) => void;
 
 /**
@@ -55,55 +55,55 @@ export type ScrollamaProgressCallback<T = unknown> = (
  * @template T - The type of data associated with each step.
  */
 export interface ScrollamaProps<T = unknown> {
-	/**
-	 * The direction of the trigger line.
-	 * @default "horizontal"
-	 */
-	direction?: TriggerLineDirection;
-	/**
-	 * Whether to show visual debugging tools.
-	 * @default false
-	 */
-	debug?: boolean;
+  /**
+   * The direction of the trigger line.
+   * @default "horizontal"
+   */
+  direction?: TriggerLineDirection;
+  /**
+   * Whether to show visual debugging tools.
+   * @default false
+   */
+  debug?: boolean;
 
-	/**
-	 * The child elements to be wrapped by Scrollama.
-	 */
-	children: React.ReactNode;
+  /**
+   * The child elements to be wrapped by Scrollama.
+   */
+  children: React.ReactNode;
 
-	/**
-	 * How far from the top of the viewport to trigger a step.
-	 * Can be a number from 0 to 1 (as a proportion of view height) or a pixel value (e.g. "300px").
-	 * @default 0.3
-	 */
-	offset?: string | number;
+  /**
+   * How far from the top of the viewport to trigger a step.
+   * Can be a number from 0 to 1 (as a proportion of view height) or a pixel value (e.g. "300px").
+   * @default 0.3
+   */
+  offset?: string | number;
 
-	/**
-	 * Callback that fires when the top or bottom edge of a step enters the offset threshold.
-	 */
-	onStepEnter?: ScrollamaCallback<T>;
+  /**
+   * Callback that fires when the top or bottom edge of a step enters the offset threshold.
+   */
+  onStepEnter?: ScrollamaCallback<T>;
 
-	/**
-	 * Callback that fires when the top or bottom edge of a step exits the offset threshold.
-	 */
-	onStepExit?: ScrollamaCallback<T>;
+  /**
+   * Callback that fires when the top or bottom edge of a step exits the offset threshold.
+   */
+  onStepExit?: ScrollamaCallback<T>;
 
-	/**
-	 * Callback that fires the progress a step has made through the threshold.
-	 */
-	onStepProgress?: ScrollamaProgressCallback<T>;
+  /**
+   * Callback that fires the progress a step has made through the threshold.
+   */
+  onStepProgress?: ScrollamaProgressCallback<T>;
 
-	/**
-	 * Granularity of the progress interval in pixels (smaller = more granular).
-	 * @default 4
-	 */
-	threshold?: number;
+  /**
+   * Granularity of the progress interval in pixels (smaller = more granular).
+   * @default 4
+   */
+  threshold?: number;
 
-	/**
-	 * The root element of the IntersectionObserver.
-	 * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
-	 */
-	rootRef?: React.RefObject<Element>;
+  /**
+   * The root element of the IntersectionObserver.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
+   */
+  rootRef?: React.RefObject<Element>;
 }
 
 /**
@@ -111,67 +111,67 @@ export interface ScrollamaProps<T = unknown> {
  * @template T - The type of data associated with the step.
  */
 export interface StepProps<T = unknown> {
-	/**
-	 * The child element to be rendered within the Step.
-	 * Must be a valid React element with class attributes.
-	 */
-	children: React.ReactElement & React.ClassAttributes<React.ReactElement>;
+  /**
+   * The child element to be rendered within the Step.
+   * Must be a valid React element with class attributes.
+   */
+  children: React.ReactElement & React.ClassAttributes<React.ReactElement>;
 
-	/**
-	 * Optional data associated with this step.
-	 */
-	data?: T;
+  /**
+   * Optional data associated with this step.
+   */
+  data?: T;
 }
 
 export interface ScrollamaProvideProps<T = unknown> {
-	/**
-	 * The direction of the trigger line.
-	 */
-	direction?: TriggerLineDirection;
+  /**
+   * The direction of the trigger line.
+   */
+  direction?: TriggerLineDirection;
 
-	/**
-	 * The last known scroll position.
-	 */
-	lastScrollPosition?: number;
+  /**
+   * The last known scroll position.
+   */
+  lastScrollPosition?: number;
 
-	/**
-	 * The offset value for triggering the step.
-	 */
-	offset?: number;
+  /**
+   * The offset value for triggering the step.
+   */
+  offset?: number;
 
-	/**
-	 * The threshold for progress calculations.
-	 */
-	progressThreshold?: number | number[];
+  /**
+   * The threshold for progress calculations.
+   */
+  progressThreshold?: number | number[];
 
-	/**
-	 * The size of the container.
-	 */
-	containerSize?: number;
+  /**
+   * The size of the container.
+   */
+  containerSize?: number;
 
-	/**
-	 * The root element of the IntersectionObserver.
-	 * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
-	 */
-	rootRef?: React.RefObject<Element>;
+  /**
+   * The root element of the IntersectionObserver.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#root
+   */
+  rootRef?: React.RefObject<Element>;
 
-	/**
-	 * Callback fired when the step enters the viewport.
-	 */
-	onStepEnter?: ScrollamaCallback<T>;
+  /**
+   * Callback fired when the step enters the viewport.
+   */
+  onStepEnter?: ScrollamaCallback<T>;
 
-	/**
-	 * Callback fired when the step exits the viewport.
-	 */
-	onStepExit?: ScrollamaCallback<T>;
+  /**
+   * Callback fired when the step exits the viewport.
+   */
+  onStepExit?: ScrollamaCallback<T>;
 
-	/**
-	 * Callback fired to report progress as the step moves through the viewport.
-	 */
-	onStepProgress?: ScrollamaProgressCallback<T>;
+  /**
+   * Callback fired to report progress as the step moves through the viewport.
+   */
+  onStepProgress?: ScrollamaProgressCallback<T>;
 
-	/**
-	 * Function to update the last known scroll position.
-	 */
-	handleSetLastScrollPosition?: (scrollPosition: number) => void;
+  /**
+   * Function to update the last known scroll position.
+   */
+  handleSetLastScrollPosition?: (scrollPosition: number) => void;
 }

@@ -21,6 +21,7 @@
 React Scrollama is a simple and silky library for scrollytelling. It relies on IntersectionObserver and sticky positioning over scroll listeners. It is originally adapted from [Russel Samora's](https://russellsamora.github.io/) [Scrollama](https://github.com/russellgoldenberg/scrollama).
 
 A few examples of ambitious interactive stories that were built with React Scrollama…
+
 <table>
 <tbody>
 <tr>
@@ -79,6 +80,7 @@ A live demo [lives here](https://jsonkao.github.io/react-scrollama). It was debu
 ## Install
 
 React Scrollama can be installed as an [npm package](https://www.npmjs.com/package/react-scrollama):
+
 ```
 $ npm install react-scrollama
 ```
@@ -103,8 +105,8 @@ A `Scrollama` component wraps a set of steps. Each `Step` component [must](https
 A basic example:
 
 ```jsx
-import React, { useState } from 'react';
-import { Scrollama, Step } from 'react-scrollama';
+import React, { useState } from "react";
+import { Scrollama, Step } from "react-scrollama";
 
 const ScrollamaDemo = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
@@ -116,8 +118,8 @@ const ScrollamaDemo = () => {
   };
 
   return (
-    <div style={{ margin: '50vh 0', border: '2px dashed skyblue' }}>
-      <div style={{ position: 'sticky', top: 0, border: '1px solid orchid' }}>
+    <div style={{ margin: "50vh 0", border: "2px dashed skyblue" }}>
+      <div style={{ position: "sticky", top: 0, border: "1px solid orchid" }}>
         I'm sticky. The current triggered step index is: {currentStepIndex}
       </div>
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
@@ -125,8 +127,8 @@ const ScrollamaDemo = () => {
           <Step data={stepIndex} key={stepIndex}>
             <div
               style={{
-                margin: '50vh 0',
-                border: '1px solid gray',
+                margin: "50vh 0",
+                border: "1px solid gray",
                 opacity: currentStepIndex === stepIndex ? 1 : 0.2,
               }}
             >
@@ -151,7 +153,7 @@ React Scrollama components do not render into the DOM. They are meant to set up 
 These are the props you can set on the `Scrollama` component itself:
 
 | Prop           | Type                                                 | Default    | Description                                                                             |
-|----------------|------------------------------------------------------|------------|-----------------------------------------------------------------------------------------|
+| -------------- | ---------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------- |
 | offset         | `number` (from 0 to 1) or pixel value (e.g. "300px") | 0.3        | How far from the top of the viewport to trigger a step (as a proportion of view height) |
 | threshold      | `number` (greater than 1)                            | 4          | Granularity of the progress interval in pixels (smaller = more granular)                |
 | onStepEnter    | `function`                                           |            | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
@@ -193,36 +195,36 @@ A `Step` element can contain one child, which must be a DOM element. To use a Re
 These are the props you can set on the `Step` component:
 
 | Prop | Type    | Default | Description                                                      |
-|------|---------|---------|------------------------------------------------------------------|
+| ---- | ------- | ------- | ---------------------------------------------------------------- |
 | data | unknown |         | Data to be given to `<Scrollama>` callbacks when step triggered. |
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
 ## Thank you to everyone who made this possible!
 
-* [jsonkao](https://github.com/jsonkao)
-* [maerzhase](https://github.com/maerzhase)
-* [NicholasLYang](https://github.com/NicholasLYang)
-* [jonesbp](https://github.com/jonesbp)
-* [kennethormandy](https://github.com/kennethormandy)
-* [cedricdelpoux](https://github.com/cedricdelpoux)
-* [davidnmora](https://github.com/davidnmora)
-* [jefffriesen](https://github.com/jefffriesen)
-* [paolocorti](https://github.com/paolocorti)
-* [elbertwang3](https://github.com/elbertwang3)
-* [michaelgrotton](https://github.com/michaelgrotton)
-* [jjrchrds](https://github.com/jjrchrds)
-* [goleary](https://github.com/goleary)
-* [danieleguido](https://github.com/danieleguido)
-* [Lane](https://github.com/Lane)
-* [jkjustjoshing](https://github.com/jkjustjoshing)
-* [tuckergordon](https://github.com/tuckergordon)
-* [fschwander](https://github.com/fschwander)
-* [thisispaul](https://github.com/thisispaul)
+- [jsonkao](https://github.com/jsonkao)
+- [maerzhase](https://github.com/maerzhase)
+- [NicholasLYang](https://github.com/NicholasLYang)
+- [jonesbp](https://github.com/jonesbp)
+- [kennethormandy](https://github.com/kennethormandy)
+- [cedricdelpoux](https://github.com/cedricdelpoux)
+- [davidnmora](https://github.com/davidnmora)
+- [jefffriesen](https://github.com/jefffriesen)
+- [paolocorti](https://github.com/paolocorti)
+- [elbertwang3](https://github.com/elbertwang3)
+- [michaelgrotton](https://github.com/michaelgrotton)
+- [jjrchrds](https://github.com/jjrchrds)
+- [goleary](https://github.com/goleary)
+- [danieleguido](https://github.com/danieleguido)
+- [Lane](https://github.com/Lane)
+- [jkjustjoshing](https://github.com/jkjustjoshing)
+- [tuckergordon](https://github.com/tuckergordon)
+- [fschwander](https://github.com/fschwander)
+- [thisispaul](https://github.com/thisispaul)
 
 ## Features roadmap
 
-* Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
-* Fire previous step triggers if they were jumped
+- Currently, there is no way to throttle/customize React Scrollama's [resize listener](https://github.com/jsonkao/react-scrollama/blob/master/src/Scrollama.js#L104) 😢. We're working on this in [#44](https://github.com/jsonkao/react-scrollama/issues/44).
+- Fire previous step triggers if they were jumped
 
 Lmk if you need these features ASAP.
