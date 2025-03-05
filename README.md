@@ -1,8 +1,20 @@
 # React Scrollama 🦙
 
 <p align="left">
-  <a href="https://www.npmjs.com/package/react-scrollama">
-    <img src="https://img.shields.io/npm/v/react-scrollama.svg" alt="npm version"/>
+  <a href="https://npmjs.com/package/react-scrollama">
+    <img src="https://img.shields.io/npm/v/react-scrollama?style=flat&colorA=080f12&colorB=1fa669" alt="npm version"/>
+  </a>
+  <a href="https://npmjs.com/package/react-scrollama">
+    <img src="https://img.shields.io/npm/dm/react-scrollama?style=flat&colorA=080f12&colorB=1fa669" alt="npm downloads"/>
+  </a>
+  <a href="https://bundlephobia.com/result?p=react-scrollama">
+    <img src="https://img.shields.io/bundlephobia/minzip/react-scrollama?style=flat&colorA=080f12&colorB=1fa669&label=minzip" alt="package size"/>
+  </a>
+  <a href="https://github.com/jsonkao/react-scrollama/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/jsonkao/react-scrollama.svg?style=flat&colorA=080f12&colorB=1fa669" alt="license"/>
+  </a>
+  <a href="https://www.jsdocs.io/package/react-scrollama">
+    <img src="https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669" alt="jsdocs reference"/>
   </a>
 </p>
 
@@ -93,8 +105,8 @@ A `Scrollama` component wraps a set of steps. Each `Step` component [must](https
 A basic example:
 
 ```jsx
-import React, { useState } from 'react';
-import { Scrollama, Step } from 'react-scrollama';
+import React, { useState } from "react";
+import { Scrollama, Step } from "react-scrollama";
 
 const ScrollamaDemo = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
@@ -106,8 +118,8 @@ const ScrollamaDemo = () => {
   };
 
   return (
-    <div style={{ margin: '50vh 0', border: '2px dashed skyblue' }}>
-      <div style={{ position: 'sticky', top: 0, border: '1px solid orchid' }}>
+    <div style={{ margin: "50vh 0", border: "2px dashed skyblue" }}>
+      <div style={{ position: "sticky", top: 0, border: "1px solid orchid" }}>
         I'm sticky. The current triggered step index is: {currentStepIndex}
       </div>
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
@@ -115,8 +127,8 @@ const ScrollamaDemo = () => {
           <Step data={stepIndex} key={stepIndex}>
             <div
               style={{
-                margin: '50vh 0',
-                border: '1px solid gray',
+                margin: "50vh 0",
+                border: "1px solid gray",
                 opacity: currentStepIndex === stepIndex ? 1 : 0.2,
               }}
             >
@@ -140,14 +152,16 @@ React Scrollama components do not render into the DOM. They are meant to set up 
 
 These are the props you can set on the `Scrollama` component itself:
 
-| Prop           | Type                                                 | Default | Description                                                                             |
-| -------------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| offset         | `number` (from 0 to 1) or pixel value (e.g. "300px") | 0.3     | How far from the top of the viewport to trigger a step (as a proportion of view height) |
-| threshold      | `number` (greater than 1)                            | 4       | Granularity of the progress interval in pixels (smaller = more granular)                |
-| onStepEnter    | `function`                                           |         | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
-| onStepExit     | `function`                                           |         | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
-| onStepProgress | `function`                                           |         | Callback that fires the progress a step has made through the threshold.                 |
-| debug          | `boolean`                                            | false   | Whether to show visual debugging tools.                                                 |
+| Prop           | Type                                                 | Default    | Description                                                                             |
+| -------------- | ---------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| offset         | `number` (from 0 to 1) or pixel value (e.g. "300px") | 0.3        | How far from the top of the viewport to trigger a step (as a proportion of view height) |
+| threshold      | `number` (greater than 1)                            | 4          | Granularity of the progress interval in pixels (smaller = more granular)                |
+| onStepEnter    | `function`                                           |            | Callback that fires when the top or bottom edge of a step enters the offset threshold.  |
+| onStepExit     | `function`                                           |            | Callback that fires when the top or bottom edge of a step exits the offset threshold.   |
+| onStepProgress | `function`                                           |            | Callback that fires the progress a step has made through the threshold.                 |
+| debug          | `boolean`                                            | false      | Whether to show visual debugging tools.                                                 |
+| rootRef        | `React.RefObject<Element>`                           | undefined  | The root element of the IntersectionObserver.                                           |
+| direction      | `vertical \| horizontal`                             | horizontal | The direction of the trigger line.                                                      |
 
 The `onStepEnter` and `onStepExit` callbacks receive one argument, an object, with the following properties:
 
@@ -180,9 +194,9 @@ A `Step` element can contain one child, which must be a DOM element. To use a Re
 
 These are the props you can set on the `Step` component:
 
-| Prop | Type | Default | Description                                                      |
-| ---- | ---- | ------- | ---------------------------------------------------------------- |
-| data | any  |         | Data to be given to `<Scrollama>` callbacks when step triggered. |
+| Prop | Type    | Default | Description                                                      |
+| ---- | ------- | ------- | ---------------------------------------------------------------- |
+| data | unknown |         | Data to be given to `<Scrollama>` callbacks when step triggered. |
 
 You will also probably want to set a `key` prop on each `Step` if you're transforming an array of data into a list of `Step` elements (see [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)).
 
