@@ -1,4 +1,4 @@
-import type { TriggerLineDirection } from "./types";
+import type { TriggerLineDirection } from './types';
 
 /**
  * Checks if the given offset is in pixels.
@@ -7,7 +7,7 @@ import type { TriggerLineDirection } from "./types";
  * @returns Returns true if the offset is a string and includes 'px', otherwise false.
  */
 export function isOffsetInPixels(offset: unknown) {
-  return typeof offset === "string" && offset.includes("px");
+  return typeof offset === 'string' && offset.includes('px');
 }
 
 /**
@@ -32,11 +32,9 @@ export const createThreshold = (theta: number, height: number) => {
  *
  * @returns {boolean} Returns true if running in a browser environment, false otherwise.
  */
-export const isBrowser =
-  typeof window !== "undefined" && window.document !== undefined;
+export const isBrowser = typeof window !== 'undefined' && window.document !== undefined;
 
-export const isHorizontal = (direction: TriggerLineDirection) =>
-  direction === "horizontal";
+export const isHorizontal = (direction: TriggerLineDirection) => direction === 'horizontal';
 
 /**
  * Calculates the root margin for the Intersection Observer based on the given offset.
@@ -54,24 +52,23 @@ export const getRootMargin = ({
   direction: TriggerLineDirection;
 }) => {
   const calculateMargin = (offset: number) => `${-offset * 100}%`;
-  const calculateOppositeMargin = (offset: number) =>
-    `${-(100 - offset * 100)}%`;
+  const calculateOppositeMargin = (offset: number) => `${-(100 - offset * 100)}%`;
 
   if (isHorizontal(direction)) {
     return [
       calculateMargin(offset), // Top
-      "0px", // Right
+      '0px', // Right
       calculateOppositeMargin(offset), // Bottom
-      "0px", // Left
-    ].join(" ");
+      '0px', // Left
+    ].join(' ');
   }
 
   return [
-    "0px", // Top
+    '0px', // Top
     calculateOppositeMargin(offset), // Right
-    "0px", // Bottom
+    '0px', // Bottom
     calculateMargin(offset), // Left
-  ].join(" ");
+  ].join(' ');
 };
 
 interface GetProgressRootMarginParams {
@@ -97,7 +94,7 @@ export const getProgressRootMargin = ({
   containerSize,
   direction,
 }: GetProgressRootMarginParams) => {
-  if (!nodeSize) return "0px";
+  if (!nodeSize) return '0px';
   const offsetSizeRatio = nodeSize / containerSize;
   if (!isHorizontal(direction)) {
     return `0px ${offset * 100 - 100}% 0px ${(offsetSizeRatio - offset) * 100 + 1}%`;

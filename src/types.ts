@@ -1,12 +1,12 @@
 /**
  * Represents the direction of scrolling.
  */
-export type ScrollamaDirection = "up" | "down" | "left" | "right";
+export type ScrollamaDirection = 'up' | 'down' | 'left' | 'right';
 
 /**
  * Represents the direction of the trigger line.
  */
-export type TriggerLineDirection = "vertical" | "horizontal";
+export type TriggerLineDirection = 'vertical' | 'horizontal';
 
 /**
  * Interface for the data passed to Scrollama callback functions.
@@ -28,8 +28,7 @@ export interface ScrollamaCallbackData<T = unknown> {
  * Extends ScrollamaCallbackData with progress information.
  * @template T - The type of custom data associated with each step.
  */
-export interface ScrollamaProgressCallbackData<T = unknown>
-  extends ScrollamaCallbackData<T> {
+export interface ScrollamaProgressCallbackData<T = unknown> extends ScrollamaCallbackData<T> {
   /** The progress of the step through the threshold, from 0 to 1 */
   progress: number;
 }
@@ -38,9 +37,7 @@ export interface ScrollamaProgressCallbackData<T = unknown>
  * Type for Scrollama callback functions.
  * @template T - The type of custom data associated with each step.
  */
-export type ScrollamaCallback<T = unknown> = (
-  data: ScrollamaCallbackData<T>,
-) => void;
+export type ScrollamaCallback<T = unknown> = (data: ScrollamaCallbackData<T>) => void;
 
 /**
  * Type for Scrollama progress callback functions.

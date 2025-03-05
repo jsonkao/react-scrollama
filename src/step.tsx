@@ -8,17 +8,12 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { useInView } from "react-intersection-observer";
+} from 'react';
+import { useInView } from 'react-intersection-observer';
 
-import { ScrollamaProvide } from "./provide";
-import type { ScrollamaCallbackData, StepProps } from "./types";
-import {
-  getProgressRootMargin,
-  getRootMargin,
-  isBrowser,
-  isHorizontal,
-} from "./utils";
+import { ScrollamaProvide } from './provide';
+import type { ScrollamaCallbackData, StepProps } from './types';
+import { getProgressRootMargin, getRootMargin, isBrowser, isHorizontal } from './utils';
 
 export const Step: React.FC<StepProps> = ({ children, data }) => {
   const {
@@ -31,7 +26,7 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
     progressThreshold,
     containerSize = 0,
     rootRef,
-    direction = "horizontal",
+    direction = 'horizontal',
   } = useContext(ScrollamaProvide);
 
   const [nodeSize, setNodeSize] = useState(0);
@@ -45,18 +40,16 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
   const getScrollPosition = () => {
     if (!isBrowser) return 0;
     if (rootRef?.current) {
-      return isHorizontal(direction)
-        ? rootRef.current.scrollTop
-        : rootRef.current.scrollLeft;
+      return isHorizontal(direction) ? rootRef.current.scrollTop : rootRef.current.scrollLeft;
     }
     return isHorizontal(direction) ? window.scrollY : window.scrollX;
   };
 
   const getScrollDirection = () => {
     if (isHorizontal(direction)) {
-      return lastScrollPosition > getScrollPosition() ? "up" : "down";
+      return lastScrollPosition > getScrollPosition() ? 'up' : 'down';
     }
-    return lastScrollPosition > getScrollPosition() ? "left" : "right";
+    return lastScrollPosition > getScrollPosition() ? 'left' : 'right';
   };
 
   const ref = useRef<HTMLElement | null>(null);
@@ -120,14 +113,13 @@ export const Step: React.FC<StepProps> = ({ children, data }) => {
 
   useLayoutEffect(() => {
     if (ref.current) {
-      setNodeSize(
-        isHorizontal(direction)
-          ? ref.current.offsetHeight
-          : ref.current.offsetWidth,
-      );
+      setNodeSize(isHorizontal(direction) ? ref.current.offsetHeight : ref.current.offsetWidth);
     }
   }, [ref.current]);
 
   const childElement = Children.only(children);
-  return cloneElement(childElement, { ref: setRefs });
+  const extraProps = {
+    ref: setRefs,
+  };
+  return cloneElement(childElement, extraProps);
 };

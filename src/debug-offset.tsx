@@ -1,26 +1,26 @@
-import type { TriggerLineDirection } from "./types";
+import type { TriggerLineDirection } from './types';
 
-import { isHorizontal, isOffsetInPixels } from "./utils";
+import { isHorizontal, isOffsetInPixels } from './utils';
 
 const markerStylesVertical: React.CSSProperties = {
   top: 0,
   width: 0,
-  height: "100%",
-  borderLeft: "2px dashed black",
+  height: '100%',
+  borderLeft: '2px dashed black',
   zIndex: 9999,
 };
 
 const markerStylesHorizontal: React.CSSProperties = {
   left: 0,
-  width: "100%",
+  width: '100%',
   height: 0,
-  borderTop: "2px dashed black",
+  borderTop: '2px dashed black',
   zIndex: 9999,
 };
 
 const offsetTextStyles: React.CSSProperties = {
-  fontSize: "12px",
-  fontFamily: "monospace",
+  fontSize: '12px',
+  fontFamily: 'monospace',
   margin: 0,
   padding: 6,
 };
@@ -61,21 +61,18 @@ export const DebugOffset: React.FC<DebugOffsetProps> = ({
       };
 
   return isHasRoot ? (
-    <div style={{ position: "sticky", top: 0, left: 0 }}>
+    <div style={{ position: 'sticky', top: 0, left: 0 }}>
       <div
         style={{
           ...commonStyles,
-          position: "absolute",
-          ...(isHorizontal(direction)
-            ? { width: stickySize }
-            : { height: stickySize }),
-        }}
-      >
+          position: 'absolute',
+          ...(isHorizontal(direction) ? { width: stickySize } : { height: stickySize }),
+        }}>
         <p style={offsetTextStyles}>trigger: {offset}</p>
       </div>
     </div>
   ) : (
-    <div style={{ ...commonStyles, position: "fixed" }}>
+    <div style={{ ...commonStyles, position: 'fixed' }}>
       <p style={offsetTextStyles}>trigger: {offset}</p>
     </div>
   );

@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
-import { DebugOffset } from "./debug-offset";
-import { ScrollamaProvide } from "./provide";
-import { createThreshold, isHorizontal, isOffsetInPixels } from "./utils";
+import { DebugOffset } from './debug-offset';
+import { ScrollamaProvide } from './provide';
+import { createThreshold, isHorizontal, isOffsetInPixels } from './utils';
 
-import type { ScrollamaProps } from "./types";
+import type { ScrollamaProps } from './types';
 
 export const Scrollama = <T = unknown,>({
-  direction = "horizontal",
+  direction = 'horizontal',
   debug,
   children,
   offset = 0.3,
@@ -33,14 +33,10 @@ export const Scrollama = <T = unknown,>({
   const handleResize = () => {
     if (rootRef?.current) {
       setContainerSize(
-        isHorizontal(direction)
-          ? rootRef.current.clientHeight
-          : rootRef.current.clientWidth,
+        isHorizontal(direction) ? rootRef.current.clientHeight : rootRef.current.clientWidth,
       );
       setStickySize(
-        !isHorizontal(direction)
-          ? rootRef.current.clientHeight
-          : rootRef.current.clientWidth,
+        !isHorizontal(direction) ? rootRef.current.clientHeight : rootRef.current.clientWidth,
       );
     } else {
       setContainerSize(viewportSize);
@@ -60,15 +56,15 @@ export const Scrollama = <T = unknown,>({
       }
 
       handleResize();
-      window.addEventListener("resize", handleResize);
+      window.addEventListener('resize', handleResize);
       return () => {
-        window.removeEventListener("resize", handleResize);
+        window.removeEventListener('resize', handleResize);
       };
     }
   }, []);
 
   const offsetValue = isOffsetDefinedInPixels
-    ? +(offset as string).replace("px", "") / containerSize
+    ? +(offset as string).replace('px', '') / containerSize
     : +offset;
 
   const progressThreshold = useMemo(
@@ -92,8 +88,7 @@ export const Scrollama = <T = unknown,>({
         onStepExit,
         // @ts-ignore ts(2345)
         onStepProgress,
-      }}
-    >
+      }}>
       {debug && (
         <DebugOffset
           offset={offset}

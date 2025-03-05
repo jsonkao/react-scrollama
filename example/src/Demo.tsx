@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { Scrollama, Step } from "react-scrollama";
+import { useState } from 'react';
+import { Scrollama, Step } from 'react-scrollama';
 
-import type {
-  ScrollamaCallback,
-  ScrollamaProgressCallback,
-} from "react-scrollama";
-import { useStyles } from "./style";
+import type { ScrollamaCallback, ScrollamaProgressCallback } from 'react-scrollama';
+import { useStyles } from './style';
 
 const Demo = () => {
   const classes = useStyles();
@@ -18,7 +15,7 @@ const Demo = () => {
   };
 
   const onStepExit: ScrollamaCallback<number> = ({ direction, data }) => {
-    if (direction === "up" && data === steps[0]) {
+    if (direction === 'up' && data === steps[0]) {
       setData(0);
     }
   };
@@ -37,17 +34,13 @@ const Demo = () => {
         Demo
       </p>
       <p className={classes.description}>
-        <b>React Scrollama</b> is a lightweight and simple interface for
-        scrollytelling in React that uses IntersectionObserver in favor of
-        scroll events. The library has been used by the
+        <b>React Scrollama</b> is a lightweight and simple interface for scrollytelling in React
+        that uses IntersectionObserver in favor of scroll events. The library has been used by the
         <a href="https://datatopics.worldbank.org/sdgatlas/">World Bank's</a>
         Atlas of Sustainable Development Goals and Politico.
       </p>
 
-      <a
-        className={classes.button}
-        href="https://github.com/jsonkao/react-scrollama"
-      >
+      <a className={classes.button} href="https://github.com/jsonkao/react-scrollama">
         Learn and get started
       </a>
 
@@ -59,21 +52,16 @@ const Demo = () => {
             onStepExit={onStepExit}
             onStepProgress={onStepProgress}
             offset="400px"
-            debug
-          >
+            debug>
             {steps.map((value) => {
               const isVisible = value === data;
-              const background = isVisible
-                ? `rgba(44,127,184, ${progress})`
-                : "white";
-              const visibility = isVisible ? "visible" : "hidden";
+              const background = isVisible ? `rgba(44,127,184, ${progress})` : 'white';
+              const visibility = isVisible ? 'visible' : 'hidden';
               return (
                 <Step data={value} key={value}>
                   <div className={classes.step} style={{ background }}>
                     <p>step value: {value}</p>
-                    <p style={{ visibility }}>
-                      {`${Math.round(progress * 1000) / 10}%`}
-                    </p>
+                    <p style={{ visibility }}>{`${Math.round(progress * 1000) / 10}%`}</p>
                   </div>
                 </Step>
               );
@@ -94,7 +82,7 @@ const Demo = () => {
               src="https://user-images.githubusercontent.com/15334952/111389696-ca705b00-8687-11eb-9db9-4f0919715834.png"
               alt="World Bank"
               width="220"
-              style={{ maxWidth: "100%" }}
+              style={{ maxWidth: '100%' }}
             />
           </a>
           <br />
@@ -108,10 +96,7 @@ const Demo = () => {
           <a href="https://datatopics.worldbank.org/sdgatlas/" rel="nofollow">
             17 interactive visualization stories
           </a>
-          <a
-            href="https://twitter.com/maartenzam/status/1371951848039579664"
-            rel="nofollow"
-          >
+          <a href="https://twitter.com/maartenzam/status/1371951848039579664" rel="nofollow">
             using
           </a>
           React Scrollama for scrollytelling
@@ -129,15 +114,14 @@ const Demo = () => {
             <img
               src="https://camo.githubusercontent.com/5e5aaf160fb5b4446d2c0dff5dc8781a14f2b5608e380a7c1d70962541f9e9a5/68747470733a2f2f6a6f6c7474782e6f72672f77702d636f6e74656e742f75706c6f6164732f323031392f31302f706f6c697469636f2d6c6f676f2e706e67"
               alt="Politico"
-              style={{ maxWidth: "170px" }}
+              style={{ maxWidth: '170px' }}
               data-canonical-src="https://jolttx.org/wp-content/uploads/2019/10/politico-logo.png"
             />
           </a>
           <br />
           <a
             href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"
-            rel="nofollow"
-          >
+            rel="nofollow">
             <i>The scramble to secure America's voting machines</i>
           </a>
           by
@@ -148,8 +132,7 @@ const Demo = () => {
         <div>
           <a
             href="https://www.politico.com/interactives/2019/election-security-americas-voting-machines"
-            rel="nofollow"
-          >
+            rel="nofollow">
             <img
               src="https://user-images.githubusercontent.com/15334952/111391036-2dfb8800-868a-11eb-9c64-3f322ef1e588.png"
               alt="Politico"
@@ -163,14 +146,13 @@ const Demo = () => {
               width="180"
               alt="Columbia Spectator"
               data-canonical-src="https://s3.amazonaws.com/spec-imagehosting/spectator-logo.png"
-              style={{ maxWidth: "100%" }}
+              style={{ maxWidth: '100%' }}
             />
           </a>
           <br />
           <a
             href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"
-            rel="nofollow"
-          >
+            rel="nofollow">
             <i>Sex Diversity Among Grad Students is Stagnating</i>
           </a>
           by Jason Kao
@@ -178,8 +160,7 @@ const Demo = () => {
         <div>
           <a
             href="https://www.columbiaspectator.com/eye-lead/graduate-sex-diversity"
-            rel="nofollow"
-          >
+            rel="nofollow">
             <img
               src="https://user-images.githubusercontent.com/15334952/111391310-b843ec00-868a-11eb-9744-72ee913cdbe1.png"
               alt="Columbia Spectator"
@@ -187,10 +168,7 @@ const Demo = () => {
           </a>
         </div>
       </div>
-      <a
-        className={classes.button}
-        href="https://github.com/jsonkao/react-scrollama"
-      >
+      <a className={classes.button} href="https://github.com/jsonkao/react-scrollama">
         Learn and get started
       </a>
     </div>
